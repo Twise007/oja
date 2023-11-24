@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 :root {
@@ -32,12 +36,22 @@ html {
 
 body {
   font-family: var(--font-family);
+  font-size: calc(16px + (24 -16) * ((100vw -320px) / (1920 - 320)));
 }
 
 section {
   width: 100%;
   padding: 4rem 0;
 }
+
+.text-effect {
+  transition: color 0.3s ease-in-out;
+}
+
+.text-effect:hover {
+  color: #ff69b4;
+}
+
 
 .container {
   max-width: 1000px;
