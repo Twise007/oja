@@ -1,10 +1,18 @@
-import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/home/Home";
+import Header from "./components/Header";
 
 const App = () => {
   return (
-    <div className="min-h-screen bg-white">
-      <h1 className="text-effect">Hello World</h1>
-    </div>
+    <>
+      <BrowserRouter>
+        <Header>
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </Header>
+      </BrowserRouter>
+    </>
   );
 };
 

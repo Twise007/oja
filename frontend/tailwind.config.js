@@ -6,6 +6,8 @@ module.exports = {
       colors: {
         "cl-acn": "var(--color-action)",
         "cl-white": "var(--color-white)",
+        "bg-sec": "var(--bg-sec)",
+        "bg-dark": "var(--dark-blue)",
       },
     },
   },
