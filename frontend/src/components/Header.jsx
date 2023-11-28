@@ -13,20 +13,22 @@ const navLinks = [
 
 //   to be able to use the logo at any part of the app
 export const logo = (
-  <Link
-    to="/"
-    onClick={() => {
-      window.scrollTo(0, 0);
-    }}
-    className="flex-1 gap-2 ease-out hover:text-cl-acn navbar-start"
-  >
-    <img
-      src={Logo}
-      alt="home"
-      className="w-12 h-12 rounded-full cursor-pointer6"
-    />
-    <h5 className="">Oja</h5>
-  </Link>
+  <div className="flex-1 navbar-start">
+    <Link
+      to="/"
+      onClick={() => {
+        window.scrollTo(0, 0);
+      }}
+      className="flex items-center justify-center gap-2 ease-out hover:text-cl-acn"
+    >
+      <img
+        src={Logo}
+        alt="home"
+        className="w-12 h-12 rounded-full cursor-pointer"
+      />
+      <h5>Oja</h5>
+    </Link>
+  </div>
 );
 
 const Header = () => {
@@ -55,10 +57,11 @@ const Header = () => {
     <div className="sticky top-0 z-20 bg-white navbar">
       {logo}
 
-      <h2 className="navbar-center btn-primary">Shop</h2>
-      <div className="gap-2 navbar-end">
-        <div>login</div>
-        <div>register</div>
+      <div className="duration-300 navbar-center btnLink">Shop</div>
+
+      <div className="gap-2 navbar-end ">
+        <div className="btnLink">login</div>
+        <div className="btnLink">register</div>
         <div className="flex-none">
           <div className="dropdown dropdown-end">
             <div
@@ -101,6 +104,7 @@ const Header = () => {
           </div>
         </div>
       </div>
+
       {/* <ul className="flex-row hidden gap-10 list-none md:flex ">
         {navLinks.map((nav) => (
           <li

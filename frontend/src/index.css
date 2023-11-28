@@ -5,8 +5,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 @layer components {
-  .btn-primary {
-    @apply px-4 py-2 font-semibold text-white bg-blue-500 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75;
+  .btnPrimary {
+    @apply px-8 py-2 transition ease-in-out border-2 rounded-lg shadow-lg cursor-pointer border-cl-acn hover:text-white hover:bg-cl-acn text-cl-acn;
+  }
+  .btnLink {
+    @apply px-2 cursor-pointer hover:border-b-2 border-cl-acn text-cl-acn hover:text-black;
   }
 }
 
