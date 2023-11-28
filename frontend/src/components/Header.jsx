@@ -1,33 +1,83 @@
 import React, { useEffect, useState, useContext } from "react";
+import Hamburger from "hamburger-react";
 import { BsCart, BsSearch, BsPerson } from "react-icons/bs";
 import { FaTimes } from "react-icons/fa";
 import Logo from "../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const navLinks = [
-  { title: "shop", id: "shop" },
-  { title: "blog", id: "blog" },
-  { title: "our story", id: "our-story" },
-  { title: <BsPerson />, id: "profile", name: "profile" },
+  { title: "login", id: "login" },
+  { title: "register", id: "register" },
+  { title: "order history", id: "order-history" },
+
+  //   { title: <BsPerson />, id: "profile", name: "profile" },
 ];
 
 //   to be able to use the logo at any part of the app
 export const logo = (
-  <div className="flex-1 navbar-start">
+  <div className="flex-1 navbar-start ">
     <Link
       to="/"
       onClick={() => {
         window.scrollTo(0, 0);
       }}
-      className="flex items-center justify-center gap-2 ease-out hover:text-cl-acn"
+      className="flex items-center justify-center text-2xl font-semibold transition-colors ease-out text-cl-black hover:text-cl-acn group"
     >
       <img
         src={Logo}
         alt="home"
         className="w-12 h-12 rounded-full cursor-pointer"
       />
-      <h5>Oja</h5>
+      <h5 className="px-2 -ml-[7px] group-hover:bg-cl-acn rounded-e-full group-hover:text-cl-white duration-200">
+        Oja
+      </h5>
     </Link>
+  </div>
+);
+
+export const cart = (
+  <div className="flex-none ">
+    <div className="dropdown dropdown-end">
+      <div
+        tabIndex={0}
+        role="button"
+        className="border-0 btn bg-cl-sec btn-circle hover:bg-cl-acn hover:text-cl-white text-cl-acn"
+      >
+        <div className="indicator">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-5 h-5 "
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+            />
+          </svg>
+          <span className="text-cl-white badge badge-sm indicator-item">8</span>
+        </div>
+      </div>
+      <div
+        tabIndex={0}
+        className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
+      >
+        <div className="rounded-lg card-body bg-cl-acn2">
+          <span className="text-lg font-bold text-cl-black">8 Items</span>
+          <div className="text-lg font-bold text-cl-white">
+            Subtotal: <span className="text-2xl text-cl-acn">$ 999</span>
+          </div>
+          <div className="card-actions">
+            <button className="w-full p-2 m-1 rounded-lg bg-cl-white text-cl-black hover:bg-cl-acn hover:text-cl-white">
+              View cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 );
 
@@ -54,142 +104,52 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="sticky top-0 z-20 bg-white navbar">
+    <div className="sticky top-0 z-20 capitalize shadow-2xl bg-cl-white navbar">
       {logo}
+      <NavLink to="/shop" className="navbar-center btnLink">
+        Shop
+      </NavLink>
 
-      <div className="duration-300 navbar-center btnLink">Shop</div>
-
-      <div className="gap-2 navbar-end ">
-        <div className="btnLink">login</div>
-        <div className="btnLink">register</div>
-        <div className="flex-none">
-          <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="border-0 btn bg-bg-sec btn-circle"
-            >
-              <div className="indicator">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-5 h-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                  />
-                </svg>
-                <span className="badge badge-sm indicator-item">8</span>
-              </div>
-            </div>
-            <div
-              tabIndex={0}
-              className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
-            >
-              <div className="card-body">
-                <span className="text-lg font-bold">8 Items</span>
-                <span className="text-info">Subtotal: $999</span>
-                <div className="card-actions">
-                  <button className="w-full p-2 m-1 text-black rounded-lg btn bg-bg-sec hover:bg-cl-acn hover:text-bg-sec">
-                    View cart
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* <ul className="flex-row hidden gap-10 list-none md:flex ">
+      <div className="hidden gap-2 navbar-end md:flex">
         {navLinks.map((nav) => (
-          <li
-            key={nav.id}
+          <div
             className={`${
-              active === nav.title ? "text-cl-acn" : "text-black"
-            } hover:text-cl-acn cursor-pointer duration-300 capitalize`}
+              active === nav.title ? "border-cl-acn border-b-2" : ""
+            } btnLink`}
             onClick={() => setActive(nav.title)}
           >
-            <Link to={nav.id}>{nav.title}</Link>
-          </li>
+            <NavLink to={nav.id}>{nav.title}</NavLink>
+          </div>
         ))}
-        <Link
-          to="/cart"
-          className="duration-300 cursor-pointer hover:text-cl-acn"
-        >
-          <div className=" indicator">
-            <span className="p-1 text-white indicator-item indicator-top indicator-end badge badge-secondary">
-              4
-            </span>
-            <div className="grid place-items-center">
-              <BsCart />
-            </div>
-          </div>
-        </Link>
 
-        <div
-          className="duration-300 cursor-pointer hover:text-cl-acn"
-          onClick={() => {
-            setActiveSearch(true);
-          }}
-        >
-          <BsSearch className="text-[24px] text-black" />
-        </div>
-
-        {activeSearch && (
-          <div className="absolute justify-center right-0 items-center w-[80%] h-full pt-4 mb-3 bg-white border-b-2 border-[#cdcdcd] rounded-r-md flex z-10">
-            <input
-              type="text"
-              placeholder="Search here..."
-              className="w-full h-full px-4 bg-transparent outline-none"
-            />
-            <button
-              onClick={() => {
-                setActiveSearch(false);
-              }}
-              type="submit"
-              className="h-full px-4 bg-[#cdcdcd] hover:bg-cl-acn hover:text-[#cdcdcd] rounded-r-md text-cl-acn duration-300"
-            >
-              <FaTimes className="text-[24px]" />
-            </button>
-          </div>
-        )}
-      </ul> */}
+        {cart}
+      </div>
 
       {/* mobile menu */}
 
       <div className="flex items-center justify-end flex-1 md:hidden">
-        <div className="flex items-center justify-between gap-6 text-center">
-          <Link
-            to="/cart"
-            className="duration-300 cursor-pointer hover:text-cl-acn text-[24px] mt-2"
-          >
-            <div className="indicator">
-              <span className="p-1 indicator-item indicator-top indicator-end badge badge-secondary">
-                {/* {productsCount} */}
-              </span>
-              <div className="grid place-items-center">
-                <BsCart />
-              </div>
-            </div>
-          </Link>
-          {/* <Hamburger toggled={toggle} toggle={setToggle} /> */}
+        <div className="flex gap-2">
+          <div className="md:hidden ">{cart}</div>
+          <div className="rounded-lg text-cl-white bg-cl-acn">
+            <Hamburger toggled={toggle} toggle={setToggle} />
+          </div>
         </div>
         <div
           className={`${
             !toggle ? "hidden" : "flex"
-          } absolute top-12 right-0 my-3 min-w-[140px] min-h-screen glass`}
+          } absolute top-[52px] right-0 my-3  min-h-screen hero-overlay bg-opacity-60 w-full`}
+          onClick={() => {
+            setToggle(!toggle);
+          }}
         >
-          <ul className="justify-start list-none bg-white menu">
+          <ul className="justify-start list-none bg-cl-white menu ">
             {navLinks.map((nav) => (
               <li
                 key={nav.id}
-                className={`w-[13pc] cursor-pointer text-[20px] hover:text-[24px] ${
-                  active === nav.title ? "text-cl-acn" : ""
+                className={`btnLink text-xl ${
+                  active === nav.title
+                    ? " border-cl-acn border-b-2"
+                    : "text-cl-black"
                 }`}
                 onClick={() => {
                   setToggle(!toggle);
@@ -197,7 +157,7 @@ const Header = () => {
                 }}
               >
                 <Link
-                  className="py-4 capitalize duration-300 rounded-md hover:text-cl-acn"
+                  className="py-4 duration-300 hover:text-cl-acn"
                   to={nav.id}
                 >
                   {nav.title} {nav.name}

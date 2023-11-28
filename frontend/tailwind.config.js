@@ -5,8 +5,10 @@ module.exports = {
     extend: {
       colors: {
         "cl-acn": "var(--color-action)",
+        "cl-acn2": "var(--color-action2)",
         "cl-white": "var(--color-white)",
-        "bg-sec": "var(--bg-sec)",
+        "cl-sec": "var(--color-sec)",
+        "cl-black": "var(--color-black)",
         "bg-dark": "var(--dark-blue)",
       },
     },
