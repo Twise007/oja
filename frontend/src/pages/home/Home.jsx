@@ -4,6 +4,7 @@ import HomeInfos from "./HomeInfos";
 import { productData } from "../../constants/carousel";
 import ProductCarousel from "../../components/ProductCarousel";
 import CarouselItem from "../../components/CarouselItem";
+import ProductCategory from "../../components/ProductCategory";
 
 const PageHeading = ({ heading, btnText }) => {
   return (
@@ -34,6 +35,14 @@ const Home = () => {
           <HomeInfos />
           <PageHeading heading={"Latest Products"} btnText={"Shop >>"} />
           <ProductCarousel products={productss} />
+        </div>
+      </section>
+      <section className="bg-cl-sec">
+        <div className="container">
+          <div className="w-full pb-2 mb-4 text-2xl font-thin border-b-2 border-b-white">
+            Categories
+          </div>
+          <ProductCategory />
         </div>
       </section>
     </div>
