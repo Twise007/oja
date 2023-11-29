@@ -29,21 +29,22 @@ const data = [
   },
 ];
 
-const Homeinfo = () => {
-  return 
-      <div className="infoboxes --mb2">
-        {data.map((item, index) => {
-          return (
-            <div className="infobox" key={index}>
-              <div className="icon">{item.icon}</div>
-              <div className="text">
-                <h4>{item.heading}</h4>
-                <p className="--text-sm">{item.text}</p>
-              </div>
-            </div>
-          );
-        })}
-      </div>;
+const HomeInfo = () => {
+  return;
+//   <div className="shadow stats">
+//     {data.map((item, index) => {
+//       return (
+//         <div className="stats" key={index}>
+//           <div className="stat-figure">{item.icon}</div>
+//           <div className="stat-title">{item.heading}</div>
+//           <div className="stat-desc">{item.text}</div>
+//         </div>
+//       );
+//     })}
+//   </div>;
+<div className="bg-white">
+    hello
+</div>
 };
 
-export default Homeinfo;
+export default HomeInfo;
