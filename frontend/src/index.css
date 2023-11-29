@@ -6,7 +6,7 @@
 
 @layer components {
   .btnPrimary {
-    @apply px-8 py-2 transition ease-in-out border-2 rounded-lg shadow-lg cursor-pointer border-cl-acn hover:text-cl-white hover:bg-cl-acn text-cl-acn;
+    @apply px-2 py-2 transition ease-in-out border-2 rounded-lg shadow-lg cursor-pointer md:px-8 border-cl-acn hover:text-cl-white hover:bg-cl-acn text-cl-acn;
   }
   .btnLink {
     @apply px-2 font-normal duration-100 ease-out cursor-pointer text-cl-black border-cl-black hover:border-b-2 hover:text-cl-acn;
@@ -45,6 +45,12 @@ section {
   padding: 4rem 0;
 }
 
+.container {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
 .swiper-pagination {
   margin: 20px;
 }
@@ -71,17 +77,21 @@ section {
   color: rgb(0, 118, 0);
 }
 
-.container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
+
 
 /* UTILITY CLASSES */
 
 /* Flex */
 
 /* Grid */
+.--grid-4 {
+  align-items: center;
+  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  row-gap: 1rem;
+  /* column-gap: ; */
+}
 .--grid-15 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));

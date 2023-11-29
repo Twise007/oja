@@ -4,16 +4,16 @@ import { shortenText } from "../utils";
 
 const CarouselItem = ({ url, name, price, description }) => {
   return (
-    <div className="m-2 rounded-lg shadow-xl card w-[20rem]">
+    <div className="w-auto p-2 m-2 my-4 rounded-lg shadow-xl card">
       <Link to="/product-details">
-        <img src={url} alt="product" className="w-full rounded-t-lg h-60" />
-        <div className="items-center text-center card-body ">
-          <p>{`$${price}`}</p>
-          <h4 className="card-title">{shortenText(name, 18)}</h4>
+        <img src={url} alt="product" className="w-full rounded-t-lg h-52" />
+        <div className="items-center text-center">
+          <p className="py-2">{price}</p>
+          <h4 className="text-xl font-semibold text-cl-acn">{shortenText(name, 18)}</h4>
           <p>{shortenText(description, 26)}</p>
         </div>
       </Link>
-      <button className="mb-2 btnPrimary">Add to Cart</button>
+      <button className="my-2 btnPrimary">Add to Cart</button>
     </div>
   );
 };

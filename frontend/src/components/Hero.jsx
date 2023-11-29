@@ -32,7 +32,7 @@ const Hero = () => {
         {heroBanner.map((banner, index) => (
           <SwiperSlide key={index}>
             <div
-              className="relative object-contain min-h-screen hero"
+              className="relative object-contain min-h-screen hero "
               style={{
                 backgroundImage: `url(${banner.image})`,
                 objectFit: "cover",

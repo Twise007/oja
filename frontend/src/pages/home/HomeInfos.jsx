@@ -8,7 +8,7 @@ import { FaShippingFast } from "react-icons/fa";
 
 const data = [
   {
-    icon: <FaShippingFast size={30}  className="text-blue-800 " />,
+    icon: <FaShippingFast size={30} className="text-blue-800 " />,
     heading: "Free Shipping",
     text: "We offer free shipping on special products",
   },
@@ -18,7 +18,7 @@ const data = [
     text: "Make secure payment for your product.",
   },
   {
-    icon: <BsCartCheck size={30}  className="text-green-600"/>,
+    icon: <BsCartCheck size={30} className="text-green-600" />,
     heading: "Quality Products",
     text: "We sell products from only tested and proven brands.",
   },
@@ -31,14 +31,17 @@ const data = [
 
 const HomeInfos = () => {
   return (
-    <div className="flex items-center justify-between p-2 --grid-15 ">
+    <div className="--grid-4 place-items-center">
       {data.map((item, index) => {
         return (
-          <div className="p-2 border rounded-lg h border-cl-acn" key={index}>
-            <div className="flex my-2 ">
-              <div className="">{item.icon}</div>
-              <h2 className="ml-10 text-xl font-bold">{item.heading}</h2>
-            </div>
+          <div
+            className="p-2 border rounded-lg w-60 h border-cl-acn bg-cl-sec"
+            key={index}
+          >
+            <div className="">{item.icon}</div>
+            <h2 className="my-1 text-xl font-bold text-center">
+              {item.heading}
+            </h2>
             <p className="">{item.text}</p>
           </div>
         );
