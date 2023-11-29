@@ -82,7 +82,7 @@ section {
 /* Flex */
 
 /* Grid */
-/* .--grid-15 {
+.--grid-15 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   row-gap: 1rem;
@@ -93,7 +93,7 @@ section {
   grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
   row-gap: 1rem;
   column-gap: 1rem;
-} */
+}
 
 @media screen and (max-width: 600px) {
 }

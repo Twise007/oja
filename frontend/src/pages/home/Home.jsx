@@ -1,12 +1,15 @@
 import React from "react";
-import Slider from "../../components/Slider";
+
 import Hero from "../../components/Hero";
+import Homeinfo from "../../components/Homeinfo";
 
 const Home = () => {
   return (
-    <div className="min-h-screen ">
-      {/* <Slider /> */}
+    <div className="w-full min-h-screen ">
       <Hero />
+      <section>
+        <Homeinfo/>
+      </section>
     </div>
   );
 };
