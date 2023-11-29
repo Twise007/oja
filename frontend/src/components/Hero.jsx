@@ -17,14 +17,16 @@ const Hero = () => {
         delay: 2500,
         disableOnInteraction: false,
       }}
+
       pagination={{
         clickable: true,
       }}
       scrollbar={{ draggable: true }}
       effect={"fade"}
-      speed={800}
+      speed={700}
       slidesPerView={1}
       loop
+      className="mySwiper"
     >
       <div>
         {heroBanner.map((banner, index) => (
@@ -39,7 +41,9 @@ const Hero = () => {
               <div className="bg-opacity-50 hero-overlay"></div>
               <div className="absolute text-xl capitalize text-cl-white left-10">
                 <p className="">{banner.desc}</p>
-                <h2 className="py-1 text-3xl font-bold">{banner.heading}</h2>
+                <h2 className="py-1 text-5xl font-semibold">
+                  {banner.heading}
+                </h2>
 
                 <button className="p-1 px-4 mt-8 border rounded-lg hover:bg-cl-acn">
                   View Product
