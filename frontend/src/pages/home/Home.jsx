@@ -1,15 +1,40 @@
 import React from "react";
-
 import Hero from "../../components/Hero";
-import HomeInfo from "./HomeInfo";
 import HomeInfos from "./HomeInfos";
+import { productData } from "../../constants/carousel";
+import ProductCarousel from "../../components/ProductCarousel";
+import CarouselItem from "../../components/CarouselItem";
+
+const PageHeading = ({ heading, btnText }) => {
+  return (
+    <div className="flex items-center justify-between w-full pb-2 mt-4 border-b-2">
+      <h2 className="text-2xl font-thin">{heading}</h2>
+      <button className="py-2 btnPrimary">{btnText}</button>
+    </div>
+  );
+};
 
 const Home = () => {
+  const productss = productData.map((item) => (
+    <div key={item.id}>
+      <CarouselItem
+        name={item.name}
+        url={item.imageurl}
+        price={item.price}
+        description={item.description}
+      />
+    </div>
+  ));
+
   return (
     <div className="w-full min-h-screen ">
       <Hero />
       <section>
-        <HomeInfos />
+        <div className="container">
+          <HomeInfos />
+          <PageHeading heading={"Latest Products"} btnText={"Shop >>"} />
+          <ProductCarousel products={productss} />
+        </div>
       </section>
     </div>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { heroBanner } from "../data";
+import { heroBanner } from "../constants/data";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
