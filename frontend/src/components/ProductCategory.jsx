@@ -9,7 +9,7 @@ const categories = [
   },
   {
     id: 2,
-    title: "Womens Fashion",
+    title: "Women Fashion",
     image: "https://i.ibb.co/nQKLjrW/c2.jpg",
   },
   {
@@ -22,8 +22,8 @@ const categories = [
 const Category = ({ title, image }) => {
   const navigate = useNavigate();
   return (
-    <div className="w-auto h-64 bg-white border shadow-2xl rounded-t-2xl">
-      <img src={image} alt="product" className="w-full h-44 rounded-t-2xl" />
+    <div className="w-auto h-64 bg-white shadow-2xl rounded-tl-2xl rounded-br-2xl">
+      <img src={image} alt="product" className="w-full h-44 rounded-tl-2xl " />
       <div className="flex items-center justify-between p-2 pt-4 ">
         <div className="text-xl fond-bold">{title}</div>
         <button className="px-2 btnPrimary" onClick={() => navigate("/shop")}>

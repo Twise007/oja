@@ -8,7 +8,7 @@ import ProductCategory from "../../components/ProductCategory";
 
 const PageHeading = ({ heading, btnText }) => {
   return (
-    <div className="flex items-center justify-between w-full pb-2 mt-4 border-b-2">
+    <div className="flex items-center justify-between w-full pb-2 mt-4 border-b border-cl-black">
       <h2 className="text-2xl font-thin">{heading}</h2>
       <button className="py-2 btnPrimary">{btnText}</button>
     </div>
@@ -33,18 +33,27 @@ const Home = () => {
       <section>
         <div className="container">
           <HomeInfos />
-          <PageHeading heading={"Latest Products"} btnText={"Shop >>"} />
+          <PageHeading heading={"Latest Products"} btnText={"Shop Now >>"} />
           <ProductCarousel products={productss} />
         </div>
       </section>
+      
       <section className="bg-cl-sec">
         <div className="container">
-          <div className="w-full pb-2 mb-4 text-2xl font-thin border-b-2 border-b-white">
+          <div className="w-full pb-1 mb-4 text-2xl font-thin border-b border-b-cl-black">
             Categories
           </div>
           <ProductCategory />
         </div>
       </section>
+      
+      <section>
+        <div className="container">
+          <PageHeading heading={"Mobile Phones"} btnText={"Shop Now >>"} />
+          <ProductCarousel products={productss} />
+        </div>
+      </section>
+      
     </div>
   );
 };
