@@ -17,7 +17,7 @@
   --dark-blue: #0a1930;
   --color-action: #471aa0;
   --color-action2: #9073de;
-  --color-sec: #f2f2f2;
+  --color-sec: #F9FBFA;
   --color-white: #fff;
   --color-black: #000;
 /* #F9FBFA #E8EDEB */
@@ -69,6 +69,22 @@ section {
   padding: 8px;
 }
 
+
+.wrapper {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9;
+}
+
+.loader {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+}
 .text-effect {
   color: var(--color-action);
   transition: color 0.3s ease-in-out;
