@@ -17,10 +17,10 @@
   --dark-blue: #0a1930;
   --color-action: #471aa0;
   --color-action2: #9073de;
-  --color-sec: #F9FBFA;
+  --color-sec: #f9fbfa;
   --color-white: #fff;
   --color-black: #000;
-/* #F9FBFA #E8EDEB */
+  /* #F9FBFA #E8EDEB */
 
   --color-orange: #ff7722;
 
@@ -69,7 +69,6 @@ section {
   padding: 8px;
 }
 
-
 .wrapper {
   position: fixed;
   width: 100vw;
@@ -85,6 +84,22 @@ section {
   transform: translate(-50%, -50%);
   z-index: 999;
 }
+
+.authBg {
+  background: #12c2e9; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #f64f59,
+    #c471ed,
+    #12c2e9
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #f64f59,
+    #c471ed,
+    #12c2e9
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
 .text-effect {
   color: var(--color-action);
   transition: color 0.3s ease-in-out;
@@ -93,8 +108,6 @@ section {
 .text-effect:hover {
   color: rgb(0, 118, 0);
 }
-
-
 
 /* UTILITY CLASSES */
 
