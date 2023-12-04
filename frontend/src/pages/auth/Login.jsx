@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { BsPerson } from "react-icons/bs";
-import { FaRegUser, FaLock } from "react-icons/fa";
+import { BsPerson, BsFillShieldLockFill } from "react-icons/bs";
+import { FaRegUser,  } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import loginPic from "../../assets/login.png";
 
@@ -13,7 +13,9 @@ const Login = () => {
     <section className={`container min-h-[88vh] authB bg-cl-white hero`}>
       <div className="flex flex-col items-center ">
         <div className="mb-20 text-center">
-          <h1 className="text-3xl font-bold md:text-5xl">Login to Your Account</h1>
+          <h1 className="text-3xl font-bold md:text-5xl">
+            Login to Your Account
+          </h1>
         </div>
 
         <div className="flex flex-row-reverse items-center justify-between">
@@ -43,7 +45,7 @@ const Login = () => {
                   </div>
                   <div className="flex m-4 text-center">
                     <div className="p-4 px-6 text-center bg-cl-acn">
-                      <FaLock className="text-xl" />
+                      <BsFillShieldLockFill className="text-xl" />
                     </div>
                     <input
                       type="password"
@@ -54,7 +56,7 @@ const Login = () => {
                       className="w-full p-2 text-xl outline-none bg-cl-acn2 text-cl-black"
                     />
                     <div className="p-4 text-center bg-cl-acn2">
-                      <FaLock className="text-xl" />
+                      <BsFillShieldLockFill className="text-xl" />
                     </div>
                   </div>
 
@@ -65,7 +67,10 @@ const Login = () => {
                     OR
                   </div>
                 </div>
-                <Link to='/forgot-password' className="hover:border-0 btnLink hover:link">
+                <Link
+                  to="/forgot-password"
+                  className="hover:border-0 btnLink hover:link"
+                >
                   Forgot password ?
                 </Link>
               </form>
@@ -74,7 +79,9 @@ const Login = () => {
               to="/register"
               className="p-4 bg-cl-acn text-white rounded-b-[20px] w-60  -mt-2 hover:text-cl-acn hover:bg-cl-white border border-cl-acn text-center text-lg flex flex-col"
             >
-              <span className="text-xs label-text-alt">Don`t have an account ?</span>
+              <span className="text-xs label-text-alt">
+                Don`t have an account ?
+              </span>
               <button className="font-semibold">Register</button>
             </Link>
           </div>
