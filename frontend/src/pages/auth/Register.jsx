@@ -5,11 +5,21 @@ import { IoMail } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import registerPic from "../../assets/register.png";
 
+const initialState = {
+  name: "",
+  email: "",
+  password: "",
+  password2: "",
+};
+
 const Register = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [password2, setPassword2] = useState("");
+  const [formData, setFormData] = useState(initialState);
+  const { name, email, password, password2 } = formData;
+
+  const handleInputChange = (e) => {
+    const {name, value} = e.target
+setFormData({...formData, [name]: value})
+};
 
   const registerUser = () => {};
 
@@ -46,8 +56,9 @@ const Register = () => {
                       type="text"
                       placeholder="Your Name"
                       required
+                      name={name}
                       value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={handleInputChange}
                       className="w-full p-2 text-xl outline-none bg-cl-acn2 text-cl-black"
                     />
                   </div>
@@ -60,8 +71,9 @@ const Register = () => {
                       type="email"
                       placeholder="Email ID"
                       required
+                      name={email}
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={handleInputChange}
                       className="w-full p-2 text-xl outline-none bg-cl-acn2 text-cl-black"
                     />
                   </div>
@@ -74,8 +86,9 @@ const Register = () => {
                       type="text"
                       placeholder="Password"
                       required
+                      name={password}
                       value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={handleInputChange}
                       className="w-full p-2 text-xl outline-none bg-cl-acn2 text-cl-black"
                     />
                   </div>
@@ -88,8 +101,9 @@ const Register = () => {
                       type="text"
                       placeholder="Confirm Password"
                       required
+                      name={password2}
                       value={password2}
-                      onChange={(e) => setPassword2(e.target.value)}
+                      onChange={handleInputChange}
                       className="w-full p-2 text-xl outline-none bg-cl-acn2 text-cl-black"
                     />
                   </div>
@@ -104,16 +118,16 @@ const Register = () => {
                 <Link
                   to="/forgot-password"
                   className="hover:border-0 btnLink hover:link"
-                >
-
-                </Link>
+                ></Link>
               </form>
             </div>
             <Link
               to="/login"
               className="p-4 bg-cl-acn text-white rounded-b-[20px] w-60  -mt-2 hover:text-cl-acn hover:bg-cl-white border border-cl-acn text-center text-lg flex flex-col"
             >
-              <span className="text-xs label-text-alt">Have an account ?</span>
+              <span className="text-xs label-text-alt">
+                Already have an Account ?
+              </span>
               <button className="font-semibold">Login</button>
             </Link>
           </div>

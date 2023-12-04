@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, } from "react";
 import Hamburger from "hamburger-react";
-import { BsCart, BsSearch, BsPerson } from "react-icons/bs";
-import { FaTimes } from "react-icons/fa";
+
 import Logo from "../assets/logo.png";
 import { Link, NavLink } from "react-router-dom";
 
@@ -83,7 +82,7 @@ export const cart = (
 
 const Header = () => {
   const [active, setActive] = useState("");
-  const [activeSearch, setActiveSearch] = useState(false);
+  // const [activeSearch, setActiveSearch] = useState(false);
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
