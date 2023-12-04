@@ -1,4 +1,4 @@
-import React, { useEffect, useState, } from "react";
+import React, { useEffect, useState } from "react";
 import Hamburger from "hamburger-react";
 
 import Logo from "../assets/logo.png";
@@ -80,9 +80,12 @@ export const cart = (
   </div>
 );
 
+const activeLink = ({ isActive }) =>
+  isActive
+    ? `border-cl-acn border-b-2 pb-1 px-2 text-cl-acn rounded-0 `
+    : "btnLink ";
+
 const Header = () => {
-  const [active, setActive] = useState("");
-  // const [activeSearch, setActiveSearch] = useState(false);
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -105,20 +108,19 @@ const Header = () => {
   return (
     <div className="sticky top-0 z-20 capitalize shadow-2xl bg-cl-white navbar">
       {logo}
-      <NavLink to="/shop" className="navbar-center btnLink">
-        Shop
-      </NavLink>
+      <div className="navbar-center">
+        <NavLink to="/shop" className={activeLink}>
+          Shop
+        </NavLink>
+      </div>
 
       <div className="hidden gap-2 navbar-end md:flex">
-        {navLinks.map((nav) => (
-          <div
-            className={`${
-              active === nav.title ? "border-cl-acn border-b-2" : ""
-            } btnLink`}
-            onClick={() => setActive(nav.title)}
+        {navLinks.map((nav, index) => (
+          <NavLink to={nav.id} className={activeLink} 
+            key={index}
           >
-            <NavLink to={nav.id}>{nav.title}</NavLink>
-          </div>
+            {nav.title}
+          </NavLink>
         ))}
 
         {cart}
@@ -141,29 +143,21 @@ const Header = () => {
             setToggle(!toggle);
           }}
         >
-          <ul className="justify-start list-none bg-cl-white menu ">
+          <div className="p-2 text-xl bg-cl-white ">
             {navLinks.map((nav) => (
-              <li
+              <div
+              className="py-2"
                 key={nav.id}
-                className={`btnLink text-xl ${
-                  active === nav.title
-                    ? " border-cl-acn border-b-2"
-                    : "text-cl-black"
-                }`}
                 onClick={() => {
                   setToggle(!toggle);
-                  setActive(nav.title);
                 }}
               >
-                <Link
-                  className="py-4 duration-300 hover:text-cl-acn"
-                  to={nav.id}
-                >
-                  {nav.title} {nav.name}
-                </Link>
-              </li>
+                <NavLink className={activeLink} to={nav.id}>
+                  {nav.title}
+                </NavLink>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       </div>
     </div>

@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "../components/Header.jsx";
 
 const Footer = () => {
   const date = new Date();

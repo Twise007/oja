@@ -9,7 +9,7 @@
     @apply px-2 py-2 transition ease-in-out border-2 rounded-lg shadow-lg cursor-pointer md:px-8 border-cl-acn hover:text-cl-white hover:bg-cl-acn text-cl-acn;
   }
   .btnLink {
-    @apply px-2 font-normal duration-100 ease-out cursor-pointer text-cl-black border-cl-black hover:border-b-2 hover:text-cl-acn;
+    @apply px-2 font-normal duration-100 ease-out cursor-pointer text-cl-black border-cl-black hover:border-b-2 hover:text-cl-acn pb-1;
   }
 }
 
@@ -85,21 +85,6 @@ section {
   z-index: 999;
 }
 
-.authBg {
-  background: #12c2e9; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #f64f59,
-    #c471ed,
-    #12c2e9
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #f64f59,
-    #c471ed,
-    #12c2e9
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
 .text-effect {
   color: var(--color-action);
   transition: color 0.3s ease-in-out;
