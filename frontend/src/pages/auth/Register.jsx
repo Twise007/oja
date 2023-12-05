@@ -67,7 +67,7 @@ const Register = () => {
   return (
     <div>
       {isLoading && <Loader />}
-      <section className={`container min-h-[88vh] authB bg-cl-white hero`}>
+      <section className={`container min-h-[88vh] bg-cl-white hero`}>
         <div className="flex flex-col items-center ">
           <div className="mb-20 text-center">
             <h1 className="text-2xl font-bold md:text-5xl">
@@ -82,7 +82,7 @@ const Register = () => {
               className="hidden max-w-sm md:flex"
             />
             <div className="flex flex-col items-center">
-              <div className="md:p-5 shadow-2xl glass rounded-[50px] text-cl-white flex flex-col pb-20 z-10">
+              <div className="md:p-5 shadow-2xl glass rounded-[50px] text-cl-white flex flex-col z-10">
                 <form
                   onSubmit={registerUser}
                   className="flex flex-col items-center text-center "
@@ -102,7 +102,7 @@ const Register = () => {
                         name="name"
                         value={name}
                         onChange={handleInputChange}
-                        className="w-full p-2 text-xl outline-none bg-cl-acn2 text-cl-black"
+                        className="w-full p-2 outline-none bg-cl-acn2 text-cl-black"
                       />
                     </div>
 
@@ -117,7 +117,7 @@ const Register = () => {
                         name="email"
                         value={email}
                         onChange={handleInputChange}
-                        className="w-full p-2 text-xl outline-none bg-cl-acn2 text-cl-black"
+                        className="w-full p-2 lowercase outline-none bg-cl-acn2 text-cl-black"
                       />
                     </div>
 
@@ -132,7 +132,7 @@ const Register = () => {
                         name="password"
                         value={password}
                         onChange={handleInputChange}
-                        className="w-full p-2 text-xl outline-none bg-cl-acn2 text-cl-black"
+                        className="w-full p-2 outline-none bg-cl-acn2 text-cl-black"
                       />
                     </div>
 
@@ -147,7 +147,7 @@ const Register = () => {
                         name="cpassword"
                         value={cpassword}
                         onChange={handleInputChange}
-                        className="w-full p-2 text-xl outline-none bg-cl-acn2 text-cl-black"
+                        className="w-full p-2 outline-none bg-cl-acn2 text-cl-black"
                       />
                     </div>
 
@@ -168,7 +168,7 @@ const Register = () => {
               </div>
               <Link
                 to="/login"
-                className="p-4 bg-cl-acn text-white rounded-b-[20px] w-60  -mt-2 hover:text-cl-acn hover:bg-cl-white border border-cl-acn text-center text-lg flex flex-col"
+                className="p-4 bg-cl-acn text-white rounded-b-[20px] w-60  -mt-2 hover:text-cl-acn hover:bg-cl-white border border-cl-acn text-center text-lg flex flex-col mb-4"
               >
                 <span className="text-xs label-text-alt">
                   Already have an Account ?

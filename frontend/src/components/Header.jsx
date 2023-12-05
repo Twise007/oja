@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Hamburger from "hamburger-react";
-
+import { useDispatch } from "react-redux";
 import Logo from "../assets/logo.png";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { logout, RESET_AUTH } from "../redux/features/auth/authSlice";
 
 const navLinks = [
   { title: "login", id: "login" },
   { title: "register", id: "register" },
-  { title: "order history", id: "order-history" },
+  // { title: "order", id: "order" },
+  // { title: "logout", id: "logout", onclick: logoutUser},
 
   //   { title: <BsPerson />, id: "profile", name: "profile" },
 ];
@@ -88,6 +90,14 @@ const activeLink = ({ isActive }) =>
 const Header = () => {
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logoutUser = async () => {
+    await dispatch(logout());
+    await dispatch(RESET_AUTH());
+    navigate("/login");
+  };
 
   // the use effect is use for refresh back to the top of the page
   useEffect(() => {
@@ -116,13 +126,13 @@ const Header = () => {
 
       <div className="hidden gap-2 navbar-end md:flex">
         {navLinks.map((nav, index) => (
-          <NavLink to={nav.id} className={activeLink} 
-            key={index}
-          >
+          <NavLink to={nav.id} className={activeLink} key={index}>
             {nav.title}
           </NavLink>
         ))}
-
+        <Link to="/" className="btnLink" onClick={logoutUser}>
+          Logout
+        </Link>
         {cart}
       </div>
 
@@ -146,7 +156,7 @@ const Header = () => {
           <div className="p-2 text-xl bg-cl-white ">
             {navLinks.map((nav) => (
               <div
-              className="py-2"
+                className="py-2"
                 key={nav.id}
                 onClick={() => {
                   setToggle(!toggle);

@@ -39,7 +39,7 @@ const Hero = () => {
               }}
             >
               <div className="bg-opacity-50 hero-overlay"></div>
-              <div className="absolute text-xl capitalize text-cl-white left-10">
+              <div className="absolute text-xl text-center capitalize md:text-left text-cl-white md:left-10">
                 <p className="">{banner.desc}</p>
                 <h2 className="py-1 text-5xl font-semibold">
                   {banner.heading}

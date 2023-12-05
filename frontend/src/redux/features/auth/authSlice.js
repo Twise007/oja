@@ -18,9 +18,6 @@ export const register = createAsyncThunk(
   async (userData, thunkApi) => {
     try {
       return await authService.register(userData);
-      // if (response.statusText === "OK") {
-      //   toast.success("Login Successfully");
-      // }
     } catch (error) {
       const message =
         (error.response &&
@@ -29,10 +26,40 @@ export const register = createAsyncThunk(
         error.message ||
         error.toString();
       return thunkApi.rejectWithValue(message);
-      // toast.error(message);
     }
   }
 );
+
+//login User
+export const login = createAsyncThunk(
+  "auth/login",
+  async (userData, thunkApi) => {
+    try {
+      return await authService.login(userData);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
+
+//logout User
+export const logout = createAsyncThunk("auth/logout", async (_, thunkApi) => {
+  try {
+    return await authService.logout();
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    return thunkApi.rejectWithValue(message);
+  }
+});
 
 const authSlice = createSlice({
   name: "auth",
@@ -64,10 +91,48 @@ const authSlice = createSlice({
         state.message = action.payload;
         state.user = null;
         toast.success(action.payload);
+      })
+
+      // Login User
+      .addCase(login.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isLoggedIn = true;
+        state.user = action.payload;
+        toast.success("Login Successful");
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.user = null;
+        toast.success(action.payload);
+      })
+
+      // Logout User
+      .addCase(logout.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(logout.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isLoggedIn = false;
+        state.user = null;
+        toast.success(action.payload);
+        console.log(action.payload);
+      })
+      .addCase(logout.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        toast.success(action.payload);
       });
   },
 });
 
-export const {RESET_AUTH} = authSlice.actions;
+export const { RESET_AUTH } = authSlice.actions;
 
 export default authSlice.reducer;

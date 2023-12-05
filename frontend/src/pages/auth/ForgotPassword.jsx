@@ -10,10 +10,10 @@ const ForgotPassword = () => {
   const forgotUser = () => {};
 
   return (
-    <section className={`container min-h-[88vh] authB bg-cl-white hero`}>
+    <section className={`container min-h-[88vh] bg-cl-white hero`}>
       <div className="flex flex-col items-center ">
         <div className="mb-20 text-center">
-          <h1 className="text-3xl font-bold md:text-5xl">
+          <h1 className="text-2xl font-bold md:text-5xl">
             Forgot Password to Your Account
           </h1>
         </div>
@@ -25,7 +25,7 @@ const ForgotPassword = () => {
             className="hidden max-w-sm md:flex"
           />
           <div className="flex flex-col items-center">
-            <div className="md:p-5 shadow-2xl glass rounded-[50px] text-cl-white flex flex-col pb-20 z-10">
+            <div className="md:p-5 shadow-2xl glass rounded-[50px] text-cl-white flex flex-col pb-10 z-10">
               <form
                 onSubmit={forgotUser}
                 className="flex flex-col items-center text-center "
@@ -44,7 +44,7 @@ const ForgotPassword = () => {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full p-2 text-xl outline-none bg-cl-acn2 text-cl-black"
+                      className="w-full p-2 outline-none bg-cl-acn2 text-cl-black"
                     />
                   </div>
 

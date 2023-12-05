@@ -9,7 +9,7 @@
     @apply px-2 py-2 transition ease-in-out border-2 rounded-lg shadow-lg cursor-pointer md:px-8 border-cl-acn hover:text-cl-white hover:bg-cl-acn text-cl-acn;
   }
   .btnLink {
-    @apply px-2 font-normal duration-100 ease-out cursor-pointer text-cl-black border-cl-black hover:border-b-2 hover:text-cl-acn pb-1;
+    @apply px-2 pb-1 font-normal duration-100 ease-out cursor-pointer text-cl-black border-cl-black hover:border-b-2 hover:text-cl-acn;
   }
 }
 
