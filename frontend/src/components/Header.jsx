@@ -4,15 +4,7 @@ import { useDispatch } from "react-redux";
 import Logo from "../assets/logo.png";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { logout, RESET_AUTH } from "../redux/features/auth/authSlice";
-
-const navLinks = [
-  { title: "login", id: "login" },
-  { title: "register", id: "register" },
-  // { title: "order", id: "order" },
-  // { title: "logout", id: "logout", onclick: logoutUser},
-
-  //   { title: <BsPerson />, id: "profile", name: "profile" },
-];
+import ShowOnLogin, { ShowOnLogout } from "./hiddenLink";
 
 //   to be able to use the logo at any part of the app
 export const logo = (
@@ -83,9 +75,7 @@ export const cart = (
 );
 
 const activeLink = ({ isActive }) =>
-  isActive
-    ? `border-cl-acn border-b-2 pb-1 px-2 text-cl-acn rounded-0 `
-    : "btnLink ";
+  isActive ? `border-cl-acn border-b-2 pb-1 px-2 text-cl-acn ` : "btnLink";
 
 const Header = () => {
   const [toggle, setToggle] = useState(false);
@@ -125,22 +115,31 @@ const Header = () => {
       </div>
 
       <div className="hidden gap-2 navbar-end md:flex">
-        {navLinks.map((nav, index) => (
-          <NavLink to={nav.id} className={activeLink} key={index}>
-            {nav.title}
+        <ShowOnLogout>
+          <NavLink to="/login" className={activeLink}>
+            Login
           </NavLink>
-        ))}
-        <Link to="/" className="btnLink" onClick={logoutUser}>
-          Logout
-        </Link>
-        {cart}
+        </ShowOnLogout>
+        <ShowOnLogout>
+          <NavLink to="/register" className={activeLink}>
+            Register
+          </NavLink>
+        </ShowOnLogout>
+        <ShowOnLogin>{cart}</ShowOnLogin>
+        <ShowOnLogin>
+          <Link to="/" className="btnLink" onClick={logoutUser}>
+            Logout
+          </Link>
+        </ShowOnLogin>
       </div>
 
       {/* mobile menu */}
 
       <div className="flex items-center justify-end flex-1 md:hidden">
         <div className="flex gap-2">
-          <div className="md:hidden ">{cart}</div>
+          <ShowOnLogin>
+            <div className="md:hidden ">{cart}</div>
+          </ShowOnLogin>
           <div className="rounded-lg text-cl-white bg-cl-acn">
             <Hamburger toggled={toggle} toggle={setToggle} />
           </div>
@@ -148,25 +147,40 @@ const Header = () => {
         <div
           className={`${
             !toggle ? "hidden" : "flex"
-          } absolute top-[52px] right-0 my-3  min-h-screen hero-overlay bg-opacity-60 w-full`}
+          } absolute top-[52px] right-0 my-3  min-h-[100vh] hero-overlay bg-opacity-60 w-full`}
           onClick={() => {
             setToggle(!toggle);
           }}
         >
-          <div className="p-2 text-xl bg-cl-white ">
-            {navLinks.map((nav) => (
-              <div
-                className="py-2"
-                key={nav.id}
-                onClick={() => {
-                  setToggle(!toggle);
-                }}
-              >
-                <NavLink className={activeLink} to={nav.id}>
-                  {nav.title}
+          <div className="w-32 py-2 text-lg bg-cl-sec">
+            <div
+              className="flex flex-col p-2"
+              onClick={() => {
+                setToggle(!toggle);
+              }}
+            >
+              <ShowOnLogout>
+                <NavLink to="/login" className={activeLink}>
+                  <p className="w-full px-2 border-b rounded-t bg-cl-white">
+                    Login
+                  </p>
                 </NavLink>
-              </div>
-            ))}
+              </ShowOnLogout>
+              <ShowOnLogout>
+                <NavLink to="/register" className={activeLink}>
+                  <p className="w-full px-2 border-b rounded-t bg-cl-white">
+                    Register
+                  </p>
+                </NavLink>
+              </ShowOnLogout>
+              <ShowOnLogin>
+                <Link to="/" className="btnLink" onClick={logoutUser}>
+                  <p className="w-full px-2 border-b rounded-t bg-cl-white">
+                    Logout
+                  </p>
+                </Link>
+              </ShowOnLogin>
+            </div>
           </div>
         </div>
       </div>

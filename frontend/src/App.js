@@ -8,9 +8,16 @@ import ForgotPassword from "./pages/auth/ForgotPassword";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { loginStatus } from "./redux/features/auth/authSlice";
 
 const App = () => {
   axios.defaults.withCredentials = true;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loginStatus());
+  }, []);
   return (
     <>
       <BrowserRouter>

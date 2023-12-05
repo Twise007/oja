@@ -61,6 +61,19 @@ export const logout = createAsyncThunk("auth/logout", async (_, thunkApi) => {
   }
 });
 
+//  loginStatus
+export const loginStatus = createAsyncThunk("auth/loginStatus", async (_, thunkApi) => {
+  try {
+    return await authService.loginStatus();
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    return thunkApi.rejectWithValue(message);
+  }
+});
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -122,13 +135,31 @@ const authSlice = createSlice({
         state.isLoggedIn = false;
         state.user = null;
         toast.success(action.payload);
-        console.log(action.payload);
       })
       .addCase(logout.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
         toast.success(action.payload);
+      })
+
+      //loginStatus
+      .addCase(loginStatus.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(loginStatus.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isLoggedIn = action.payload;
+        if (action.payload.message === "invalid signature") {
+          state.isLoggedIn = false
+        }
+        console.log(action.payload);
+      })
+      .addCase(loginStatus.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
       });
   },
 });

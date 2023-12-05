@@ -80,7 +80,7 @@ const Login = () => {
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full p-2 lowercase outline-none bg-cl-acn2 text-cl-black"
+                        className="w-full p-2 outline-none lowercas bg-cl-acn2 text-cl-black"
                       />
                     </div>
                     <div className="flex m-4 text-center">
