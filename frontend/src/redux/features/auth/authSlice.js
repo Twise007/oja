@@ -62,9 +62,27 @@ export const logout = createAsyncThunk("auth/logout", async (_, thunkApi) => {
 });
 
 //  loginStatus
-export const loginStatus = createAsyncThunk("auth/loginStatus", async (_, thunkApi) => {
+export const loginStatus = createAsyncThunk(
+  "auth/loginStatus",
+  async (_, thunkApi) => {
+    try {
+      return await authService.loginStatus();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
+
+//  getUser
+export const getUser = createAsyncThunk("auth/getUser", async (_, thunkApi) => {
   try {
-    return await authService.loginStatus();
+    return await authService.getUser();
   } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
@@ -73,6 +91,42 @@ export const loginStatus = createAsyncThunk("auth/loginStatus", async (_, thunkA
     return thunkApi.rejectWithValue(message);
   }
 });
+
+//  updateUser
+export const updateUser = createAsyncThunk(
+  "auth/updateUser",
+  async (userData, thunkApi) => {
+    try {
+      return await authService.updateUser(userData);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
+
+//  updatePhoto
+export const updatePhoto = createAsyncThunk(
+  "auth/updatePhoto",
+  async (userData, thunkApi) => {
+    try {
+      return await authService.updatePhoto(userData);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -152,14 +206,68 @@ const authSlice = createSlice({
         state.isSuccess = true;
         state.isLoggedIn = action.payload;
         if (action.payload.message === "invalid signature") {
-          state.isLoggedIn = false
+          state.isLoggedIn = false;
         }
-        console.log(action.payload);
       })
       .addCase(loginStatus.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
+      })
+
+      //getUser
+      .addCase(getUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isLoggedIn = true;
+        state.user = action.payload;
+      })
+      .addCase(getUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        toast.error(action.payload);
+      })
+
+      //updateUser
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isLoggedIn = true;
+        state.user = action.payload;
+        toast.success("User Updated");
+        console.log(action.payload);
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        toast.error(action.payload);
+      })
+
+      //updatePhoto
+      .addCase(updatePhoto.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updatePhoto.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isLoggedIn = true;
+        state.user = action.payload;
+        toast.success("User Photo Updated");
+        console.log(action.payload);
+      })
+      .addCase(updatePhoto.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        toast.error(action.payload);
       });
   },
 });

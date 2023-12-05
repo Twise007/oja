@@ -151,18 +151,16 @@ const updateUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
-    const { _id, name, photo, phone, address } = user;
+    const { name, phone, address } = user;
     user.name = req.body.name || name;
-    user.photo = req.body.photo || photo;
-    user.bio = req.body.address || address;
     user.phone = req.body.phone || phone;
+    user.address = req.body.address || address;
 
     const updatedUser = await user.save();
     res.status(200).json({
       name: updatedUser.name,
-      photo: updatedUser.photo,
       phone: updatedUser.phone,
-      bio: updatedUser.address,
+      address: updatedUser.address,
     });
   } else {
     res.status(404);
