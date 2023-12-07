@@ -18,7 +18,7 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+
   const loginUser = async (e) => {
     e.preventDefault();
     if (!email || !password) {
@@ -32,17 +32,16 @@ const Login = () => {
       email,
       password,
     };
-    await dispatch(login(userData))
+    await dispatch(login(userData));
   };
 
-  
   useEffect(() => {
     if (isSuccess && isLoggedIn) {
       navigate("/");
     }
     dispatch(RESET_AUTH());
   }, [isSuccess, isLoggedIn, dispatch, navigate]);
-  
+
   return (
     <div>
       {isLoading && <Loader />}
@@ -80,7 +79,7 @@ const Login = () => {
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full p-2 outline-none lowercas bg-cl-acn2 text-cl-black"
+                        className="w-full p-2 outline-none bg-cl-acn2 text-cl-black"
                       />
                     </div>
                     <div className="flex m-4 text-center">

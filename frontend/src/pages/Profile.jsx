@@ -182,7 +182,7 @@ const Profile = () => {
                   </label>
                   <input
                     className="p-2 bg-transparent border rounded-lg outline-none border-cl-black"
-                    type="number"
+                    type="text"
                     required
                     placeholder="Phone no"
                     name="phone"
