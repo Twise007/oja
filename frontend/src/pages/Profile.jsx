@@ -2,8 +2,18 @@ import React, { useEffect, useState } from "react";
 import { FaCloudUploadAlt, FaEye } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getUser, updateUser } from "../redux/features/auth/authSlice";
+import {
+  getUser,
+  updatePhoto,
+  updateUser,
+} from "../redux/features/auth/authSlice";
 import Loader from "../components/Loader";
+import { toast } from "react-toastify";
+import { shortenText } from "../utils";
+
+const cloud_name = process.env.REACT_APP_CLOUD_NAME;
+const upload_preset = process.env.REACT_APP_UPLOAD_PRESET;
+const url = "https://api.cloudinary.com/v1_1/df5i1j4uc/image/upload";
 
 const Profile = () => {
   const [open, setOpen] = useState(false);
@@ -13,7 +23,12 @@ const Profile = () => {
     email: user?.email || "",
     phone: user?.phone || "",
     role: user?.role || "",
-    address: user?.address || {},
+    photo: user?.photo || "",
+    address: {
+      address: user?.address?.address || "",
+      state: user?.address?.state || "",
+      country: user?.address?.country || "",
+    },
   };
   const [profile, setProfile] = useState(initialState);
   const [profileImage, setProfileImage] = useState(null);
@@ -33,7 +48,12 @@ const Profile = () => {
         email: user?.email || "",
         phone: user?.phone || "",
         role: user?.role || "",
-        address: user?.address || {},
+        photo: user?.photo || "",
+        address: {
+          address: user?.address?.address || "",
+          state: user?.address?.state || "",
+          country: user?.address?.country || "",
+        },
       });
     }
   }, [dispatch, user]);
@@ -63,13 +83,43 @@ const Profile = () => {
     await dispatch(updateUser(userData));
   };
 
-  const savePhoto = async () => {};
+  const savePhoto = async (e) => {
+    e.preventDefault();
+    let imageUrl;
+
+    try {
+      if (
+        profileImage !== null &&
+        (profileImage.type === "image/jpeg" ||
+          profileImage.type === "image/jpg" ||
+          profileImage.type === "image/png")
+      ) {
+        const image = new FormData();
+        image.append("file", profileImage);
+        image.append("cloud_name", cloud_name);
+        image.append("upload_preset", upload_preset);
+
+        // saving image to cloudinary
+        const response = await fetch(url, { method: "post", body: image });
+        const imgData = await response.json();
+        imageUrl = imgData.url.toString();
+      }
+      // save image to mongodb
+      const userData = {
+        photo: profileImage ? imageUrl : profile.photo,
+      };
+      await dispatch(updatePhoto(userData));
+      setImagePreview(null);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   return (
     <div className="min-h-[90vh] mx-2">
       {isLoading && <Loader />}
-      <div className="h-52 max-h-52 bg-cl-acn2 rounded-xl hero">
-        <h1 className="text-3xl font-semibold uppercase text-cl-acn">
+      <div className="h-52 max-h-52 bg-cl-acn rounded-xl hero">
+        <h1 className="text-3xl font-semibold uppercase text-cl-white">
           Profile
         </h1>
       </div>
@@ -77,7 +127,7 @@ const Profile = () => {
         {/* {!isLoading && user && (  */}
         <>
           <div className="flex flex-col items-center md:justify-between md:flex-row">
-            <div className="flex flex-col items-center -mt-20 md:-mt-44 ">
+            <div className="flex flex-col items-center -mt-20 md:-mt-36 ">
               <div className="rounded-full bg-cl-sec shadow-2xl hero w-[10.5rem] h-[10.5rem] cursor-pointer">
                 <div className="w-40 h-40 rounded-full">
                   <img
@@ -89,7 +139,9 @@ const Profile = () => {
               </div>
               <h3 className="m-2">
                 Role :{" "}
-                <span className="text-xl capitalize bold">{profile.role}</span>
+                <span className="text-xl capitalize bold text-cl-acn">
+                  {profile.role}
+                </span>
               </h3>
               {imagePreview !== null && (
                 <button
@@ -113,8 +165,7 @@ const Profile = () => {
                   </p>
                 </h1>
 
-                  <FaEye className="-mb-5 text-2xl cursor-pointer text-cl-acn"/>
-
+                <FaEye className="-mb-5 text-2xl cursor-pointer text-cl-acn" />
               </div>
               <Link to="/wallet" className="btnPrimary">
                 Wallet
@@ -305,6 +356,13 @@ const Profile = () => {
       </div>
     </div>
   );
+};
+
+export const Username = () => {
+  const { user } = useSelector((state) => state.auth);
+  const username = user?.name || "...";
+
+  return <span className="pr-2 border-r-2 border-r-cl-black text-cl-acn">{shortenText(username, 9)}</span>;
 };
 
 export default Profile;

@@ -5,6 +5,8 @@ import Logo from "../assets/logo.png";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { logout, RESET_AUTH } from "../redux/features/auth/authSlice";
 import ShowOnLogin, { ShowOnLogout } from "./hiddenLink";
+import { Username } from "../pages/Profile";
+import { FaUserCircle } from "react-icons/fa";
 
 //   to be able to use the logo at any part of the app
 export const logo = (
@@ -125,6 +127,17 @@ const Header = () => {
             Register
           </NavLink>
         </ShowOnLogout>
+        <ShowOnLogin>
+          <NavLink
+            to="/profile"
+            className="flex items-center gap-2 cursor-pointer text-cl-black"
+          >
+            hi,
+            <Username />
+            <FaUserCircle size={16} color="#ff7722" />
+          </NavLink>
+        </ShowOnLogin>
+
         <ShowOnLogin>{cart}</ShowOnLogin>
         <ShowOnLogin>
           <Link to="/" className="btnLink" onClick={logoutUser}>
