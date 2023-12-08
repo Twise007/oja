@@ -5,8 +5,7 @@ import Logo from "../assets/logo.png";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { logout, RESET_AUTH } from "../redux/features/auth/authSlice";
 import ShowOnLogin, { ShowOnLogout } from "./hiddenLink";
-import { Username } from "../pages/Profile";
-import { FaUserCircle } from "react-icons/fa";
+import { Username, Userphoto } from "../pages/Profile";
 
 //   to be able to use the logo at any part of the app
 export const logo = (
@@ -23,7 +22,7 @@ export const logo = (
         alt="home"
         className="w-12 h-12 rounded-full cursor-pointer"
       />
-      <h5 className="px-2 -ml-[7px] group-hover:bg-cl-acn rounded-e-full group-hover:text-cl-white duration-200">
+      <h5 className="px-2 -ml-[8px] group-hover:bg-cl-acn rounded-e-full group-hover:text-cl-white duration-200 pb-1">
         Oja
       </h5>
     </Link>
@@ -121,29 +120,53 @@ const Header = () => {
           <NavLink to="/login" className={activeLink}>
             Login
           </NavLink>
-        </ShowOnLogout>
-        <ShowOnLogout>
           <NavLink to="/register" className={activeLink}>
             Register
           </NavLink>
         </ShowOnLogout>
+
         <ShowOnLogin>
-          <NavLink
-            to="/profile"
-            className="flex items-center gap-2 cursor-pointer text-cl-black"
-          >
+          <div className="flex items-center gap-2 text-cl-black">
             hi,
             <Username />
-            <FaUserCircle size={16} color="#ff7722" />
-          </NavLink>
+          </div>
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="rounded-full duration-50 hover:border-2 hover:border-cl-acn avatar"
+            >
+              <div className="w-10 rounded-full">
+                <Userphoto />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-cl-white rounded-box w-52 text-cl-black"
+            >
+              <li>
+                <Link to="/profile" className="text-cl-black">
+                  Profile
+                </Link>
+              </li>
+              <li>
+                <Link className="text-cl-black">My Order</Link>
+              </li>
+              <li>
+                <Link className="text-cl-black">My wishlist</Link>
+              </li>
+              <li>
+                <ShowOnLogin>
+                  <Link to="/" className="text-cl-black" onClick={logoutUser}>
+                    Logout
+                  </Link>
+                </ShowOnLogin>
+              </li>
+            </ul>
+          </div>
         </ShowOnLogin>
 
         <ShowOnLogin>{cart}</ShowOnLogin>
-        <ShowOnLogin>
-          <Link to="/" className="btnLink" onClick={logoutUser}>
-            Logout
-          </Link>
-        </ShowOnLogin>
       </div>
 
       {/* mobile menu */}
@@ -151,51 +174,80 @@ const Header = () => {
       <div className="flex items-center justify-end flex-1 md:hidden">
         <div className="flex gap-2">
           <ShowOnLogin>
-            <div className="md:hidden ">{cart}</div>
+            <div className="flex items-center justify-center">
+              <div className="md:hidden ">{cart}</div>
+            </div>
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="rounded-full duration-50 hover:border-2 hover:border-cl-acn avatar"
+              >
+                <div className="w-10 rounded-full">
+                  <Userphoto />
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-cl-white rounded-box w-52 text-cl-black"
+              >
+                <li>
+                  <Link to="/profile" className="text-cl-black">
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <Link className="text-cl-black">My Order</Link>
+                </li>
+                <li>
+                  <Link className="text-cl-black">My wishlist</Link>
+                </li>
+                <li>
+                  <ShowOnLogin>
+                    <Link to="/" className="text-cl-black" onClick={logoutUser}>
+                      Logout
+                    </Link>
+                  </ShowOnLogin>
+                </li>
+              </ul>
+            </div>
           </ShowOnLogin>
-          <div className="rounded-lg text-cl-white bg-cl-acn">
-            <Hamburger toggled={toggle} toggle={setToggle} />
-          </div>
+          <ShowOnLogout>
+            <div className="rounded-lg text-cl-white bg-cl-acn">
+              <Hamburger toggled={toggle} toggle={setToggle} />
+            </div>
+          </ShowOnLogout>
         </div>
-        <div
-          className={`${
-            !toggle ? "hidden" : "flex"
-          } absolute top-[52px] right-0 my-3  min-h-[100vh] hero-overlay bg-opacity-60 w-full`}
-          onClick={() => {
-            setToggle(!toggle);
-          }}
-        >
-          <div className="w-32 py-2 text-lg bg-cl-sec">
-            <div
-              className="flex flex-col p-2"
-              onClick={() => {
-                setToggle(!toggle);
-              }}
-            >
-              <ShowOnLogout>
-                <NavLink to="/login" className={activeLink}>
-                  <p className="w-full px-2 border-b rounded-t bg-cl-white">
-                    Login
-                  </p>
-                </NavLink>
-              </ShowOnLogout>
-              <ShowOnLogout>
+        <ShowOnLogout>
+          <div
+            className={`${
+              !toggle ? "hidden" : "flex"
+            } absolute top-[52px] right-0 my-3  min-h-[100vh] hero-overlay bg-opacity-60 w-full`}
+            onClick={() => {
+              setToggle(!toggle);
+            }}
+          >
+            <div className="w-32 py-2 text-lg bg-cl-sec">
+              <div
+                className="flex flex-col p-2"
+                onClick={() => {
+                  setToggle(!toggle);
+                }}
+              >
                 <NavLink to="/register" className={activeLink}>
                   <p className="w-full px-2 border-b rounded-t bg-cl-white">
                     Register
                   </p>
                 </NavLink>
-              </ShowOnLogout>
-              <ShowOnLogin>
-                <Link to="/" className="btnLink" onClick={logoutUser}>
+                <NavLink to="/login" className={activeLink}>
                   <p className="w-full px-2 border-b rounded-t bg-cl-white">
-                    Logout
+                    login
                   </p>
-                </Link>
-              </ShowOnLogin>
+                </NavLink>
+              </div>
             </div>
           </div>
-        </div>
+        </ShowOnLogout>
       </div>
     </div>
   );

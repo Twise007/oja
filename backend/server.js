@@ -21,6 +21,9 @@ app.use(
 
 //route
 app.use("/api/users", userRoute);
+app.use("/api/products", productRoute);
+
+
 app.get("/", (req, res) => {
   res.send("Home Page...");
 });

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaCloudUploadAlt, FaEye } from "react-icons/fa";
+import { FaCloudUploadAlt, FaEye, FaUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
@@ -124,7 +124,7 @@ const Profile = () => {
         </h1>
       </div>
       <div className="md:mx-[6rem] mx-[2rem] ">
-        {/* {!isLoading && user && (  */}
+        {!isLoading && user && (  
         <>
           <div className="flex flex-col items-center md:justify-between md:flex-row">
             <div className="flex flex-col items-center -mt-20 md:-mt-36 ">
@@ -176,7 +176,6 @@ const Profile = () => {
                   a45fdv
                 </h2>
               </div>
-              <Link className="btnPrimary">Wishlist</Link>
             </div>
           </div>
           <div>
@@ -294,7 +293,7 @@ const Profile = () => {
             </form>
           </div>
         </>
-        {/* )}  */}
+         )}  
 
         {/* shooping history */}
         {/* <div className="mt-4">
@@ -362,7 +361,24 @@ export const Username = () => {
   const { user } = useSelector((state) => state.auth);
   const username = user?.name || "...";
 
-  return <span className="pr-2 border-r-2 border-r-cl-black text-cl-acn">{shortenText(username, 9)}</span>;
+  return (
+    <span className="pr-2 font-semibold capitalize border-r-2 border-r-cl-black text-cl-acn">
+      {shortenText(username, 9)}
+    </span>
+  );
+};
+
+export const Userphoto = () => {
+  const { user } = useSelector((state) => state.auth);
+  // const userphoto = user?.photo || <FaUserCircle />;
+
+  return (
+    <img
+      src={user?.photo }
+      alt="profile"
+      className="object-cover w-full h-full rounded-full"
+    />
+  );
 };
 
 export default Profile;
