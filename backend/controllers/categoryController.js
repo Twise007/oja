@@ -30,7 +30,7 @@ const getCategories = asyncHandler(async (req, res) => {
 //delete Category
 const deleteCategory = asyncHandler(async (req, res) => {
   const slug = req.params.slug.toLowerCase();
-  const category = await Category.findOneAndDelete({slug});
+  const category = await Category.findOneAndDelete({ slug });
 
   if (!category) {
     res.status(404);
