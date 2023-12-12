@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
 import { toast } from "react-toastify";
-// import { toast } from "react-toastify";
 
 const initialState = {
   isLoggedIn: false,
@@ -271,5 +270,7 @@ const authSlice = createSlice({
 });
 
 export const { RESET_AUTH } = authSlice.actions;
+
+export const selectUser = (state) => state.auth.user;
 
 export default authSlice.reducer;

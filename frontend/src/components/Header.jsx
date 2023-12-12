@@ -15,12 +15,12 @@ export const logo = (
       onClick={() => {
         window.scrollTo(0, 0);
       }}
-      className="flex items-center justify-center text-2xl font-semibold transition-colors ease-out text-cl-black hover:text-cl-acn group"
+      className="flex items-center justify-center text-2xl font-semibold transition-colors ease-out text-cl-black hover:text-cl-acn group "
     >
       <img
         src={Logo}
         alt="home"
-        className="w-12 h-12 rounded-full cursor-pointer"
+        className="w-12 h-12 rounded-full cursor-pointer group-hover:rotate-[360deg] duration-700"
       />
       <h5 className="px-2 -ml-[8px] group-hover:bg-cl-acn rounded-e-full group-hover:text-cl-white duration-200 pb-1">
         Oja
@@ -113,6 +113,11 @@ const Header = () => {
         <NavLink to="/shop" className={activeLink}>
           Shop
         </NavLink>
+        <ShowOnLogin>
+          <NavLink to="/admin" className={activeLink}>
+            <p className="pl-2 ml-0 text-orange-700 border-l">Admin</p>
+          </NavLink>
+        </ShowOnLogin>
       </div>
 
       <div className="hidden gap-2 navbar-end md:flex">
