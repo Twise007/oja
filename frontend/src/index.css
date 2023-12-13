@@ -6,10 +6,16 @@
 
 @layer components {
   .btnPrimary {
-    @apply px-2 py-2 transition ease-in-out border-2 rounded-lg shadow-lg cursor-pointer md:px-8 border-cl-acn hover:text-cl-white hover:bg-cl-acn text-cl-acn;
+    @apply px-2 py-2 font-semibold capitalize transition ease-in-out border-2 rounded-lg shadow-lg cursor-pointer md:px-8 border-cl-acn hover:text-cl-white hover:bg-cl-acn text-cl-acn;
   }
   .btnLink {
     @apply px-2 pb-1 font-normal duration-100 ease-out cursor-pointer text-cl-black hover:border-cl-black hover:border-b-2 hover:text-cl-acn;
+  }
+  .h2 {
+    @apply mb-2 text-xl font-semibold capitalize md:font-bold md:text-3xl;
+  }
+  .h3 {
+    @apply text-2xl capitalize;
   }
 }
 
@@ -17,7 +23,9 @@
   --dark-blue: #0a1930;
   --color-action: #471aa0;
   --color-action2: #9073de;
-  --color-sec: #f9fbfa;
+  /* --color-sec: #f9fbfa; */
+  --color-sec: #f9f9f9;
+
   --color-white: #fff;
   --color-black: #000;
   /* #F9FBFA #E8EDEB */
@@ -73,7 +81,7 @@ section {
   position: fixed;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: #000000b3;
   z-index: 9;
 }
 
@@ -177,12 +185,6 @@ section {
 .pagination .page-num:hover {
   color: #fff;
   background-color: var(--light-blue);
-}
-
-.activePage {
-  color: #fff;
-  background-color: var(--light-blue);
-  height: 100%;
 }
 
 .formcard {

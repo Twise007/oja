@@ -33,16 +33,15 @@ const App = () => {
       <BrowserRouter>
         <ToastContainer />
         <Header />
-        <div className="text-cl-black bg-cl-white">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/admin/*" element={<Admin />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/admin/*" element={<Admin />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+        </Routes>
+
         <Footer />
       </BrowserRouter>
     </>

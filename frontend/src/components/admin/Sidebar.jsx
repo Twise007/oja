@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BsArrowLeftCircle, BsHouse } from "react-icons/bs";
-import { FaFirstOrder, FaUserCircle } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 import {
   MdDashboard,
   MdOutlineAddChart,
@@ -30,10 +30,10 @@ const Sidebar = ({ children }) => {
   const username = user?.name;
 
   return (
-    <div className="flex w-full h-screen bg-cl-white">
+    <div className="flex w-full bg-cl-white">
       <div
-        className={`h-[80vh] bg-cl-sec ${
-          open ? "w-48" : "w-16"
+        className={`h-screen bg-cl-sec ${
+          open ? "w-44 " : "w-16"
         } relative duration-500 `}
       >
         <BsArrowLeftCircle
@@ -88,7 +88,7 @@ const Sidebar = ({ children }) => {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-scroll h-[90vh] ml-2">{children}</div>
+      <div className="flex-1 h-screen ml-2 overflow-scroll">{children}</div>
     </div>
   );
 };

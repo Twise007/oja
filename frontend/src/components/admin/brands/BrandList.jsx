@@ -1,31 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { BsArrowDownCircle } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteCategory,
-  getCategories,
-} from "../../../redux/features/categoryAndBrand/categoryAndBrandSlice";
 import { FaTrashAlt } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css";
+import { getBrands } from "../../../redux/features/categoryAndBrand/categoryAndBrandSlice";
 
-const CategoryList = () => {
+const BrandList = () => {
   const [open, setOpen] = useState(false);
-  const { isLoading, categories } = useSelector((state) => state.category);
+  const { isLoading, brands } = useSelector((state) => state.category);
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
-    dispatch(getCategories());
+    dispatch(getBrands());
   }, [dispatch]);
 
   const confirmDelete = (slug) => {
     confirmAlert({
-      title: "Delete Category",
-      message: "Are you sure to do this category ?",
+      title: "Delete Brand",
+      message: "Are you sure to do this brand ?",
       buttons: [
         {
           label: "Delete",
-          onClick: () => deleteCat(slug),
+          // onClick: () => deleteBrand(slug),
         },
         {
           label: "Cancel",
@@ -34,19 +31,17 @@ const CategoryList = () => {
       ],
     });
   };
-  const deleteCat = async (slug) => {
-    await dispatch(deleteCategory(slug));
-    await dispatch(getCategories());
-  };
-
+  // const deleteBrand = async (slug) => {
+  //   await dispatch(deleteBrand(slug));
+  //   await dispatch(brands());
+  // };
   return (
     <div className="mt-4">
       <div
         className="flex items-center justify-between p-3 font-medium border cursor-pointer bg-cl-sec rounded-xl"
         onClick={() => setOpen(!open)}
       >
-        <p>Category List</p>
-
+        <p>Brand List</p>
         <BsArrowDownCircle
           className={`  duration-700 ${open && "rotate-180 text-cl-acn"}`}
         />
@@ -62,22 +57,24 @@ const CategoryList = () => {
               <tr className="text-xl border-cl-acn border-y-[1px] text-cl-black font-normal">
                 <th>s/n</th>
                 <th>Names</th>
+                <th>Category</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {categories.length === 0 ? (
-                <tr className="mt-2 font-normal text-center uppercase md:text-lg text-rose-500 ">
-                  <p>No Category found</p>
+              {brands.length === 0 ? (
+                <tr className="mt-2 font-normal text-center uppercase md:text-xl text-rose-500 ">
+                  No brand found
                 </tr>
               ) : (
                 <>
-                  {categories.map((cat, index) => {
-                    const { _id, name, slug } = cat;
+                  {brands.map((brand, index) => {
+                    const { _id, name, slug, category } = brand;
                     return (
                       <tr key={index} className="hover:bg-cl-sec">
                         <td>{index + 1}</td>
                         <td className="capitalize">{name}</td>
+                        <td className="capitalize">{category}</td>
                         <td className="cursor-pointer ">
                           <FaTrashAlt
                             size={20}
@@ -98,4 +95,4 @@ const CategoryList = () => {
   );
 };
 
-export default CategoryList;
+export default BrandList;

@@ -107,7 +107,7 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="sticky top-0 z-20 capitalize shadow-2xl bg-cl-white navbar">
+    <div className="sticky top-0 z-20 capitalize shadow-md bg-cl-white navbar">
       {logo}
       <div className="navbar-center">
         <NavLink to="/shop" className={activeLink}>
