@@ -4,10 +4,10 @@ import { toast } from "react-toastify";
 import Loader from "../../Loader";
 import {
   createBrand,
-  getCategories,
+  getBrands,
 } from "../../../redux/features/categoryAndBrand/categoryAndBrandSlice";
 
-const CreateBrand = ({ reloadCategory }) => {
+const CreateBrand = ({ reloadBrands }) => {
   const [name, setName] = useState("");
   //   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState("");
@@ -15,7 +15,7 @@ const CreateBrand = ({ reloadCategory }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCategories());
+    dispatch(getBrands());
   }, [dispatch]);
 
   const saveBrand = async (e) => {
@@ -32,6 +32,9 @@ const CreateBrand = ({ reloadCategory }) => {
       category,
     };
     dispatch(createBrand(formData));
+    dispatch(getBrands());
+    setName("");
+    reloadBrands();
   };
   return (
     <div className="mb-2">

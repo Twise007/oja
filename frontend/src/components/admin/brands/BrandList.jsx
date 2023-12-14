@@ -4,7 +4,10 @@ import { FaTrashAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { getBrands } from "../../../redux/features/categoryAndBrand/categoryAndBrandSlice";
+import {
+  deleteBrand,
+  getBrands,
+} from "../../../redux/features/categoryAndBrand/categoryAndBrandSlice";
 
 const BrandList = () => {
   const [open, setOpen] = useState(false);
@@ -22,7 +25,7 @@ const BrandList = () => {
       buttons: [
         {
           label: "Delete",
-          // onClick: () => deleteBrand(slug),
+          onClick: () => delBrand(slug),
         },
         {
           label: "Cancel",
@@ -31,10 +34,11 @@ const BrandList = () => {
       ],
     });
   };
-  // const deleteBrand = async (slug) => {
-  //   await dispatch(deleteBrand(slug));
-  //   await dispatch(brands());
-  // };
+  const delBrand = async (slug) => {
+    await dispatch(deleteBrand(slug));
+    await dispatch(getBrands());
+  };
+
   return (
     <div className="mt-4">
       <div
