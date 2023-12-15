@@ -6,10 +6,12 @@ import {
   createBrand,
   getBrands,
 } from "../../../redux/features/categoryAndBrand/categoryAndBrandSlice";
+// import { BsArrowDownCircle } from "react-icons/bs";
 
-const CreateBrand = ({ reloadBrands }) => {
+const CreateBrand = () => {
   const [name, setName] = useState("");
-  //   const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
+  // const [selected, setSelected] = useState("Select category");
   const [category, setCategory] = useState("");
   const { isLoading, categories } = useSelector((state) => state.category);
   const dispatch = useDispatch();
@@ -31,10 +33,9 @@ const CreateBrand = ({ reloadBrands }) => {
       name,
       category,
     };
-    dispatch(createBrand(formData));
-    dispatch(getBrands());
+    await dispatch(createBrand(formData));
+    await dispatch(getBrands());
     setName("");
-    reloadBrands();
   };
   return (
     <div className="mb-2">
@@ -62,6 +63,43 @@ const CreateBrand = ({ reloadBrands }) => {
           />
         </div>
 
+        {/* <div className="form-control">
+          <label className=" label">
+            <span className="font-medium label-text">Parent Category</span>
+          </label>
+          <div>
+            <div
+              className="flex items-center justify-between p-3 font-medium border cursor-pointer bg-cl-sec rounded-xl"
+              onClick={() => setOpen(!open)}
+              // onChange={(e) => setCategory(selected)}
+            >
+              <p onChange={(e) => setCategory(selected)}>{selected}</p>
+              <BsArrowDownCircle
+                className={`  duration-700 ${open && "rotate-180 text-cl-acn"}`}
+              />
+            </div>
+            <div
+              className={` shadow-xl md:mx-4 my-2 md:p-2 duration-500 rounded-xl ${
+                open ? "hidden" : "h-fit"
+              }`}
+            >
+              {categories.length > 0 &&
+                categories.map((cat) => (
+                  <div
+                    key={cat._id}
+                    onClick={(e) => {
+                      setSelected(cat.name);
+                      setOpen(!open);
+                    }}
+                    className="w-full bg-cl-sec hover:bg-cl-white"
+                  >
+                    {cat.name}
+                  </div>
+                ))}
+            </div>
+          </div>
+        </div> */}
+
         <div className="form-control">
           <label className=" label">
             <span className="font-medium label-text">Parent Category</span>
@@ -77,9 +115,9 @@ const CreateBrand = ({ reloadBrands }) => {
                 <option
                   key={cat._id}
                   value={cat.name}
-                  className="w-full bg-cl-sec hover:bg-cl-white"
+                  className="flex w-full gap-4 py-2 capitalize bg-cl-sec hover:bg-cl-white"
                 >
-                  {cat.name}
+                  <p className="py-2 capitalize bg-red-500">{cat.name}</p>
                 </option>
               ))}
           </select>

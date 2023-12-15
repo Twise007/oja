@@ -7,7 +7,7 @@ import {
 } from "../../../redux/features/categoryAndBrand/categoryAndBrandSlice";
 import Loader from "../../Loader";
 
-const CreateCategory = ({ reloadCategory }) => {
+const CreateCategory = () => {
   const [name, setName] = useState("");
   const { isLoading } = useSelector((state) => state.category);
   const dispatch = useDispatch();
@@ -20,10 +20,10 @@ const CreateCategory = ({ reloadCategory }) => {
     const formData = {
       name,
     };
-    dispatch(createCategory(formData));
-    dispatch(getCategories());
+    await dispatch(createCategory(formData));
+    await dispatch(getCategories());
     setName("");
-    reloadCategory();
+
   };
 
   return (

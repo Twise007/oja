@@ -11,7 +11,7 @@ import {
 
 const BrandList = () => {
   const [open, setOpen] = useState(false);
-  const { isLoading, brands } = useSelector((state) => state.category);
+  const { brands } = useSelector((state) => state.category);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const BrandList = () => {
               ) : (
                 <>
                   {brands.map((brand, index) => {
-                    const { _id, name, slug, category } = brand;
+                    const { name, slug, category } = brand;
                     return (
                       <tr key={index} className="hover:bg-cl-sec">
                         <td>{index + 1}</td>
