@@ -1,5 +1,6 @@
 import React from "react";
 import Hero from "../../components/Hero";
+import Footer from "../../components/Footer";
 import HomeInfos from "./HomeInfos";
 import { productData } from "../../constants/carousel";
 import ProductCarousel from "../../components/ProductCarousel";
@@ -37,7 +38,7 @@ const Home = () => {
           <ProductCarousel products={productss} />
         </div>
       </section>
-      
+
       <section className="bg-cl-sec">
         <div className="container">
           <div className="w-full pb-1 mb-4 text-2xl font-thin border-b border-b-cl-black">
@@ -46,14 +47,14 @@ const Home = () => {
           <ProductCategory />
         </div>
       </section>
-      
+
       <section>
         <div className="container">
           <PageHeading heading={"Mobile Phones"} btnText={"Shop Now >>"} />
           <ProductCarousel products={productss} />
         </div>
       </section>
-      
+      <Footer />
     </div>
   );
 };

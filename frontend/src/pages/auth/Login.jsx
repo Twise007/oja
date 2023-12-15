@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BsPerson, BsFillShieldLockFill } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import loginPic from "../../assets/login.png";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -10,6 +11,7 @@ import { RESET_AUTH, login } from "../../redux/features/auth/authSlice";
 import Loader from "../../components/Loader";
 
 const Login = () => {
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLoading, isLoggedIn, isSuccess } = useSelector(
@@ -18,7 +20,9 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const togglePassword = () => {
+    setOpen(!open);
+  };
   const loginUser = async (e) => {
     e.preventDefault();
     if (!email || !password) {
@@ -87,15 +91,22 @@ const Login = () => {
                         <BsFillShieldLockFill className="text-xl" />
                       </div>
                       <input
-                        type="password"
+                        type={open ? "text" : "password"}
                         placeholder="Password"
                         required
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         className="w-full p-2 outline-none bg-cl-acn2 text-cl-black"
                       />
-                      <div className="p-4 text-center bg-cl-acn2">
-                        <BsFillShieldLockFill className="text-xl" />
+                      <div
+                        className="p-4 text-center cursor-pointer bg-cl-acn2"
+                        onClick={togglePassword}
+                      >
+                        {open ? (
+                          <AiOutlineEyeInvisible className="text-xl" />
+                        ) : (
+                          <AiOutlineEye className="text-xl" />
+                        )}
                       </div>
                     </div>
 

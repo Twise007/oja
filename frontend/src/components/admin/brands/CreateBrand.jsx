@@ -5,6 +5,7 @@ import Loader from "../../Loader";
 import {
   createBrand,
   getBrands,
+  getCategories,
 } from "../../../redux/features/categoryAndBrand/categoryAndBrandSlice";
 // import { BsArrowDownCircle } from "react-icons/bs";
 
@@ -18,7 +19,9 @@ const CreateBrand = () => {
 
   useEffect(() => {
     dispatch(getBrands());
+    dispatch(getCategories());
   }, [dispatch]);
+
 
   const saveBrand = async (e) => {
     e.preventDefault();

@@ -51,7 +51,9 @@ body {
 
 section {
   width: 100%;
-  padding: 4rem 0;
+  /* padding: 4rem 0; */
+  /* padding-bottom: 2rem; */
+  padding-top: 4rem;
 }
 
 .container {
@@ -59,7 +61,6 @@ section {
   margin: 0 auto;
   padding: 0 20px;
 }
-
 
 .swiper-pagination {
   margin: 20px;

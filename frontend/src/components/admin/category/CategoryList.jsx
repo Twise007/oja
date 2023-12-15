@@ -13,7 +13,7 @@ const CategoryList = () => {
   const [open, setOpen] = useState(false);
   const { isLoading, categories } = useSelector((state) => state.category);
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]);
@@ -42,7 +42,7 @@ const CategoryList = () => {
   return (
     <div className="mt-4">
       <div
-        className="flex items-center justify-between p-3 font-medium border cursor-pointer bg-cl-sec rounded-xl"
+        className="flex items-center justify-between p-3 font-medium duration-100 border cursor-pointer bg-cl-sec rounded-xl"
         onClick={() => setOpen(!open)}
       >
         <p>Category List</p>
@@ -52,12 +52,12 @@ const CategoryList = () => {
         />
       </div>
       <div
-        className={` shadow-xl md:mx-4 my-2 md:p-2 duration-500 rounded-xl ${
+        className={` shadow-xl md:mx-4 my-2 md:p-2 rounded-b-xl duration-1000 ${
           open ? "hidden" : "h-fit"
         }`}
       >
         <div className="overflow-x-auto">
-          <table className="md:table md:p-2 table-sm">
+          <table className="md:table md:p-2 table-sm ">
             <thead>
               <tr className="text-xl border-cl-acn border-y-[1px] text-cl-black font-normal">
                 <th>s/n</th>

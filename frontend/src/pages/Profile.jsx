@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { FaCloudUploadAlt, FaEye, FaUserCircle } from "react-icons/fa";
+import { FaCloudUploadAlt } from "react-icons/fa";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
@@ -34,6 +35,10 @@ const Profile = () => {
   const [profileImage, setProfileImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const dispatch = useDispatch();
+
+  const toggleWallet = () => {
+    setOpen(!open);
+  };
 
   useEffect(() => {
     if (user === null) {
@@ -116,7 +121,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-[90vh] mx-2">
+    <div className="mx-2 ">
       {isLoading && <Loader />}
       <div className="h-52 max-h-52 bg-cl-acn rounded-xl hero">
         <h1 className="text-3xl font-semibold uppercase text-cl-white">
@@ -124,176 +129,183 @@ const Profile = () => {
         </h1>
       </div>
       <div className="md:mx-[6rem] mx-[2rem] ">
-        {!isLoading && user && (  
-        <>
-          <div className="flex flex-col items-center md:justify-between md:flex-row">
-            <div className="flex flex-col items-center -mt-20 md:-mt-36 ">
-              <div className="rounded-full bg-cl-sec shadow-2xl hero w-[10.5rem] h-[10.5rem] cursor-pointer">
-                <div className="w-40 h-40 rounded-full">
-                  <img
-                    src={imagePreview === null ? user?.photo : imagePreview}
-                    alt="profile"
-                    className="object-cover w-full h-full rounded-full "
-                  />
+        {!isLoading && user && (
+          <>
+            <div className="flex flex-col items-center md:justify-between md:flex-row">
+              <div className="flex flex-col items-center -mt-20 md:-mt-36 ">
+                <div className="rounded-full bg-cl-sec shadow-2xl hero w-[10.5rem] h-[10.5rem] cursor-pointer">
+                  <div className="w-40 h-40 rounded-full">
+                    <img
+                      src={imagePreview === null ? user?.photo : imagePreview}
+                      alt="profile"
+                      className="object-cover w-full h-full rounded-full "
+                    />
+                  </div>
+                </div>
+                <h3 className="m-2">
+                  Role :{" "}
+                  <span className="text-xl capitalize bold text-cl-acn">
+                    {profile.role}
+                  </span>
+                </h3>
+                {imagePreview !== null && (
+                  <button
+                    className="flex items-center justify-between gap-2 btnPrimary"
+                    onClick={savePhoto}
+                  >
+                    <FaCloudUploadAlt size={18} /> <p>Upload Photo</p>
+                  </button>
+                )}
+              </div>
+
+              <div className="p-4 mt-1 text-center rounded-lg shadow-2xl bg-cl-sec">
+                <div className="flex items-center justify-center m-3 border-b border-cl-black">
+                  <h1 className="flex flex-col p-1 text-start">
+                    <p>Wallet Balance</p>
+                    <div className="flex items-center justify-between">
+                      <p>
+                        $ :
+                        <span className="pl-1 text-2xl font-semibold text-cl-acn">
+                          {open ? "1000" : "****"}
+                        </span>
+                      </p>
+                      <span className="p-1 text-cl-acn" onClick={toggleWallet}>
+                        {open ? (
+                          <AiOutlineEyeInvisible size={20} />
+                        ) : (
+                          <AiOutlineEye size={20} />
+                        )}
+                      </span>
+                    </div>
+                  </h1>
+                </div>
+                <Link to="/wallet" className="btnPrimary">
+                  Wallet
+                </Link>
+                <div className="flex items-center justify-center gap-0 py-2 m-0">
+                  <div>Coupon Code : </div>
+                  <h2 className=" text-xl font-semibold uppercase bg-transparent outline-none cursor-not-allowed text-end text-cl-acn w-[6rem]">
+                    a45fdv
+                  </h2>
                 </div>
               </div>
-              <h3 className="m-2">
-                Role :{" "}
-                <span className="text-xl capitalize bold text-cl-acn">
-                  {profile.role}
-                </span>
-              </h3>
-              {imagePreview !== null && (
-                <button
-                  className="flex items-center justify-between gap-2 btnPrimary"
-                  onClick={savePhoto}
-                >
-                  <FaCloudUploadAlt size={18} /> <p>Upload Photo</p>
+            </div>
+            <div>
+              <form onSubmit={saveProfile} className="md:mx-6">
+                <div className="mt-4">
+                  <div className="form-control">
+                    <label className=" label">
+                      {/* <span className="font-medium label-text">Image :</span>
+                       */}
+                      <div></div>
+                    </label>
+                    <input
+                      className="p-2 bg-transparent border rounded-lg outline-none border-cl-black"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                    />
+                  </div>
+
+                  <div className="form-control">
+                    <label className=" label">
+                      <span className="font-medium label-text">Name :</span>
+                    </label>
+                    <input
+                      className="p-2 bg-transparent border rounded-lg outline-none border-cl-black"
+                      type="text"
+                      required
+                      placeholder="John Doe"
+                      name="name"
+                      value={profile?.name}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+
+                  <div className=" form-control">
+                    <label className=" label">
+                      <span className="font-medium label-text">
+                        Email Cannot Be Change
+                      </span>
+                    </label>
+                    <input
+                      className="p-2 bg-transparent border rounded-lg outline-none cursor-not-allowed border-cl-black "
+                      type="email"
+                      disabled
+                      name="email"
+                      value={profile?.email}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+
+                  <div className="form-control">
+                    <label className=" label">
+                      <span className="font-medium label-text">Phone :</span>
+                    </label>
+                    <input
+                      className="p-2 bg-transparent border rounded-lg outline-none border-cl-black"
+                      type="text"
+                      required
+                      placeholder="Phone no"
+                      name="phone"
+                      value={profile?.phone}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+
+                  <div className="form-control">
+                    <label className=" label">
+                      <span className="font-medium label-text">Address :</span>
+                    </label>
+                    <input
+                      className="p-2 bg-transparent border rounded-lg outline-none border-cl-black"
+                      type="text"
+                      required
+                      placeholder="Address"
+                      name="address"
+                      value={profile?.address?.address}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+
+                  <div className="form-control">
+                    <label className=" label">
+                      <span className="font-medium label-text">State :</span>
+                    </label>
+                    <input
+                      className="p-2 bg-transparent border rounded-lg outline-none border-cl-black"
+                      type="text"
+                      required
+                      placeholder="State"
+                      name="state"
+                      value={profile?.address?.state}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+
+                  <div className="form-control">
+                    <label className=" label">
+                      <span className="font-medium label-text">Country :</span>
+                    </label>
+                    <input
+                      className="p-2 bg-transparent border rounded-lg outline-none border-cl-black"
+                      type="text"
+                      required
+                      placeholder="Country"
+                      name="country"
+                      value={profile?.address?.country}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+
+                <button type="submit" className="w-full my-3 btnPrimary">
+                  Submit
                 </button>
-              )}
+              </form>
             </div>
-
-            <div className="p-4 mt-1 text-center rounded-lg shadow-2xl bg-cl-sec">
-              <div className="flex items-center justify-center m-3 border-b border-cl-black">
-                <h1 className="flex flex-col p-1 text-start">
-                  <p>Wallet Balance</p>
-                  <p>
-                    $ :
-                    <span className="pl-1 text-2xl font-semibold text-cl-acn">
-                      {"101"}
-                    </span>
-                  </p>
-                </h1>
-
-                <FaEye className="-mb-5 text-2xl cursor-pointer text-cl-acn" />
-              </div>
-              <Link to="/wallet" className="btnPrimary">
-                Wallet
-              </Link>
-              <div className="flex items-center justify-center gap-0 py-2 m-0">
-                <div>Coupon Code : </div>
-                <h2 className=" text-xl font-semibold uppercase bg-transparent outline-none cursor-not-allowed text-end text-cl-acn w-[6rem]">
-                  a45fdv
-                </h2>
-              </div>
-            </div>
-          </div>
-          <div>
-            <form onSubmit={saveProfile} className="md:mx-6">
-              <div className="mt-4">
-                <div className="form-control">
-                  <label className=" label">
-                    {/* <span className="font-medium label-text">Image :</span>
-                     */}
-                    <div></div>
-                  </label>
-                  <input
-                    className="p-2 bg-transparent border rounded-lg outline-none border-cl-black"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                  />
-                </div>
-
-                <div className="form-control">
-                  <label className=" label">
-                    <span className="font-medium label-text">Name :</span>
-                  </label>
-                  <input
-                    className="p-2 bg-transparent border rounded-lg outline-none border-cl-black"
-                    type="text"
-                    required
-                    placeholder="John Doe"
-                    name="name"
-                    value={profile?.name}
-                    onChange={handleInputChange}
-                  />
-                </div>
-
-                <div className=" form-control">
-                  <label className=" label">
-                    <span className="font-medium label-text">
-                      Email Cannot Be Change
-                    </span>
-                  </label>
-                  <input
-                    className="p-2 bg-transparent border rounded-lg outline-none cursor-not-allowed border-cl-black "
-                    type="email"
-                    disabled
-                    name="email"
-                    value={profile?.email}
-                    onChange={handleInputChange}
-                  />
-                </div>
-
-                <div className="form-control">
-                  <label className=" label">
-                    <span className="font-medium label-text">Phone :</span>
-                  </label>
-                  <input
-                    className="p-2 bg-transparent border rounded-lg outline-none border-cl-black"
-                    type="text"
-                    required
-                    placeholder="Phone no"
-                    name="phone"
-                    value={profile?.phone}
-                    onChange={handleInputChange}
-                  />
-                </div>
-
-                <div className="form-control">
-                  <label className=" label">
-                    <span className="font-medium label-text">Address :</span>
-                  </label>
-                  <input
-                    className="p-2 bg-transparent border rounded-lg outline-none border-cl-black"
-                    type="text"
-                    required
-                    placeholder="Address"
-                    name="address"
-                    value={profile?.address?.address}
-                    onChange={handleInputChange}
-                  />
-                </div>
-
-                <div className="form-control">
-                  <label className=" label">
-                    <span className="font-medium label-text">State :</span>
-                  </label>
-                  <input
-                    className="p-2 bg-transparent border rounded-lg outline-none border-cl-black"
-                    type="text"
-                    required
-                    placeholder="State"
-                    name="state"
-                    value={profile?.address?.state}
-                    onChange={handleInputChange}
-                  />
-                </div>
-
-                <div className="form-control">
-                  <label className=" label">
-                    <span className="font-medium label-text">Country :</span>
-                  </label>
-                  <input
-                    className="p-2 bg-transparent border rounded-lg outline-none border-cl-black"
-                    type="text"
-                    required
-                    placeholder="Country"
-                    name="country"
-                    value={profile?.address?.country}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
-
-              <button type="submit" className="w-full my-3 btnPrimary">
-                Submit
-              </button>
-            </form>
-          </div>
-        </>
-         )}  
+          </>
+        )}
 
         {/* shooping history */}
         {/* <div className="mt-4">
@@ -374,7 +386,7 @@ export const Userphoto = () => {
 
   return (
     <img
-      src={user?.photo }
+      src={user?.photo}
       alt="profile"
       className="object-cover w-full h-full rounded-full"
     />
