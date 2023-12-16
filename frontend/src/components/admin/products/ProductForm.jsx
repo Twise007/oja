@@ -1,7 +1,7 @@
 import React from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import Uploadwidget from "./Uploadwidget";
+import UploadWidget from "./UploadWidget";
 
 const ProductForm = ({
   saveProduct,
@@ -19,7 +19,7 @@ const ProductForm = ({
     <div>
       <form onSubmit={saveProduct} className="md:mx-6">
         <div className="mt-4">
-          <Uploadwidget files={files} setFiles={setFiles} />
+          <UploadWidget files={files} setFiles={setFiles} />
 
           <div className="form-control">
             <label className=" label">
