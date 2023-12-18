@@ -1,7 +1,8 @@
 import React from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import UploadWidget from "./UploadWidget";
+import Uploadwidget from "./Uploadwidget";
+import { BsTrash } from "react-icons/bs";
 
 const ProductForm = ({
   saveProduct,
@@ -15,11 +16,43 @@ const ProductForm = ({
   files,
   setFiles,
 }) => {
+  const removeImage = (image) => {
+    setFiles(files.filter((img) => img !== image));
+  };
   return (
     <div>
       <form onSubmit={saveProduct} className="md:mx-6">
         <div className="mt-4">
-          <UploadWidget files={files} setFiles={setFiles} />
+          <Uploadwidget files={files} setFiles={setFiles} />
+
+          <div className="form-control">
+            <label className=" label">
+              <span className="font-medium label-text">Product Images :</span>
+            </label>
+            <aside className="justify-center border rounded-box carousel bg-cl-sec">
+              {files.length > 0 &&
+                files.map((image) => (
+                  <div className="gap-2 p-2 m-2 border rounded-xl carousel-item bg-cl-white">
+                    <div key={image} className="flex flex-col w-40 h-full ">
+                      <img
+                        src={image}
+                        alt="productImage"
+                        height={100}
+                        className="pb-2 rounded-t-lg"
+                      />
+                      <div className="cursor-pointer hover:text-red-500">
+                        <BsTrash size={25} onClick={() => removeImage(image)} />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              {files.length < 1 && (
+                <p className="mx-2 text-center">
+                  No image set for this product
+                </p>
+              )}
+            </aside>
+          </div>
 
           <div className="form-control">
             <label className=" label">

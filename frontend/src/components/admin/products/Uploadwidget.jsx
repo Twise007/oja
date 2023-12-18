@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { BsTrash } from "react-icons/bs";
 import { AiOutlineCloudUpload } from "react-icons/ai";
+import { toast } from "react-toastify";
 
-const UploadWidget = () => {
+const upload_preset = process.env.REACT_APP_UPLOAD_PRESET;
+const url = "https://api.cloudinary.com/v1_1/df5i1j4uc/image/upload";
+
+const Uploadwidget = ({ files, setFiles }) => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [images, setImages] = useState([]);
   const [progress, setProgress] = useState(0);
@@ -26,7 +30,47 @@ const UploadWidget = () => {
     setImages(images.filter((img, index) => index !== imageIndex));
     URL.revokeObjectURL(image);
   };
-  // const isUploading = () => {};
+
+  const uploadImages = () => {
+    setUploading(true);
+    let imageUrls = [];
+
+    const formData = new FormData();
+    for (let i = 0; i < images.length; i++) {
+      let file = images[i];
+      formData.append("file", file);
+      formData.append("upload_preset", upload_preset);
+      formData.append("folder", "ojaApp");
+
+      fetch(url, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+            // console.log(data);
+          imageUrls.push(data.secure_url);
+          setProgress(imageUrls.length);
+
+          if (imageUrls.length === images.length) {
+            setFiles((prevFiles) => prevFiles.concat(imageUrls));
+            setUploading(false);
+            // console.log(files);
+            toast.success("Image upload complete");
+            setImages([]);
+            setSelectedImages([]);
+            setProgress(0);
+          }
+        })
+        .catch((error) => {
+          setUploading(false);
+          toast.error(error.message);
+            // console.log(error);
+        });
+    }
+  };
 
   return (
     <div className="border border-black rounded-xl ">
@@ -56,7 +100,15 @@ const UploadWidget = () => {
           </p>
         ) : (
           <div className="flex items-center w-full px-2 pb-2">
-            <button className="w-full btnPrimary">Upload Image</button>
+            <button
+              className="w-full btnPrimary"
+              disabled={uploading}
+              onClick={uploadImages}
+            >
+              {uploading
+                ? `Uploading ${progress} of ${images.length}`
+                : `Upload ${images.length} Images(s)`}
+            </button>
           </div>
         ))}
       {/* view selected images */}
@@ -71,7 +123,7 @@ const UploadWidget = () => {
                 <div className="">
                   <img
                     src={image}
-                    alt="product-image"
+                    alt="productImage"
                     width={200}
                     className=""
                   />
@@ -93,4 +145,4 @@ const UploadWidget = () => {
   );
 };
 
-export default UploadWidget;
+export default Uploadwidget;

@@ -35,7 +35,7 @@ const Category = ({ title, image }) => {
 };
 const ProductCategory = () => {
   return (
-    <div className="--grid-15">
+    <div className=" --grid-15">
       {categories.map((cat) => {
         return (
           <div key={cat.id}>

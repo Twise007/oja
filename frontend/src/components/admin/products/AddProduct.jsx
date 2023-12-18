@@ -8,6 +8,7 @@ import {
 } from "../../../redux/features/categoryAndBrand/categoryAndBrandSlice";
 import { createProduct } from "../../../redux/features/product/productSlice";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const initialState = {
   name: "",
@@ -64,6 +65,10 @@ const AddProduct = () => {
   const saveProduct = async (e) => {
     e.preventDefault();
 
+    if (files.length < 1) {
+      return toast.error("Please add an image");
+    }
+
     const formData = {
       name,
       sku: generateSku(category),
@@ -74,11 +79,12 @@ const AddProduct = () => {
       regularPrice: Number(regularPrice),
       price: Number(price),
       description,
-      // images,
+      images: files, //possible make the images to image
     };
     await dispatch(createProduct(formData));
+    console.log(formData);
 
-    // navigate("/admin/all-products");
+    navigate("/admin/all-products");
   };
 
   return (

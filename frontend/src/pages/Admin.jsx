@@ -20,7 +20,7 @@ const Admin = () => {
               <Route path="categories" element={<Category />} />
               <Route path="brands" element={<Brand />} />
 
-              <Route path="all-product" element={<ViewProduct />} />
+              <Route path="all-products" element={<ViewProduct />} />
 
               <Route path="add-product" element={<AddProduct />} />
               <Route path="edit-product/:id" element={<EditProduct />} />
