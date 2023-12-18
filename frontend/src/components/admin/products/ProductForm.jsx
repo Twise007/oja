@@ -5,7 +5,6 @@ import Uploadwidget from "./Uploadwidget";
 import { BsTrash } from "react-icons/bs";
 
 const ProductForm = ({
-  saveProduct,
   handleInputChange,
   product,
   categories,
@@ -15,6 +14,7 @@ const ProductForm = ({
   setDescription,
   files,
   setFiles,
+  saveProduct,
 }) => {
   const removeImage = (image) => {
     setFiles(files.filter((img) => img !== image));
@@ -31,17 +31,24 @@ const ProductForm = ({
             </label>
             <aside className="justify-center border rounded-box carousel bg-cl-sec">
               {files.length > 0 &&
-                files.map((image) => (
+                files.map((image, index) => (
                   <div className="gap-2 p-2 m-2 border rounded-xl carousel-item bg-cl-white">
-                    <div key={image} className="flex flex-col w-40 h-full ">
+                    <div key={image} className="flex flex-col justify-between w-40 h-full ">
                       <img
                         src={image}
                         alt="productImage"
                         height={100}
                         className="pb-2 rounded-t-lg"
                       />
-                      <div className="cursor-pointer hover:text-red-500">
-                        <BsTrash size={25} onClick={() => removeImage(image)} />
+                      <div className="flex items-center justify-between p-1 rounded bg-cl-sec">
+                        <BsTrash
+                          size={25}
+                          onClick={() => removeImage(image)}
+                          className="cursor-pointer hover:text-red-500"
+                        />
+                        <div className="text-xl font-semibold ">
+                          {index + 1}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -132,7 +139,7 @@ const ProductForm = ({
             <input
               className="p-2 capitalize bg-transparent border rounded-lg outline-none border-cl-black"
               type="text"
-              required
+              // required
               placeholder="Product Color"
               name="color"
               value={product?.color}

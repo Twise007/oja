@@ -22,9 +22,12 @@ export const Search = ({ value, onChange }) => {
         value={value}
         onChange={onChange}
         placeholder="Search here..."
-        className="w-full p-2 border-b outline-none bg-cl-sec"
+        className="w-full p-2 shadow-md outline-none bg-cl-sec"
       />
-      <button type="submit" className="p-2 rounded-l-none btnPrimary border-1">
+      <button
+        type="submit"
+        className="p-2 border-2 rounded-r-lg border-cl-acn bg-cl-acn text-cl-white"
+      >
         <BsSearch />
       </button>
     </div>

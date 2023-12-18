@@ -6,7 +6,10 @@ import {
   getBrands,
   getCategories,
 } from "../../../redux/features/categoryAndBrand/categoryAndBrandSlice";
-import { createProduct } from "../../../redux/features/product/productSlice";
+import {
+  RESET_PROD,
+  createProduct,
+} from "../../../redux/features/product/productSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -26,7 +29,7 @@ const AddProduct = () => {
   const [description, setDescription] = useState("");
   const [filteredBrands, setFilteredBrands] = useState([]);
   const [files, setFiles] = useState([]);
-  const { isLoading } = useSelector((state) => state.product);
+  const { isLoading, message } = useSelector((state) => state.product);
   const { categories, brands } = useSelector((state) => state.category);
 
   const { name, category, brand, quantity, color, price, regularPrice } =
@@ -82,17 +85,21 @@ const AddProduct = () => {
       images: files, //possible make the images to image
     };
     await dispatch(createProduct(formData));
-    console.log(formData);
-
-    navigate("/admin/all-products");
+    // console.log(formData);
   };
 
+  useEffect(() => {
+    if (message === "Product created Successful") {
+      navigate("/admin/all-products");
+    }
+    dispatch(RESET_PROD());
+  }, [message, navigate, dispatch]);
+  
   return (
     <div>
       {isLoading && <Loader />}
       <h2 className="h2">Add new Product</h2>
       <ProductForm
-        saveProduct={saveProduct}
         product={product}
         handleInputChange={handleInputChange}
         categories={categories}
@@ -102,6 +109,7 @@ const AddProduct = () => {
         setDescription={setDescription}
         files={files}
         setFiles={setFiles}
+        saveProduct={saveProduct}
       />
     </div>
   );

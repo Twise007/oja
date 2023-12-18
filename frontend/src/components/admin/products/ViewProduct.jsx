@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../../../redux/features/auth/authSlice";
-import { getProducts } from "../../../redux/features/product/productSlice";
+import {
+  deleteProduct,
+  getProducts,
+} from "../../../redux/features/product/productSlice";
 import { Search, shortenText } from "../../../utils";
-import { MdStoreMallDirectory } from "react-icons/md";
 import { SpinnerImg } from "../../Loader";
 import { Link } from "react-router-dom";
 import { AiOutlineEye } from "react-icons/ai";
 import ReactPaginate from "react-paginate";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 const ViewProduct = () => {
   const [search, setSearch] = useState("");
@@ -21,6 +25,28 @@ const ViewProduct = () => {
       dispatch(getProducts());
     }
   }, [isLoggedIn, dispatch]);
+
+  const delProduct = async (id) => {
+    await dispatch(deleteProduct(id));
+    await dispatch(getProducts());
+  };
+
+  const confirmDelete = (id) => {
+    confirmAlert({
+      title: "Delete Product",
+      message: "Are you sure to do this product ?",
+      buttons: [
+        {
+          label: "Delete",
+          onClick: () => delProduct(id),
+        },
+        {
+          label: "Cancel",
+          //   onClick: () => alert("Click No"),
+        },
+      ],
+    });
+  };
 
   //begin pagination
 
@@ -53,7 +79,7 @@ const ViewProduct = () => {
       </div>
 
       {isLoading && <SpinnerImg />}
-      <div className="mt-8 overflow-x-auto">
+      <div className="mt-8 overflow-x-auto bg-cl-sec md:p-2">
         <table className="md:table md:p-2">
           <thead>
             <tr className="text-sm font-normal md:text-lg border-cl-acn border-y-2 text-cl-black">
@@ -69,17 +95,18 @@ const ViewProduct = () => {
           <tbody>
             {!isLoading && products.length === 0 ? (
               <tr className="mt-2 font-normal text-center uppercase md:text-xl text-rose-500 ">
-                No brand found
+                No product found
               </tr>
             ) : (
               <>
                 {currentItems.map((product, index) => {
-                  const { _id, name, category, price, quantity, action } =
-                    product;
+                  const { _id, name, category, price, quantity } = product;
                   return (
-                    <tr key={index} className="text-sm hover:bg-cl-sec">
+                    <tr key={index} className="text-sm hover:bg-cl-white">
                       <td>{index + 1}</td>
-                      <td className="px-2 capitalize">{shortenText(name, 12)}</td>
+                      <td className="px-2 capitalize">
+                        {shortenText(name, 12)}
+                      </td>
                       <td className="px-2 capitalize">{category}</td>
                       <td className="px-2 capitalize">
                         {"$"}
@@ -90,25 +117,25 @@ const ViewProduct = () => {
                         {"$"}
                         {price * quantity}
                       </td>
-                      <td>
-                        <div className="avatar icons">
-                          <Link to={`/product-detail/${_id}`}>
-                            <div className="p-1 px-2 duration-300 text-md hover:text-lg">
-                              <AiOutlineEye color={"purple"} />
-                            </div>
-                          </Link>
-                          <Link to={`/edit-product/${_id}`}>
-                            <div className="p-1 px-2 duration-300 text-md hover:text-lg">
-                              <FaEdit color={"green"} />
-                            </div>
-                          </Link>
-                          <div className="p-1 px-2 duration-300 text-md hover:text-lg">
-                            <FaTrashAlt
-                              color={"red"}
-                              // onClick={() => confirmDelete(_id)}
-                            />
-                          </div>
-                        </div>
+                      <td className="flex items-center justify-between">
+                        <Link to={`/product-detail/${_id}`}>
+                          <AiOutlineEye
+                            color={"purple"}
+                            className="duration-500 cursor-pointer hover:text-lg"
+                          />
+                        </Link>
+                        <Link to={`/edit-product/${_id}`}>
+                          <FaEdit
+                            color={"green"}
+                            className="duration-500 cursor-pointer hover:text-lg"
+                          />
+                        </Link>
+
+                        <FaTrashAlt
+                          color={"red"}
+                          className="duration-500 cursor-pointer hover:text-lg"
+                          onClick={() => confirmDelete(_id)}
+                        />
                       </td>
                     </tr>
                   );

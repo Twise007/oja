@@ -50,7 +50,7 @@ const Uploadwidget = ({ files, setFiles }) => {
           return response.json();
         })
         .then((data) => {
-            // console.log(data);
+          // console.log(data);
           imageUrls.push(data.secure_url);
           setProgress(imageUrls.length);
 
@@ -67,14 +67,14 @@ const Uploadwidget = ({ files, setFiles }) => {
         .catch((error) => {
           setUploading(false);
           toast.error(error.message);
-            // console.log(error);
+          // console.log(error);
         });
     }
   };
 
   return (
     <div className="border border-black rounded-xl ">
-      <label className="m-2 border border-black border-dashed rounded-lg cursor-pointer label">
+      <label className="h-20 m-1 border border-black border-dashed rounded-lg cursor-pointer label">
         <AiOutlineCloudUpload size={35} className=" cursor-none label-text" />
         <br />
         <span className="px-2 text-lg font-medium label-text">
@@ -89,7 +89,6 @@ const Uploadwidget = ({ files, setFiles }) => {
           onChange={addImages}
         />
       </label>
-      <br />
       {selectedImages.length > 0 &&
         (selectedImages.length > 5 ? (
           <p className="p-2 text-lg font-light text-center">
