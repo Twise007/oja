@@ -124,7 +124,7 @@ const ViewProduct = () => {
                             className="duration-500 cursor-pointer hover:text-lg"
                           />
                         </Link>
-                        <Link to={`/edit-product/${_id}`}>
+                        <Link to={`/admin/edit-product/${_id}`}>
                           <FaEdit
                             color={"green"}
                             className="duration-500 cursor-pointer hover:text-lg"

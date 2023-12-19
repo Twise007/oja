@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BsPersonPlus, BsFillLockFill } from "react-icons/bs";
-import { FaRegUser } from "react-icons/fa";
+import { FaCheck, FaRegUser, FaTimes } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import registerPic from "../../assets/register.png";
@@ -56,13 +56,59 @@ const Register = () => {
 
     await dispatch(register(userData));
   };
-  
+
   useEffect(() => {
-    if(isSuccess && isLoggedIn) {
-      navigate("/")
+    if (isSuccess && isLoggedIn) {
+      navigate("/");
     }
-    dispatch(RESET_AUTH())
-  }, [isSuccess, isLoggedIn, dispatch, navigate])
+    dispatch(RESET_AUTH());
+  }, [isSuccess, isLoggedIn, dispatch, navigate]);
+
+  //
+  const [uCase, setUCase] = useState(false);
+  const [uNum, setUNum] = useState(false);
+  const [uCharacter, setUCharacter] = useState(false);
+  const [uPassLength, setUPassLength] = useState(false);
+
+  const timesIcon = <FaTimes color="red" size={15} />;
+  const checkIcon = <FaCheck color="green" size={15} />;
+
+  const switchIcon = (condition) => {
+    if (condition) {
+      return checkIcon;
+    }
+    return timesIcon;
+  };
+
+  useEffect(() => {
+    // check lower and upper case
+    if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
+      setUCase(true);
+    } else {
+      setUCase(false);
+    }
+
+    // Check For Numbers
+    if (password.match(/([0-9])/)) {
+      setUNum(true);
+    } else {
+      setUNum(false);
+    }
+
+    // Check For Special char
+    if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/)) {
+      setUCharacter(true);
+    } else {
+      setUCharacter(false);
+    }
+
+    // Check For Password length
+    if (password.length > 5) {
+      setUPassLength(true);
+    } else {
+      setUPassLength(false);
+    }
+  }, [password]);
 
   return (
     <div>
@@ -151,19 +197,47 @@ const Register = () => {
                       />
                     </div>
 
+                    {/*password strength*/}
+                    <ul className="m-2 menu menu-compact text-cl-black rounded-box bg-cl-sec hover:bg-none">
+                      <li>
+                        <p>
+                          {switchIcon(uCase)}
+                          Lowercase & Uppercase
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          {switchIcon(uNum)}
+                          Number 0-9
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          {switchIcon(uCharacter)}
+                          Special Character (!@#$%*)
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          {switchIcon(uPassLength)}
+                          At least 6 Character
+                        </p>
+                      </li>
+                    </ul>
+
                     <button type="submit" className="w-[90%] btnPrimary">
                       Register
                     </button>
                   </div>
-                  <div className="">
+                  {/* <div className="">
                     <div className="p-2 m-4 text-2xl text-center border rounded-xl w-fit text-cl-black">
                       OR
                     </div>
-                  </div>
-                  <Link
+                  </div> */}
+                  {/* <Link
                     to="/forgot-password"
                     className="hover:border-0 btnLink hover:link"
-                  ></Link>
+                  ></Link> */}
                 </form>
               </div>
               <Link
