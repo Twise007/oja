@@ -27,35 +27,11 @@ const AddProduct = () => {
   const navigate = useNavigate();
   const [product, setProduct] = useState(initialState);
   const [description, setDescription] = useState("");
-  const [filteredBrands, setFilteredBrands] = useState([]);
   const [files, setFiles] = useState([]);
   const { isLoading, message } = useSelector((state) => state.product);
-  const { categories, brands } = useSelector((state) => state.category);
 
   const { name, category, brand, quantity, color, price, regularPrice } =
     product;
-
-  useEffect(() => {
-    dispatch(getCategories());
-    dispatch(getBrands());
-  }, [dispatch]);
-
-  //filter brand based on selected category
-  const filterBrands = (selectedCategory) => {
-    const newBrands = brands.filter(
-      (brand) => brand.category === selectedCategory
-    );
-    setFilteredBrands(newBrands);
-  };
-
-  useEffect(() => {
-    filterBrands(category);
-  }, [category]);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setProduct({ ...product, [name]: value });
-  };
 
   const generateSku = (category) => {
     const letter = category.slice(0, 3).toUpperCase();
@@ -82,34 +58,32 @@ const AddProduct = () => {
       regularPrice: Number(regularPrice),
       price: Number(price),
       description,
-      images: files, //possible make the images to image
+      image: files,
     };
     await dispatch(createProduct(formData));
     // console.log(formData);
   };
 
   useEffect(() => {
-    if (message === "Product created Successful") {
+    if (message === "Product created successfully") {
       navigate("/admin/all-products");
     }
     dispatch(RESET_PROD());
   }, [message, navigate, dispatch]);
-  
+
   return (
     <div>
       {isLoading && <Loader />}
       <h2 className="h2">Add new Product</h2>
       <ProductForm
+        saveProduct={saveProduct}
         product={product}
-        handleInputChange={handleInputChange}
-        categories={categories}
-        filteredBrands={filteredBrands}
+        setProduct={setProduct}
         isEditing={false}
         description={description}
         setDescription={setDescription}
         files={files}
         setFiles={setFiles}
-        saveProduct={saveProduct}
       />
     </div>
   );

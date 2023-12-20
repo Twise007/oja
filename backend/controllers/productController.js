@@ -102,7 +102,7 @@ const updateProduct = asyncHandler(async (req, res) => {
       runValidators: true,
     }
   );
-  res.status(200).json({ message: "Product Updated" });
+  res.status(200).json(updatedProduct);
 });
 
 //review products

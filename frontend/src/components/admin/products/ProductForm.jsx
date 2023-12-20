@@ -1,21 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Uploadwidget from "./Uploadwidget";
 import { BsTrash } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getBrands,
+  getCategories,
+} from "../../../redux/features/categoryAndBrand/categoryAndBrandSlice";
 
 const ProductForm = ({
-  handleInputChange,
-  product,
-  categories,
-  filteredBrands,
+  saveProduct,
   isEditing,
+  product,
+  setProduct,
   description,
   setDescription,
   files,
   setFiles,
-  saveProduct,
 }) => {
+  const dispatch = useDispatch();
+  const [filteredBrands, setFilteredBrands] = useState([]);
+
+  const { categories, brands } = useSelector((state) => state.category);
+
+  useEffect(() => {
+    dispatch(getCategories());
+    dispatch(getBrands());
+  }, [dispatch]);
+
+  //filter brand based on selected category
+  const filterBrands = (selectedCategory) => {
+    const newBrands = brands.filter(
+      (brand) => brand.category === selectedCategory
+    );
+    setFilteredBrands(newBrands);
+  };
+
+  useEffect(() => {
+    filterBrands(product?.category);
+  }, [product?.category]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setProduct({ ...product, [name]: value });
+  };
+
   const removeImage = (image) => {
     setFiles(files.filter((img) => img !== image));
   };
@@ -29,11 +59,14 @@ const ProductForm = ({
             <label className=" label">
               <span className="font-medium label-text">Product Images :</span>
             </label>
-            <aside className="justify-center border rounded-box carousel bg-cl-sec">
+            <aside className="flex flex-row justify-center p-2 overflow-x-scroll border rounded-box bg-cl-sec">
               {files.length > 0 &&
                 files.map((image, index) => (
-                  <div className="gap-2 p-2 m-2 border rounded-xl carousel-item bg-cl-white">
-                    <div key={image} className="flex flex-col justify-between w-40 h-full ">
+                  <div className="m-1 border rounded-xl bg-cl-white">
+                    <div
+                      key={image}
+                      className="flex flex-col justify-between w-40 h-full "
+                    >
                       <img
                         src={image}
                         alt="productImage"

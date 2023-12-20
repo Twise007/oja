@@ -8,10 +8,6 @@ import {
   selectProduct,
   updateProduct,
 } from "../../../redux/features/product/productSlice";
-import {
-  getBrands,
-  getCategories,
-} from "../../../redux/features/categoryAndBrand/categoryAndBrandSlice";
 import { toast } from "react-toastify";
 import Loader from "../../Loader";
 import ProductForm from "./ProductForm";
@@ -25,11 +21,8 @@ const EditProduct = () => {
 
   const [product, setProduct] = useState(productEdit);
   const [description, setDescription] = useState("");
-  const [filteredBrands, setFilteredBrands] = useState([]);
   const [files, setFiles] = useState([]);
 
-  const { categories, brands } = useSelector((state) => state.category);
-  
   useEffect(() => {
     dispatch(getProduct(id));
   }, [dispatch, id]);
@@ -39,34 +32,13 @@ const EditProduct = () => {
     setDescription(
       productEdit && productEdit.description ? productEdit.description : ""
     );
-    if (productEdit && productEdit.image) setFiles(productEdit.image);
+    if (productEdit && productEdit.image) {
+      setFiles(productEdit.image);
+    }
   }, [productEdit]);
-
-  useEffect(() => {
-    dispatch(getCategories());
-    dispatch(getBrands());
-  }, [dispatch]);
-
-  //filter brand based on selected category
-  const filterBrands = (selectedCategory) => {
-    const newBrands = brands.filter(
-      (brand) => brand.category === selectedCategory
-    );
-    setFilteredBrands(newBrands);
-  };
-
-  useEffect(() => {
-    filterBrands(product?.category);
-  }, [product?.category]);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setProduct({ ...product, [name]: value });
-  };
 
   const saveProduct = async (e) => {
     e.preventDefault();
-
     if (files.length < 1) {
       return toast.error("Please add an image");
     }
@@ -87,29 +59,28 @@ const EditProduct = () => {
   };
 
   useEffect(() => {
-    if (message === "Product updated Successful") {
+    if (message === "Product updated successfully") {
       navigate("/admin/all-products");
     }
     dispatch(RESET_PROD());
   }, [message, navigate, dispatch]);
 
-  return;
-  <div>
-    <h2 className="h2">Edit Product</h2>
-    {isLoading && <Loader />}
-    <ProductForm
-      saveProduct={saveProduct}
-      product={product}
-      handleInputChange={handleInputChange}
-      categories={categories}
-      filteredBrands={filteredBrands}
-      isEditing={true}
-      description={description}
-      setDescription={setDescription}
-      files={files}
-      setFiles={setFiles}
-    />
-  </div>;
+  return (
+    <div>
+      <h2 className="h2">Edit Product</h2>
+      {isLoading && <Loader />}
+      <ProductForm
+        saveProduct={saveProduct}
+        isEditing={true}
+        product={product}
+        setProduct={setProduct}
+        description={description}
+        setDescription={setDescription}
+        files={files}
+        setFiles={setFiles}
+      />
+    </div>
+  );
 };
 
 export default EditProduct;

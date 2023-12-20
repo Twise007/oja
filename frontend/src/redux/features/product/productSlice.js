@@ -130,8 +130,8 @@ const productSlice = createSlice({
         if (action.payload && action.payload.hasOwnProperty("message")) {
           toast.error(action.payload.message);
         } else {
-          state.message = "Product created Successful";
-          toast.success("Product created Successful");
+          state.message = "Product created successfully";
+          toast.success("Product created successfully");
         }
       })
       .addCase(createProduct.rejected, (state, action) => {
@@ -149,6 +149,7 @@ const productSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
+        console.log(action.payload);
         state.products = action.payload;
       })
       .addCase(getProducts.rejected, (state, action) => {
@@ -204,8 +205,8 @@ const productSlice = createSlice({
         if (action.payload && action.payload.hasOwnProperty("message")) {
           toast.error(action.payload.message);
         } else {
-          state.message = "Product updated Successful";
-          toast.success("Product updated Successful");
+          state.message = "Product updated successfully";
+          toast.success("Product updated successfully");
         }
       })
       .addCase(updateProduct.rejected, (state, action) => {

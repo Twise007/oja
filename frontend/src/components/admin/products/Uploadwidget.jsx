@@ -139,6 +139,7 @@ const Uploadwidget = ({ files, setFiles }) => {
               </div>
             );
           })}
+          {}
       </div>
     </div>
   );

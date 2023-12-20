@@ -102,7 +102,7 @@ const ViewProduct = () => {
                 {currentItems.map((product, index) => {
                   const { _id, name, category, price, quantity } = product;
                   return (
-                    <tr key={index} className="text-sm hover:bg-cl-white">
+                    <tr key={index} className="text-sm hover:bg-cl-white ">
                       <td>{index + 1}</td>
                       <td className="px-2 capitalize">
                         {shortenText(name, 12)}
@@ -117,23 +117,23 @@ const ViewProduct = () => {
                         {"$"}
                         {price * quantity}
                       </td>
-                      <td className="flex items-center justify-between">
+                      <td className="flex items-center justify-between gap-2 text-lg py-2">
                         <Link to={`/product-detail/${_id}`}>
                           <AiOutlineEye
                             color={"purple"}
-                            className="duration-500 cursor-pointer hover:text-lg"
+                            className="duration-500 cursor-pointer"
                           />
                         </Link>
                         <Link to={`/admin/edit-product/${_id}`}>
                           <FaEdit
                             color={"green"}
-                            className="duration-500 cursor-pointer hover:text-lg"
+                            className="duration-500 cursor-pointer"
                           />
                         </Link>
 
                         <FaTrashAlt
                           color={"red"}
-                          className="duration-500 cursor-pointer hover:text-lg"
+                          className="duration-500 cursor-pointer"
                           onClick={() => confirmDelete(_id)}
                         />
                       </td>
