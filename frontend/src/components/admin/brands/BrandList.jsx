@@ -67,7 +67,7 @@ const BrandList = () => {
             </thead>
             <tbody>
               {brands.length === 0 ? (
-                <tr className="mt-2 font-normal text-center uppercase md:text-xl text-rose-500 ">
+                <tr className="mt-2 font-normal text-center uppercase md:text-xltext-rose-500 ">
                   No brand found
                 </tr>
               ) : (

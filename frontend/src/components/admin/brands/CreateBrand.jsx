@@ -7,12 +7,9 @@ import {
   getBrands,
   getCategories,
 } from "../../../redux/features/categoryAndBrand/categoryAndBrandSlice";
-// import { BsArrowDownCircle } from "react-icons/bs";
 
 const CreateBrand = () => {
   const [name, setName] = useState("");
-  // const [open, setOpen] = useState(false);
-  // const [selected, setSelected] = useState("Select category");
   const [category, setCategory] = useState("");
   const { isLoading, categories } = useSelector((state) => state.category);
   const dispatch = useDispatch();

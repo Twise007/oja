@@ -12,6 +12,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser, loginStatus } from "./redux/features/auth/authSlice";
 import Profile from "./pages/Profile";
 import Admin from "./pages/Admin";
+import { AdminOnlyRoute } from "./components/hiddenLink";
+import Notfound from "./pages/Notfound";
+import Shop from "./pages/Shop";
 
 const App = () => {
   axios.defaults.withCredentials = true;
@@ -37,10 +40,19 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/admin/*" element={<Admin />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-        </Routes>
+          <Route path="/shop" element={<Shop />} />
 
+          <Route
+            path="/admin/*"
+            element={
+              <AdminOnlyRoute>
+                <Admin />
+              </AdminOnlyRoute>
+            }
+          />
+          <Route path="*" element={<Notfound />} />
+        </Routes>
       </BrowserRouter>
     </>
   );

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import Logo from "../assets/logo.png";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { logout, RESET_AUTH } from "../redux/features/auth/authSlice";
-import ShowOnLogin, { ShowOnLogout } from "./hiddenLink";
+import ShowOnLogin, { AdminOnlyLink, ShowOnLogout } from "./hiddenLink";
 import { Username, Userphoto } from "../pages/Profile";
 
 //   to be able to use the logo at any part of the app
@@ -113,11 +113,13 @@ const Header = () => {
         <NavLink to="/shop" className={activeLink}>
           Shop
         </NavLink>
-        <ShowOnLogin>
-          <NavLink to="/admin" className={activeLink}>
-            <p className="pl-2 ml-0 text-orange-700 border-l">Admin</p>
-          </NavLink>
-        </ShowOnLogin>
+        <AdminOnlyLink>
+          <ShowOnLogin>
+            <NavLink to="/admin" className={activeLink}>
+              <p className="pl-2 ml-0 text-orange-700 border-l">Admin</p>
+            </NavLink>
+          </ShowOnLogin>
+        </AdminOnlyLink>
       </div>
 
       <div className="hidden gap-2 navbar-end md:flex">
