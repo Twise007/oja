@@ -3,10 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../Loader";
 import ProductForm from "./ProductForm";
 import {
-  getBrands,
-  getCategories,
-} from "../../../redux/features/categoryAndBrand/categoryAndBrandSlice";
-import {
   RESET_PROD,
   createProduct,
 } from "../../../redux/features/product/productSlice";

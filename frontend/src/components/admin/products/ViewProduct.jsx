@@ -117,23 +117,16 @@ const ViewProduct = () => {
                         {"$"}
                         {price * quantity}
                       </td>
-                      <td className="flex items-center justify-between gap-2 text-lg py-2">
+                      <td className="flex items-center justify-between gap-2 py-2 text-lg hover:text-cl-black">
                         <Link to={`/product-detail/${_id}`}>
-                          <AiOutlineEye
-                            color={"purple"}
-                            className="duration-500 cursor-pointer"
-                          />
+                          <AiOutlineEye className="text-purple-600 duration-500 cursor-pointer hover:text-cl-black" />
                         </Link>
                         <Link to={`/admin/edit-product/${_id}`}>
-                          <FaEdit
-                            color={"green"}
-                            className="duration-500 cursor-pointer"
-                          />
+                          <FaEdit className="text-green-600 duration-500 cursor-pointer hover:text-cl-black" />
                         </Link>
 
                         <FaTrashAlt
-                          color={"red"}
-                          className="duration-500 cursor-pointer"
+                          className="text-red-600 duration-500 cursor-pointer hover:text-cl-black"
                           onClick={() => confirmDelete(_id)}
                         />
                       </td>
