@@ -12,7 +12,7 @@ const createCategory = async (formData) => {
   return response.data;
 };
 
-//get Category
+//get Categories
 const getCategories = async () => {
   const response = await axios.get(API_URL + "category/getCategories");
   return response.data;

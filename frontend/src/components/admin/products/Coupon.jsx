@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Loader from "../../Loader";
+import React from "react";
+import CreateCoupon from "./CreateCoupon";
+import CouponList from "./CouponList";
 
 const Coupon = () => {
-  const { isLoading } = useSelector((state) => state.product);
 
-
-    return (
+  return (
     <div>
-      {isLoading && <Loader />}
-      <h2 className="h2">Coupons</h2>
+      <CreateCoupon />
+      <CouponList />
     </div>
   );
-}
+};
 
-export default Coupon
+export default Coupon;
