@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../redux/features/product/productSlice";
 import ProductFilter from "../components/shop/ProductFilter";
 import ProductList from "../components/shop/ProductList";
+import { SpinnerImg } from "../components/Loader";
 
 const Shop = () => {
   const [showFilter, setShowFilter] = useState(false);
@@ -18,16 +19,20 @@ const Shop = () => {
   };
 
   return (
-    <section>
-      <div className="container">
-        <aside>
+    <div>
+      <div className="flex ">
+        {/* <div>{isLoading ? null : <ProductFilter />}</div> */}
+        <div>
           <ProductFilter />
-        </aside>
-        <aside>
-          <ProductList />
-        </aside>
+        </div>
+        <div className="container relative flex-1 h-screen ml-2 overflow-y-scroll">
+          {/* <div>{isLoading ? <SpinnerImg /> : <ProductList />}</div> */}
+          <div>
+            <ProductList />
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
 
