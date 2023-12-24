@@ -12,7 +12,7 @@
     @apply px-2 pb-1 font-normal duration-100 ease-out cursor-pointer text-cl-black hover:border-cl-black hover:border-b-2 hover:text-cl-acn;
   }
   .h2 {
-    @apply mb-2 text-xl font-semibold capitalize md:font-bold md:text-3xl;
+    @apply text-xl font-semibold capitalize md:font-bold md:text-3xl;
   }
   .h3 {
     @apply text-2xl capitalize;
@@ -64,6 +64,15 @@ section {
 
 .swiper-pagination {
   margin: 20px;
+}
+
+.columnBox {
+  display: grid;
+  gap: 40px;
+  justify-content: space-between;
+  align-items: center;
+  place-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
 }
 
 .swiper-pagination .swiper-pagination-bullet {
