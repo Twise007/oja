@@ -116,6 +116,20 @@ const productSlice = createSlice({
       state.isLoading = false;
       state.message = "";
     },
+    GET_PRICE_RANGE(state, action) {
+      const { products } = action.payload;
+      const array = [];
+      products.map((product) => {
+        const price = product.price;
+        return array.push(price);
+      });
+
+      const min = Math.min(...array);
+      const max = Math.max(...array);
+
+      state.minPrice = min;
+      state.maxPrice = max;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -149,7 +163,6 @@ const productSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        console.log(action.payload);
         state.products = action.payload;
       })
       .addCase(getProducts.rejected, (state, action) => {
@@ -201,7 +214,6 @@ const productSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        console.log(action.payload);
         if (action.payload && action.payload.hasOwnProperty("message")) {
           toast.error(action.payload.message);
         } else {
@@ -218,7 +230,7 @@ const productSlice = createSlice({
   },
 });
 
-export const { RESET_PROD } = productSlice.actions;
+export const { RESET_PROD, GET_PRICE_RANGE } = productSlice.actions;
 export const selectProduct = (state) => state.product.product;
 export const selectIsLoading = (state) => state.product.isLoading;
 

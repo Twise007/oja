@@ -45,8 +45,7 @@ const ProductList = ({ products }) => {
         {products.length === 0 ? (
           <p>No Product Found</p>
         ) : (
-          <div className={grid
-                ? `md:ml-2 columnBox` : ``}>
+          <div className={grid ? `md:ml-2 columnBox` : ``}>
             {filteredProducts.map((product) => {
               return (
                 <div key={product._id}>

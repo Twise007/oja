@@ -194,13 +194,10 @@ const Profile = () => {
               <form onSubmit={saveProfile} className="md:mx-6">
                 <div className="mt-4">
                   <div className="form-control">
-                    <label className=" label">
-                      {/* <span className="font-medium label-text">Image :</span>
-                       */}
-                      <div></div>
-                    </label>
                     <input
-                      className="p-2 bg-transparent border rounded-lg outline-none border-cl-black"
+                      class="block w-full  text-slate-500 border rounded-lg outline-none border-cl-black
+                      file:mr-4 file:py-2 file:px-4 p-1 file:border-0 file:text-sm file:font-semibold
+                      file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 cursor-pointer"
                       type="file"
                       accept="image/*"
                       onChange={handleImageChange}

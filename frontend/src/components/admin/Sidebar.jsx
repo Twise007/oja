@@ -57,7 +57,7 @@ const Sidebar = ({ children }) => {
                 <li
                   key={index}
                   className={`
-                  flex items-center p-2 m-3 text-sm capitalize border-b-2 rounded-none cursor-pointer border-cl-acn group gap-x-4 hover:bg-cl-acn hover:text-white`}
+                  flex items-center p-2 m-3 text-sm capitalize border-b-2 rounded-none cursor-pointer border-cl-acn group gap-x-4 hover:bg-cl-acn hover:text-white `}
                 >
                   <span className="block float-left text-2xl">
                     <div>{React.createElement(menu?.icon, { size: "20" })}</div>
@@ -88,7 +88,9 @@ const Sidebar = ({ children }) => {
         </div>
       </div>
 
-      <div className="relative flex-1 h-screen ml-2 overflow-y-scroll md:pb-24 ">{children}</div>
+      <div className="relative flex-1 h-screen ml-2 overflow-y-scroll md:pb-24 ">
+        {children}
+      </div>
     </div>
   );
 };

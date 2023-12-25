@@ -4,7 +4,6 @@ import { getProducts } from "../redux/features/product/productSlice";
 import ProductFilter from "../components/shop/ProductFilter";
 import ProductList from "../components/shop/ProductList";
 import { SpinnerImg } from "../components/Loader";
-import { BiCategory } from "react-icons/bi";
 import { BsGear } from "react-icons/bs";
 
 const Shop = () => {
@@ -16,9 +15,6 @@ const Shop = () => {
     dispatch(getProducts());
   }, [dispatch]);
 
-  const toggleFilter = () => {
-    showFilter(!showFilter);
-  };
 
   return (
     <div>
