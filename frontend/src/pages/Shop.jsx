@@ -26,7 +26,7 @@ const Shop = () => {
         <div
           className={`${showFilter ? "hidden" : "h-fit duration-700"}  md:flex`}
         >
-          <div>{isLoading ? null : <ProductFilter />}</div>
+          <div>{isLoading ? null : <ProductFilter products={products} />}</div>
         </div>
 
         <div
