@@ -15,10 +15,9 @@ const Shop = () => {
     dispatch(getProducts());
   }, [dispatch]);
 
-
   return (
     <div>
-      <div className="flex ">
+      <div className="flex">
         <div
           className={`${showFilter ? "hidden" : "h-fit duration-700"}  md:flex`}
         >
@@ -26,7 +25,7 @@ const Shop = () => {
         </div>
 
         <div
-          className={`relative flex-1 h-screen ml-1 overflow-y-scroll bg-white md:container md:ml-2 `}
+          className={`relative flex-1 h-screen ml-1 overflow-y-scroll bg-cl-white md:container md:ml-2 `}
         >
           <div>
             {isLoading ? <SpinnerImg /> : <ProductList products={products} />}

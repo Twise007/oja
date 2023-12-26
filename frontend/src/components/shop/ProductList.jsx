@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BiCategory, BiListUl } from "react-icons/bi";
 import { Search } from "../../utils";
 
-import ProductItem from "./productItem/ProductItem";
+import ProductItem from "./ProductItem";
 import { useDispatch, useSelector } from "react-redux";
 import {
   FILTER_BY_SEARCH,

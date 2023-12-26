@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Ratings from "../../Ratings";
-import { calculateAverageRating, shortenText } from "../../../utils";
+import Ratings from "../Ratings";
+import { calculateAverageRating, shortenText } from "../../utils";
 import { toast } from "react-toastify";
 import DOMPurify from "dompurify";
 
@@ -13,7 +13,7 @@ const ProductItem = ({
   price,
   image,
   regularPrice,
-  description,
+
 }) => {
   const averageRating = calculateAverageRating(product?.ratings);
   return (
@@ -24,7 +24,7 @@ const ProductItem = ({
           : `card md:card-side duration-500 w-full bg-cl-white border m-2 rounded-md`
       }
     >
-      <Link to={`product-details/${_id}`}>
+      <Link to={`/product-details/${_id}`}>
         <figure>
           <img
             src={image[0]}
@@ -48,7 +48,9 @@ const ProductItem = ({
           averageRating={averageRating}
           noOfRating={product?.ratings?.length}
         />
-        <h2 className="font-semibold text-md md:card-title">{shortenText(name, 20)}</h2>
+        <h2 className="font-semibold text-md md:card-title">
+          {shortenText(name, 20)}
+        </h2>
 
         {!grid && (
           <div

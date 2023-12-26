@@ -19,7 +19,7 @@ const sortProduct = [
   { id: "rad05", name: "Z - A", value: "z-a" },
 ];
 
-const ProductFilter = ({}) => {
+const ProductFilter = () => {
   const [open, setOpen] = useState(true);
   const [openCat, setOpenCat] = useState(true);
   const [category, setCategory] = useState("All");
