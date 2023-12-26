@@ -16,6 +16,7 @@ import { AdminOnlyRoute } from "./components/hiddenLink";
 import Notfound from "./pages/Notfound";
 import Shop from "./pages/Shop";
 import ProductDetails from "./components/shop/ProductDetails";
+import Cart from "./pages/Cart";
 
 const App = () => {
   axios.defaults.withCredentials = true;
@@ -43,6 +44,8 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/cart" element={<Cart />} />
+
           <Route path="/product-details/:id" element={<ProductDetails />} />
 
           <Route

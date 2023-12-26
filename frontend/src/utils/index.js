@@ -48,3 +48,12 @@ export function calculateAverageRating(ratings) {
   }
   return totalStars / ratings.length;
 }
+
+export const getCartQuantityById = (products, id) => {
+  for (let i = 0; i < products.length; i++) {
+    if (products[i]._id === id) {
+      return products[i].cartQuantity;
+    }
+  }
+  return 0; //if the _id is not found, return 0 or any default value
+};

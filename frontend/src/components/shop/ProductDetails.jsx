@@ -7,12 +7,24 @@ import { SpinnerImg } from "../Loader";
 import DOMPurify from "dompurify";
 import Ratings from "../Ratings";
 import { calculateAverageRating } from "../../utils";
+import {
+  ADD_TO_CART,
+  DECREASE_CART,
+  selectCartItems,
+} from "../../redux/features/cartSlice";
+import { FaMinus, FaPlus } from "react-icons/fa";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [imageIndex, setImageIndex] = useState(0);
   const dispatch = useDispatch();
   const { product, isLoading, brand } = useSelector((state) => state.product);
+  const cartItems = useSelector(selectCartItems);
+
+  const cart = cartItems.find((cart) => cart._id === id);
+  const isCartAdded = cartItems.findIndex((cart) => {
+    return cart._id === id;
+  });
 
   useEffect(() => {
     dispatch(getProduct(id));
@@ -34,6 +46,14 @@ const ProductDetails = () => {
     return () => clearInterval(slideInterval);
   }, [imageIndex, slideInterval, product]);
   const averageRating = calculateAverageRating(product?.ratings);
+
+  const addToCart = (product) => {
+    dispatch(ADD_TO_CART(product));
+  };
+
+  const decreaseCart = (product) => {
+    dispatch(DECREASE_CART(product));
+  };
 
   return (
     <section>
@@ -91,7 +111,10 @@ const ProductDetails = () => {
                 <p>
                   {product?.quantity > 0 ? (
                     <p className="text-green-700">
-                      In stock<span className="text-xl font-extrabold">({product?.quantity})</span>
+                      In stock
+                      <span className="text-xl font-extrabold">
+                        ({product?.quantity})
+                      </span>
                     </p>
                   ) : (
                     <p className="text-red-700">Out of Stock</p>
@@ -102,14 +125,50 @@ const ProductDetails = () => {
                 {"$"}
                 {product?.price}
               </h5>
+              <p>{product?.color}</p>
               <h3 className="font-semibold h3">Description</h3>
               <div
                 className="flex flex-col p-1"
                 dangerouslySetInnerHTML={{
                   __html: DOMPurify.sanitize(product?.description),
                 }}
-              ></div>
-              <button className="w-full my-2 btnPrimary">Add to cart</button>
+              />
+              <div className="flex flex-row items-center justify-between w-full md:flex-col">
+                {isCartAdded < 0 ? null : (
+                  <div className="flex items-center">
+                    <div
+                      className="p-1 text-green-500 duration-300 rounded-lg cursor-pointer bg-cl-sec hover:bg-green-500 hover:text-cl-white"
+                      onClick={() => decreaseCart(product)}
+                    >
+                      <FaMinus />
+                    </div>
+                    <b  className="mx-1"> {cart.cartQuantity} </b>
+                    <div
+                      className="p-1 text-red-500 duration-300 rounded-lg cursor-pointer bg-cl-sec hover:bg-red-500 hover:text-cl-white"
+                      onClick={() => addToCart(product)}
+                    >
+                      <FaPlus />
+                    </div>
+                  </div>
+                )}
+                <div className="md:w-full">
+                  {product?.quantity > 0 ? (
+                    <button
+                      className="my-2 btnPrimary md:w-full"
+                      onClick={() => addToCart(product)}
+                    >
+                      Add to cart{" "}
+                    </button>
+                  ) : (
+                    <button className="my-2 text-red-700 border-red-700 btnPrimary hover:bg-red-700 md:w-full">
+                      out of stock
+                    </button>
+                  )}
+                </div>
+                <button className="my-2 text-pink-400 border-pink-400 btnPrimary hover:bg-pink-400 md:w-full">
+                  Add to wishlist
+                </button>
+              </div>
             </div>
           </div>
         )}
