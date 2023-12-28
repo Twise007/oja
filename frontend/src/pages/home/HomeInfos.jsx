@@ -31,11 +31,11 @@ const data = [
 
 const HomeInfos = () => {
   return (
-    <div className="--grid-4 place-items-center">
+    <div className="columnBox">
       {data.map((item, index) => {
         return (
           <div
-            className="p-2 border rounded-lg w-60 h border-cl-acn bg-cl-sec"
+            className="p-2 border rounded-lg border-cl-acn bg-cl-sec"
             key={index}
           >
             <div className="">{item.icon}</div>

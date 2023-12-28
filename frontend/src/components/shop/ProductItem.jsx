@@ -13,14 +13,13 @@ const ProductItem = ({
   price,
   image,
   regularPrice,
-
 }) => {
-  const averageRating = calculateAverageRating(product?.ratings);
+  // const averageRating = calculateAverageRating(product?.ratings);
   return (
     <div
       className={
         grid
-          ? `card duration-500 w-64 bg-cl-white border m-2 rounded-md`
+          ? `card duration-500 md:w-64 bg-cl-white border m-2 rounded-md w-44`
           : `card md:card-side duration-500 w-full bg-cl-white border m-2 rounded-md`
       }
     >
@@ -37,7 +36,7 @@ const ProductItem = ({
           />
         </figure>
       </Link>
-      <div className="p-1 border md:p-2 card-body">
+      <div className="p-1 text-center border md:p-2 card-body md:text-start">
         <p className="text-md md:text-xl">
           <span className="pr-2 label-text">
             {regularPrice > 0 && regularPrice}
@@ -45,10 +44,10 @@ const ProductItem = ({
           {`$${price}`}
         </p>
         <Ratings
-          averageRating={averageRating}
+          // averageRating={averageRating}
           noOfRating={product?.ratings?.length}
         />
-        <h2 className="font-semibold text-md md:card-title">
+        <h2 className="font-semibold text-md md:card-title ">
           {shortenText(name, 20)}
         </h2>
 
@@ -63,7 +62,7 @@ const ProductItem = ({
           ></div>
         )}
 
-        <div className="justify-end card-actions ">
+        <div className="justify-center md:justify-end card-actions">
           {product?.quantity > 0 ? (
             <button className="p-1 font-semibold text-blue-800 capitalize transition ease-in-out border border-blue-800 rounded-lg cursor-pointer md:p-2 hover:text-cl-white hover:bg-blue-800 md:border-2">
               Add to Cart

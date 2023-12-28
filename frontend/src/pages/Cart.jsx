@@ -1,57 +1,82 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
   ADD_TO_CART,
+  CAL_TOTAL_AMOUNT,
   CAL_TOTAL_QUANTITY,
   CLEAR_CART,
   DECREASE_CART,
   REMOVE_FROM_CART,
+  saveCartDB,
   selectCartItems,
+  selectCartTotalAmount,
   selectCartTotalQuantity,
 } from "../redux/features/cartSlice";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import { BsArrowLeft } from "react-icons/bs";
 
 const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
   const cartTotalQuantity = useSelector(selectCartTotalQuantity);
+  const cartTotalAmount = useSelector(selectCartTotalAmount);
 
   const addToCart = (product) => {
     dispatch(ADD_TO_CART(product));
+    dispatch(
+      saveCartDB({ cartItems: JSON.parse(localStorage.getItem("cartItems")) })
+    );
   };
 
   const decreaseCart = (product) => {
     dispatch(DECREASE_CART(product));
+    dispatch(
+      saveCartDB({ cartItems: JSON.parse(localStorage.getItem("cartItems")) })
+    );
   };
 
   const removeFromCart = (product) => {
     dispatch(REMOVE_FROM_CART(product));
+    dispatch(
+      saveCartDB({ cartItems: JSON.parse(localStorage.getItem("cartItems")) })
+    );
   };
 
   const clearCart = (product) => {
     dispatch(CLEAR_CART(product));
+    dispatch(saveCartDB({ cartItems: [] }));
   };
 
   useEffect(() => {
     dispatch(CAL_TOTAL_QUANTITY());
   }, [dispatch, cartItems]);
 
+  useEffect(() => {
+    dispatch(CAL_TOTAL_AMOUNT());
+  }, [dispatch, cartItems]);
+
   return (
     <section>
       <div className="container">
+        <h2 className="h2">Shopping Cart</h2>
+        <Link
+          to="/shop"
+          className="flex items-center gap-2 px-2 duration-300 cursor-pointer hover:bg-cl-sec w-fit hover:font-bold"
+        >
+          <BsArrowLeft />
+          <p>Go back to Shopping</p>
+        </Link>
         <div className="flex flex-col justify-center w-full text-center ">
-          <form className=" min-h-[80vh]">
-            <h2 className="h2">Shopping Cart</h2>
-
+          <div className=" min-h-[96vh]">
             {cartItems?.length === 0 ? (
               <div className="h-[50vh] my-10 capitalize text-5xl font-normal text-center hero text-rose-500">
                 There are no items in your cart
               </div>
             ) : (
               <>
-                {cartItems?.map((cart, index) => {
+                {cartItems?.map((cart) => {
                   const { _id, name, price, image, cartQuantity } = cart;
                   return (
                     <div
@@ -115,8 +140,15 @@ const Cart = () => {
                   );
                 })}
 
-                <h1 className="m-2 text-lg text-center md:text-end md:mr-8">
+                <h1 className="m-2 text-lg text-end md:mr-8">
                   Cart item(s): <span className="h3">{cartTotalQuantity}</span>
+                </h1>
+
+                <h1 className="m-2 text-lg text-end md:mr-8">
+                  Sub-Total: $
+                  <span className="font-bold text-cl-acn h3">
+                    {cartTotalAmount.toFixed(2)}
+                  </span>
                 </h1>
 
                 <button
@@ -128,10 +160,7 @@ const Cart = () => {
                 </button>
               </>
             )}
-          </form>
-          <Link to="/" className="btnPrimary">
-            Go back To The Home Screen
-          </Link>
+          </div>
         </div>
       </div>
     </section>

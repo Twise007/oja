@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  CAL_TOTAL_AMOUNT,
   CAL_TOTAL_QUANTITY,
   selectCartItems,
+  selectCartTotalAmount,
   selectCartTotalQuantity,
 } from "../../redux/features/cartSlice";
 import { Link } from "react-router-dom";
@@ -11,8 +13,13 @@ const CartIcon = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
   const cartTotalQuantity = useSelector(selectCartTotalQuantity);
+  const cartTotalAmount = useSelector(selectCartTotalAmount);
+
   useEffect(() => {
     dispatch(CAL_TOTAL_QUANTITY());
+  }, [dispatch, cartItems]);
+  useEffect(() => {
+    dispatch(CAL_TOTAL_AMOUNT());
   }, [dispatch, cartItems]);
   return (
     <div>
@@ -47,12 +54,13 @@ const CartIcon = () => {
             tabIndex={0}
             className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
           >
-            <div className="rounded-lg card-body bg-cl-acn2">
+            <div className="rounded-lg card-body bg-cl-sec">
               <span className="text-lg font-bold text-cl-black">
                 {cartTotalQuantity} Items
               </span>
-              <div className="text-lg font-bold text-cl-white">
-                Subtotal: <span className="text-2xl text-cl-acn">$ 999</span>
+              <div className="text-lg font-bold ">
+                subtotal:$
+                <span className="h3 text-cl-acn"> {cartTotalAmount}</span>
               </div>
               <Link to="/cart" className="card-actions">
                 <button className="w-full p-2 m-1 rounded-lg bg-cl-white text-cl-black hover:bg-cl-acn hover:text-cl-white">

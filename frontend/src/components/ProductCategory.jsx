@@ -25,9 +25,12 @@ const Category = ({ title, image }) => {
     <div className="w-auto h-64 bg-white shadow-2xl rounded-tl-2xl rounded-br-2xl">
       <img src={image} alt="product" className="w-full h-44 rounded-tl-2xl " />
       <div className="flex items-center justify-between p-2 pt-4 ">
-        <div className="text-xl fond-bold">{title}</div>
-        <button className="px-2 btnPrimary" onClick={() => navigate("/shop")}>
-          {"Shop Now >>"}
+        <h3 className=" h3 fond-bold">{title}</h3>
+        <button
+          className="p-1 m-1 btnPrimary"
+          onClick={() => navigate("/shop")}
+        >
+          {"Shop Now"}
         </button>
       </div>
     </div>
@@ -35,7 +38,7 @@ const Category = ({ title, image }) => {
 };
 const ProductCategory = () => {
   return (
-    <div className=" --grid-15">
+    <div className="columnBox">
       {categories.map((cat) => {
         return (
           <div key={cat.id}>

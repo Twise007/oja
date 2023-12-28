@@ -10,15 +10,17 @@ import { calculateAverageRating } from "../../utils";
 import {
   ADD_TO_CART,
   DECREASE_CART,
+  saveCartDB,
   selectCartItems,
 } from "../../redux/features/cartSlice";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [imageIndex, setImageIndex] = useState(0);
   const dispatch = useDispatch();
-  const { product, isLoading, brand } = useSelector((state) => state.product);
+  const { product, isLoading } = useSelector((state) => state.product);
   const cartItems = useSelector(selectCartItems);
 
   const cart = cartItems.find((cart) => cart._id === id);
@@ -49,10 +51,16 @@ const ProductDetails = () => {
 
   const addToCart = (product) => {
     dispatch(ADD_TO_CART(product));
+    dispatch(
+      saveCartDB({ cartItems: JSON.parse(localStorage.getItem("cartItems")) })
+    );
   };
 
   const decreaseCart = (product) => {
     dispatch(DECREASE_CART(product));
+    dispatch(
+      saveCartDB({ cartItems: JSON.parse(localStorage.getItem("cartItems")) })
+    );
   };
 
   return (
@@ -125,7 +133,7 @@ const ProductDetails = () => {
                 {"$"}
                 {product?.price}
               </h5>
-              <p>{product?.color}</p>
+              <p className="capitalize">{product?.color}</p>
               <h3 className="font-semibold h3">Description</h3>
               <div
                 className="flex flex-col p-1"
@@ -142,7 +150,7 @@ const ProductDetails = () => {
                     >
                       <FaMinus />
                     </div>
-                    <b  className="mx-1"> {cart.cartQuantity} </b>
+                    <b className="mx-1"> {cart.cartQuantity} </b>
                     <div
                       className="p-1 text-red-500 duration-300 rounded-lg cursor-pointer bg-cl-sec hover:bg-red-500 hover:text-cl-white"
                       onClick={() => addToCart(product)}
@@ -160,7 +168,12 @@ const ProductDetails = () => {
                       Add to cart{" "}
                     </button>
                   ) : (
-                    <button className="my-2 text-red-700 border-red-700 btnPrimary hover:bg-red-700 md:w-full">
+                    <button
+                      onClick={() =>
+                        toast.error("Sorry, Product is out of stock")
+                      }
+                      className="my-2 text-red-700 border-red-700 btnPrimary hover:bg-red-700 md:w-full"
+                    >
                       out of stock
                     </button>
                   )}

@@ -6,12 +6,15 @@ import { productData } from "../../constants/carousel";
 import ProductCarousel from "../../components/ProductCarousel";
 import CarouselItem from "../../components/CarouselItem";
 import ProductCategory from "../../components/ProductCategory";
+import { Link } from "react-router-dom";
 
 const PageHeading = ({ heading, btnText }) => {
   return (
     <div className="flex items-center justify-between w-full pb-2 mt-4 border-b border-cl-black">
       <h2 className="text-2xl font-thin">{heading}</h2>
-      <button className="py-2 btnPrimary">{btnText}</button>
+      <Link to="/shop">
+        <button className="py-2 btnPrimary">{btnText}</button>
+      </Link>
     </div>
   );
 };

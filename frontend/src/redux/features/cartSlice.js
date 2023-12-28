@@ -1,11 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { getCartQuantityById } from "../../utils";
+import cartService from "./cartService";
+
+const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
 
 const initialState = {
   cartItems: localStorage.getItem("cartItems")
     ? JSON.parse(localStorage.getItem("cartItems"))
     : [],
+  // cartItems: [],
   cartTotalQuantity: 0,
   cartTotalAmount: 0,
   fixedCartTotalAmount: 0,
@@ -14,6 +18,42 @@ const initialState = {
   isLoading: false,
   message: "",
 };
+
+// save cart to DB
+export const saveCartDB = createAsyncThunk(
+  "cart/saveCartDB",
+  async (cartData, thunkApi) => {
+    try {
+      return await cartService.saveCartDB(cartData);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
+
+// get cart to DB
+export const getCartDB = createAsyncThunk(
+  "cart/getCartDB",
+  async (_, thunkApi) => {
+    try {
+      return await cartService.getCartDB(_);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
 
 const cart = createSlice({
   name: "cart",
@@ -92,6 +132,7 @@ const cart = createSlice({
       //save to local storage
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
+
     CLEAR_CART(state, action) {
       state.cartItems = [];
       toast.success(`Cart Cleared`, {
@@ -100,12 +141,12 @@ const cart = createSlice({
       //save to local storage
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
+
     CAL_TOTAL_QUANTITY(state, action) {
       const array = [];
       state.cartItems?.map((item) => {
         const { cartQuantity } = item;
         const quantity = cartQuantity;
-
         return array.push(quantity);
       });
       const totalQuantity = array.reduce((a, b) => {
@@ -113,6 +154,59 @@ const cart = createSlice({
       }, 0);
       state.cartTotalQuantity = totalQuantity;
     },
+
+    CAL_TOTAL_AMOUNT(state, action) {
+      const array = [];
+      state.cartItems?.map((item) => {
+        const { price, cartQuantity } = item;
+        const cartItemAmount = price * cartQuantity;
+        return array.push(cartItemAmount);
+      });
+      const totalAmount = array.reduce((a, b) => {
+        return a + b;
+      }, 0);
+      state.cartTotalAmount = totalAmount;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      // save cart to DB
+      .addCase(saveCartDB.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(saveCartDB.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        // console.log(action.payload);
+      })
+      .addCase(saveCartDB.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+
+      // get cart to DB
+      .addCase(getCartDB.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getCartDB.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        localStorage.setItem("cartItems", JSON.stringify(action.payload));
+        if (action.payload.length > 0) {
+          window.location.href = FRONTEND_URL + "/cart";
+        } else {
+          window.location.href = FRONTEND_URL;
+        }
+        console.log(action.payload);
+      })
+      .addCase(getCartDB.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      });
   },
 });
 
@@ -122,6 +216,7 @@ export const {
   REMOVE_FROM_CART,
   CLEAR_CART,
   CAL_TOTAL_QUANTITY,
+  CAL_TOTAL_AMOUNT,
 } = cart.actions;
 export const selectCartItems = (state) => state.cart.cartItems;
 export const selectCartTotalQuantity = (state) => state.cart.cartTotalQuantity;
