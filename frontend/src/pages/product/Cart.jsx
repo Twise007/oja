@@ -12,10 +12,11 @@ import {
   selectCartItems,
   selectCartTotalAmount,
   selectCartTotalQuantity,
-} from "../redux/features/cartSlice";
+} from "../../redux/features/cartSlice";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { BsArrowLeft } from "react-icons/bs";
-import Coupon from "../components/shop/Coupon";
+import Coupon from "../../components/shop/Coupon";
+import PaymentOptions from "../../components/shop/PaymentOptions";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const Cart = () => {
   const cartItems = useSelector(selectCartItems);
   const cartTotalQuantity = useSelector(selectCartTotalQuantity);
   const cartTotalAmount = useSelector(selectCartTotalAmount);
+  const { coupon } = useSelector((state) => state.coupon);
 
   const addToCart = (product) => {
     dispatch(ADD_TO_CART(product));
@@ -55,8 +57,8 @@ const Cart = () => {
   }, [dispatch, cartItems]);
 
   useEffect(() => {
-    dispatch(CAL_TOTAL_AMOUNT());
-  }, [dispatch, cartItems]);
+    dispatch(CAL_TOTAL_AMOUNT({ coupon }));
+  }, [dispatch, cartItems, coupon]);
 
   return (
     <section>
@@ -81,7 +83,7 @@ const Cart = () => {
                   const { _id, name, price, image, cartQuantity } = cart;
                   return (
                     <div
-                      className="px-1 py-1 m-2 duration-500 ease-in-out rounded-lg bg-cl-sec md:px-4 hover:shadow-lg hover:my-3 hover:py-2"
+                      className="px-1 py-1 m-2 duration-300 rounded-lg bg-cl-sec md:px-4 hover:shadow-lg hover:my-3 hover:py-2"
                       key={_id}
                     >
                       <h5 className="pl-2 font-semibold text-center uppercase md:text-xl md:text-start">
@@ -162,6 +164,7 @@ const Cart = () => {
                       </span>
                     </h1>
                     <Coupon />
+                    <PaymentOptions />
                   </div>
                 </div>
               </>

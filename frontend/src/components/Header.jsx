@@ -128,17 +128,15 @@ const Header = () => {
           </div>
         </ShowOnLogin>
 
-        <ShowOnLogin>
-          <CartIcon />
-        </ShowOnLogin>
+        <CartIcon />
       </div>
 
       {/* mobile menu */}
 
       <div className="flex items-center justify-end flex-1 md:hidden">
         <div className="flex gap-2">
+          <CartIcon />
           <ShowOnLogin>
-            <CartIcon />
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}

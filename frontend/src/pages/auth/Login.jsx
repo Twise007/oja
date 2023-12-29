@@ -3,13 +3,13 @@ import { BsPerson, BsFillShieldLockFill } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import loginPic from "../../assets/login.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { validateEmail } from "../../utils";
 import { RESET_AUTH, login } from "../../redux/features/auth/authSlice";
 import Loader from "../../components/Loader";
-import { getCartDB } from "../../redux/features/cartSlice";
+import { getCartDB, saveCartDB } from "../../redux/features/cartSlice";
 
 const Login = () => {
   const [open, setOpen] = useState(false);
@@ -18,6 +18,10 @@ const Login = () => {
   const { isLoading, isLoggedIn, isSuccess } = useSelector(
     (state) => state.auth
   );
+
+  const [urlParams] = useSearchParams();
+  const redirect = urlParams.get("redirect");
+  // console.log(urlParams.get("redirect"));
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,10 +46,18 @@ const Login = () => {
 
   useEffect(() => {
     if (isSuccess && isLoggedIn) {
+      if (redirect === "cart") {
+        dispatch(
+          saveCartDB({
+            cartItems: JSON.parse(localStorage.getItem("cartItems")),
+          })
+        );
+        return navigate("/cart");
+      }
       dispatch(getCartDB());
     }
     dispatch(RESET_AUTH());
-  }, [isSuccess, isLoggedIn, dispatch, navigate]);
+  }, [isSuccess, isLoggedIn, dispatch, navigate, redirect]);
 
   return (
     <div>

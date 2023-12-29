@@ -14,9 +14,11 @@ import Profile from "./pages/Profile";
 import Admin from "./pages/Admin";
 import { AdminOnlyRoute } from "./components/hiddenLink";
 import Notfound from "./pages/Notfound";
-import Shop from "./pages/Shop";
 import ProductDetails from "./components/shop/ProductDetails";
-import Cart from "./pages/Cart";
+import Shop from "./pages/product/Shop";
+import CheckoutDetails from "./pages/product/CheckoutDetails";
+import Cart from "./pages/product/Cart";
+import Checkout from "./pages/product/Checkout";
 
 const App = () => {
   axios.defaults.withCredentials = true;
@@ -45,8 +47,9 @@ const App = () => {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/cart" element={<Cart />} />
-
+          <Route path="/checkout-details" element={<CheckoutDetails />} />
           <Route path="/product-details/:id" element={<ProductDetails />} />
+          <Route path="/checkout-stripe" element={<Checkout />} />
 
           <Route
             path="/admin/*"

@@ -5,6 +5,13 @@ import cartService from "./cartService";
 
 const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
 
+// apply discount to cart
+function applyDiscount(cartTotalAmount, discountPercentage) {
+  var discountAmount = (discountPercentage / 100) * cartTotalAmount;
+  var updatedTotal = cartTotalAmount - discountAmount;
+  return updatedTotal;
+}
+
 const initialState = {
   cartItems: localStorage.getItem("cartItems")
     ? JSON.parse(localStorage.getItem("cartItems"))
@@ -165,7 +172,18 @@ const cart = createSlice({
       const totalAmount = array.reduce((a, b) => {
         return a + b;
       }, 0);
-      state.cartTotalAmount = totalAmount;
+
+      state.initialCartTotalAmount = totalAmount;
+
+      if (action.payload && action.payload.coupon !== null) {
+        const discountedTotalAmount = applyDiscount(
+          totalAmount,
+          action.payload.coupon.discount
+        );
+        state.cartTotalAmount = discountedTotalAmount;
+      } else {
+        state.cartTotalAmount = totalAmount;
+      }
     },
   },
   extraReducers: (builder) => {

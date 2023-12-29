@@ -63,43 +63,6 @@ const CreateBrand = () => {
           />
         </div>
 
-        {/* <div className="form-control">
-          <label className=" label">
-            <span className="font-medium label-text">Parent Category</span>
-          </label>
-          <div>
-            <div
-              className="flex items-center justify-between p-3 font-medium border cursor-pointer bg-cl-sec rounded-xl"
-              onClick={() => setOpen(!open)}
-              // onChange={(e) => setCategory(selected)}
-            >
-              <p onChange={(e) => setCategory(selected)}>{selected}</p>
-              <BsArrowDownCircle
-                className={`  duration-700 ${open && "rotate-180 text-cl-acn"}`}
-              />
-            </div>
-            <div
-              className={` shadow-xl md:mx-4 my-2 md:p-2 duration-500 rounded-xl ${
-                open ? "hidden" : "h-fit"
-              }`}
-            >
-              {categories.length > 0 &&
-                categories.map((cat) => (
-                  <div
-                    key={cat._id}
-                    onClick={(e) => {
-                      setSelected(cat.name);
-                      setOpen(!open);
-                    }}
-                    className="w-full bg-cl-sec hover:bg-cl-white"
-                  >
-                    {cat.name}
-                  </div>
-                ))}
-            </div>
-          </div>
-        </div> */}
-
         <div className="form-control">
           <label className=" label">
             <span className="font-medium label-text">Parent Category</span>

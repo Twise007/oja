@@ -99,7 +99,7 @@ const ProductForm = ({
               <span className="font-medium label-text">Product Name :</span>
             </label>
             <input
-              className="p-2 capitalize bg-transparent border rounded-lg outline-none border-cl-black"
+              className="p-2 capitalize bg-transparent border rounded-lg outline-none placeholder:italic border-cl-black"
               type="text"
               required
               placeholder="Product Name"
@@ -170,7 +170,7 @@ const ProductForm = ({
               <span className="font-medium label-text">Product Color :</span>
             </label>
             <input
-              className="p-2 capitalize bg-transparent border rounded-lg outline-none border-cl-black"
+              className="p-2 capitalize bg-transparent border rounded-lg outline-none placeholder:italic border-cl-black"
               type="text"
               // required
               placeholder="Product Color"
@@ -185,7 +185,7 @@ const ProductForm = ({
               <span className="font-medium label-text">Regular Price :</span>
             </label>
             <input
-              className="p-2 capitalize bg-transparent border rounded-lg outline-none border-cl-black"
+              className="p-2 capitalize bg-transparent border rounded-lg outline-none placeholder:italic border-cl-black"
               type="text"
               required
               placeholder="Regular Price"
@@ -200,7 +200,7 @@ const ProductForm = ({
               <span className="font-medium label-text">Product Price :</span>
             </label>
             <input
-              className="p-2 capitalize bg-transparent border rounded-lg outline-none border-cl-black"
+              className="p-2 capitalize bg-transparent border rounded-lg outline-none placeholder:italic border-cl-black"
               type="text"
               required
               placeholder="Product Price"
@@ -215,7 +215,7 @@ const ProductForm = ({
               <span className="font-medium label-text">Product Quantity :</span>
             </label>
             <input
-              className="p-2 capitalize bg-transparent border rounded-lg outline-none border-cl-black"
+              className="p-2 capitalize bg-transparent border rounded-lg outline-none placeholder:italic border-cl-black"
               type="text"
               required
               placeholder="Product Quantity"

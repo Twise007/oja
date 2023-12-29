@@ -14,13 +14,14 @@ const CartIcon = () => {
   const cartItems = useSelector(selectCartItems);
   const cartTotalQuantity = useSelector(selectCartTotalQuantity);
   const cartTotalAmount = useSelector(selectCartTotalAmount);
+  const { coupon } = useSelector((state) => state.coupon);
 
   useEffect(() => {
     dispatch(CAL_TOTAL_QUANTITY());
   }, [dispatch, cartItems]);
   useEffect(() => {
-    dispatch(CAL_TOTAL_AMOUNT());
-  }, [dispatch, cartItems]);
+    dispatch(CAL_TOTAL_AMOUNT({ coupon }));
+  }, [dispatch, cartItems, coupon]);
   return (
     <div>
       <div className="flex-none ">
