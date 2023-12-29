@@ -1,9 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Ratings from "../Ratings";
 import { calculateAverageRating, shortenText } from "../../utils";
 import { toast } from "react-toastify";
 import DOMPurify from "dompurify";
+import {
+  ADD_TO_CART,
+  DECREASE_CART,
+  saveCartDB,
+  selectCartItems,
+} from "../../redux/features/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { FaMinus, FaPlus } from "react-icons/fa";
 
 const ProductItem = ({
   product,
@@ -14,7 +22,29 @@ const ProductItem = ({
   image,
   regularPrice,
 }) => {
-  // const averageRating = calculateAverageRating(product?.ratings);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const averageRating = calculateAverageRating(product?.ratings);
+  const cartItems = useSelector(selectCartItems);
+
+  const cart = cartItems.find((cart) => cart._id === id);
+  const isCartAdded = cartItems.findIndex((cart) => {
+    return cart._id === id;
+  });
+
+  const addToCart = (product) => {
+    dispatch(ADD_TO_CART(product));
+    dispatch(
+      saveCartDB({ cartItems: JSON.parse(localStorage.getItem("cartItems")) })
+    );
+  };
+
+  const decreaseCart = (product) => {
+    dispatch(DECREASE_CART(product));
+    dispatch(
+      saveCartDB({ cartItems: JSON.parse(localStorage.getItem("cartItems")) })
+    );
+  };
   return (
     <div
       className={
@@ -44,7 +74,7 @@ const ProductItem = ({
           {`$${price}`}
         </p>
         <Ratings
-          // averageRating={averageRating}
+          averageRating={averageRating}
           noOfRating={product?.ratings?.length}
         />
         <h2 className="font-semibold text-md md:card-title ">
@@ -62,19 +92,41 @@ const ProductItem = ({
           ></div>
         )}
 
-        <div className="justify-center md:justify-end card-actions">
-          {product?.quantity > 0 ? (
-            <button className="p-1 font-semibold text-blue-800 capitalize transition ease-in-out border border-blue-800 rounded-lg cursor-pointer md:p-2 hover:text-cl-white hover:bg-blue-800 md:border-2">
-              Add to Cart
-            </button>
-          ) : (
-            <button
-              onClick={() => toast.error("Sorry, Product is out of stock")}
-              className="p-1 font-semibold text-red-800 capitalize transition ease-in-out border border-red-800 rounded-lg cursor-pointer md:p-2 hover:text-cl-white hover:bg-red-800 md:border-2"
-            >
-              Out of Stock
-            </button>
+        <div className="flex flex-row items-center justify-between w-full md:flex-col">
+          {isCartAdded < 0 ? null : (
+            <div className="flex items-center">
+              <div
+                className="p-1 text-green-500 duration-300 rounded-lg cursor-pointer bg-cl-sec hover:bg-green-500 hover:text-cl-white"
+                onClick={() => decreaseCart(product)}
+              >
+                <FaMinus />
+              </div>
+              <b className="mx-1"> {cart.cartQuantity} </b>
+              <div
+                className="p-1 text-red-500 duration-300 rounded-lg cursor-pointer bg-cl-sec hover:bg-red-500 hover:text-cl-white"
+                onClick={() => addToCart(product)}
+              >
+                <FaPlus />
+              </div>
+            </div>
           )}
+          <div className="md:w-full">
+            {product?.quantity > 0 ? (
+              <button
+                className="my-2 btnPrimary md:w-full"
+                onClick={() => addToCart(product)}
+              >
+                Add to cart{" "}
+              </button>
+            ) : (
+              <button
+                onClick={() => toast.error("Sorry, Product is out of stock")}
+                className="my-2 text-red-700 border-red-700 btnPrimary hover:bg-red-700 md:w-full"
+              >
+                out of stock
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

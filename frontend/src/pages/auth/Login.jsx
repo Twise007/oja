@@ -42,7 +42,6 @@ const Login = () => {
 
   useEffect(() => {
     if (isSuccess && isLoggedIn) {
-      // navigate("/");
       dispatch(getCartDB());
     }
     dispatch(RESET_AUTH());

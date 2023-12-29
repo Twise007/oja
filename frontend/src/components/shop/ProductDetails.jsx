@@ -31,8 +31,8 @@ const ProductDetails = () => {
   useEffect(() => {
     dispatch(getProduct(id));
   }, [dispatch, id]);
+  
   const slideLength = product?.image?.length;
-
   const nextSlide = () => {
     setImageIndex(imageIndex === slideLength - 1 ? 0 : imageIndex + 1);
   };
@@ -141,6 +141,7 @@ const ProductDetails = () => {
                   __html: DOMPurify.sanitize(product?.description),
                 }}
               />
+              
               <div className="flex flex-row items-center justify-between w-full md:flex-col">
                 {isCartAdded < 0 ? null : (
                   <div className="flex items-center">

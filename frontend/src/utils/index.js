@@ -22,7 +22,7 @@ export const Search = ({ value, onChange }) => {
         value={value}
         onChange={onChange}
         placeholder="Search here..."
-        className="w-full p-2 shadow-md outline-none bg-cl-sec"
+        className="w-full p-2 shadow-md outline-none bg-cl-sec placeholder:italic"
       />
       <button
         type="submit"

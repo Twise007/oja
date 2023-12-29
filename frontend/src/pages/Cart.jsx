@@ -15,6 +15,7 @@ import {
 } from "../redux/features/cartSlice";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { BsArrowLeft } from "react-icons/bs";
+import Coupon from "../components/shop/Coupon";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -69,9 +70,9 @@ const Cart = () => {
           <p>Go back to Shopping</p>
         </Link>
         <div className="flex flex-col justify-center w-full text-center ">
-          <div className=" min-h-[96vh]">
+          <div className="">
             {cartItems?.length === 0 ? (
-              <div className="h-[50vh] my-10 capitalize text-5xl font-normal text-center hero text-rose-500">
+              <div className="my-10 text-5xl font-normal text-center capitalize hero text-rose-500">
                 There are no items in your cart
               </div>
             ) : (
@@ -139,18 +140,6 @@ const Cart = () => {
                     </div>
                   );
                 })}
-
-                <h1 className="m-2 text-lg text-end md:mr-8">
-                  Cart item(s): <span className="h3">{cartTotalQuantity}</span>
-                </h1>
-
-                <h1 className="m-2 text-lg text-end md:mr-8">
-                  Sub-Total: $
-                  <span className="font-bold text-cl-acn h3">
-                    {cartTotalAmount.toFixed(2)}
-                  </span>
-                </h1>
-
                 <button
                   type="submit"
                   onClick={clearCart}
@@ -158,6 +147,23 @@ const Cart = () => {
                 >
                   Clear All Items
                 </button>
+
+                <div className="flex justify-end w-full mb-4">
+                  <div className="max-w-screen-sm p-2 mt-3 text-lg border md:mr-8 text-end">
+                    <h1 className="my-2">
+                      Cart item(s):{" "}
+                      <span className="h3">{cartTotalQuantity}</span>
+                    </h1>
+
+                    <h1 className="my-2 ">
+                      Sub-Total: $
+                      <span className="font-bold text-cl-acn h3">
+                        {cartTotalAmount.toFixed(2)}
+                      </span>
+                    </h1>
+                    <Coupon />
+                  </div>
+                </div>
               </>
             )}
           </div>

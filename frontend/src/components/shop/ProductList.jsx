@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { BiCategory, BiListUl } from "react-icons/bi";
 import { Search } from "../../utils";
-
 import ProductItem from "./ProductItem";
 import { useDispatch, useSelector } from "react-redux";
 import {
   FILTER_BY_SEARCH,
   selectFilteredProducts,
 } from "../../redux/features/product/filterSlice";
+
 
 const ProductList = ({ products }) => {
   const [grid, setGrid] = useState(true);
@@ -18,7 +18,7 @@ const ProductList = ({ products }) => {
   useEffect(() => {
     dispatch(FILTER_BY_SEARCH({ products, search }));
   }, [dispatch, products, search]);
-
+  
   return (
     <div className="flex flex-col pt-4 md:pt-12">
       <div className="sticky flex flex-col items-start justify-start gap-2 pb-2 border-b-2 md:items-center md:justify-between md:flex-row md:gap-0">

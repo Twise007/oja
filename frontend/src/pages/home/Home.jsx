@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Hero from "../../components/Hero";
 import Footer from "../../components/Footer";
 import HomeInfos from "./HomeInfos";
-import { productData } from "../../constants/carousel";
 import ProductCarousel from "../../components/ProductCarousel";
 import CarouselItem from "../../components/CarouselItem";
 import ProductCategory from "../../components/ProductCategory";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../../redux/features/product/productSlice";
 
 const PageHeading = ({ heading, btnText }) => {
   return (
@@ -20,13 +21,50 @@ const PageHeading = ({ heading, btnText }) => {
 };
 
 const Home = () => {
-  const productss = productData.map((item) => (
+  const dispatch = useDispatch();
+  const { products } = useSelector((state) => state.product);
+
+  const latest = products
+    ?.filter((product) => {
+      return product.quantity > 0;
+    })
+    ?.filter((product, index) => index < 7);
+
+  const phones = products
+    ?.filter((product) => {
+      return product.quantity > 0;
+    })
+    ?.filter((product) => {
+      return product.category === "Phone";
+    })
+    ?.filter((product, index) => index < 7);
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
+
+  const latestProducts = latest.map((item) => (
     <div key={item.id}>
       <CarouselItem
         name={item.name}
-        url={item.imageurl}
+        url={item.image[0]}
+        regularPrice={item.regularPrice}
         price={item.price}
         description={item.description}
+        product={item}
+      />
+    </div>
+  ));
+
+  const latestPhone = phones.map((item) => (
+    <div key={item.id}>
+      <CarouselItem
+        name={item.name}
+        url={item.image[0]}
+        regularPrice={item.regularPrice}
+        price={item.price}
+        description={item.description}
+        product={item}
       />
     </div>
   ));
@@ -38,7 +76,7 @@ const Home = () => {
         <div className="container">
           <HomeInfos />
           <PageHeading heading={"Latest Products"} btnText={"Shop Now >>"} />
-          <ProductCarousel products={productss} />
+          <ProductCarousel products={latestProducts} />
         </div>
       </section>
 
@@ -54,7 +92,8 @@ const Home = () => {
       <section>
         <div className="container">
           <PageHeading heading={"Mobile Phones"} btnText={"Shop Now >>"} />
-          <ProductCarousel products={productss} />
+          <ProductCarousel products={latestPhone} />
+          {/* <ProductCarousel products={latestProducts} /> */}
         </div>
       </section>
       <Footer />
