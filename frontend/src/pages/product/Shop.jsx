@@ -16,7 +16,7 @@ const Shop = () => {
   }, [dispatch]);
 
   return (
-    <div>
+    <>
       <div className="flex">
         <div
           className={`${showFilter ? "hidden" : "h-fit duration-700"}  md:flex`}
@@ -38,7 +38,7 @@ const Shop = () => {
           <BsGear className="text-2xl duration-700 border rounded-md cursor-pointer text-cl-acn group-hover:rotate-[360deg] h-fit" />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

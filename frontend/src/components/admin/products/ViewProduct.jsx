@@ -13,6 +13,7 @@ import ReactPaginate from "react-paginate";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css";
+import { AnimatePresence, motion } from "framer-motion";
 
 const ViewProduct = () => {
   const [search, setSearch] = useState("");
@@ -92,17 +93,28 @@ const ViewProduct = () => {
               <th>Action</th>
             </tr>
           </thead>
-          <tbody>
+          <motion.tbody layout>
             {!isLoading && products.length === 0 ? (
               <tr className="mt-2 font-normal text-center uppercase md:text-xl text-rose-500 ">
                 No product found
               </tr>
             ) : (
-              <>
+              <AnimatePresence>
                 {currentItems.map((product, index) => {
                   const { _id, name, category, price, quantity } = product;
                   return (
-                    <tr key={index} className="text-sm hover:bg-cl-white ">
+                    <motion.tr
+                      key={index}
+                      layout
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{
+                        opacity: { duration: 0.2 },
+                        layout: { type: "spring" },
+                      }}
+                      className="text-sm hover:bg-cl-white "
+                    >
                       <td>{index + 1}</td>
                       <td className="px-2 capitalize">
                         {shortenText(name, 12)}
@@ -130,12 +142,12 @@ const ViewProduct = () => {
                           onClick={() => confirmDelete(_id)}
                         />
                       </td>
-                    </tr>
+                    </motion.tr>
                   );
                 })}
-              </>
+              </AnimatePresence>
             )}
-          </tbody>
+          </motion.tbody>
         </table>
       </div>
       <div className="relative pt-6 mt-6 hero">

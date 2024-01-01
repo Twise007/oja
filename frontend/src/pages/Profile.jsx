@@ -303,64 +303,6 @@ const Profile = () => {
             </div>
           </>
         )}
-
-        {/* shooping history */}
-        {/* <div className="mt-4">
-          <div
-            className="p-3 font-medium cursor-pointer bg-[#cdcdcd] rounded-xl flex items-center justify-between"
-            onClick={() => setOpen(!open)}
-          >
-            <p>Your shopping history with us</p>
-            <BsArrowDownCircle
-              className={`  duration-700 ${open && "rotate-180 text-cl-acn"}`}
-            />
-          </div>
-          <div
-            className={` shadow-xl mx-4 my-2 p-2 duration-500 rounded-xl ${
-              open ? "h-fit" : "hidden"
-            }`}
-          >
-            <div className="overflow-x-auto">
-              <table className="table text-l">
-                {/* head *
-                <thead>
-                  <tr className="text-xl text-black">
-                    <th>Item Description</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total</th>
-                  </tr>
-                </thead>
-                {productsCount > 0 ? (
-                  <>
-                    {cart.items.map((productHistory, index) => (
-                      <ProfileChart
-                        key={index}
-                        id={productHistory.id}
-                        quantity={productHistory.quantity}
-                      />
-                    ))}
-                    <tfoot>
-                      <tr className="text-xl text-black ">
-                        <th></th>
-                        <th>Total Price :</th>
-                        <th></th>
-                        <th className="text-2xl text-cl-acn">
-                          <span className="text-lg text-black">$</span>{" "}
-                          {cart.getTotalCost().toFixed(2)}
-                        </th>
-                      </tr>
-                    </tfoot>
-                  </>
-                ) : (
-                  <tbody className="mt-2 text-3xl font-normal text-center capitalize text-rose-500">
-                    There are no items
-                  </tbody>
-                )}
-              </table>
-            </div>
-          </div>
-        </div> */}
       </div>
     </div>
   );
