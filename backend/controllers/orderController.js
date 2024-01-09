@@ -48,7 +48,7 @@ const getOrders = asyncHandler(async (req, res) => {
   return res.status(200).json(orders);
 });
 
-//Get single order
+//Getting a single order
 const getOrder = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id);
   if (!order) {
