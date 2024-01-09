@@ -84,7 +84,7 @@ const updateOrderStatus = asyncHandler(async (req, res) => {
 });
 
 //pay with stripe
-const paymentWithStripe = asyncHandler(async (req, res) => {
+const payWithStripe = asyncHandler(async (req, res) => {
   const { items, shipping, description, coupon } = req.body;
 
   const products = await Product.find();
@@ -93,7 +93,7 @@ const paymentWithStripe = asyncHandler(async (req, res) => {
   orderAmount = calculateTotalPrice(products, items);
   if (coupon !== null && coupon?.name !== "nil") {
     let totalAfterDiscount =
-      orderAmount = (orderAmount * coupon.discount) / 100;
+      orderAmount - (orderAmount * coupon.discount) / 100;
     orderAmount = totalAfterDiscount;
   }
 
@@ -123,7 +123,7 @@ const paymentWithStripe = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-  paymentWithStripe,
+  payWithStripe,
   createOrder,
   getOrders,
   getOrder,

@@ -27,7 +27,7 @@ const PaymentOptions = () => {
   };
 
   return (
-    <div>
+    <div className="mt-2 border-t-2">
       <p>Please select a payment method</p>
       <form onSubmit={setPayment}>
         <label
@@ -39,7 +39,7 @@ const PaymentOptions = () => {
             name="paymentMethod"
             id="stripe"
             value={"stripe"}
-            className=" peer/draft radio-xs"
+            className="peer/draft radio-xs"
             onChange={(e) => setPaymentMethod(e.target.value)}
           />
           <span className="label-text hover:text-cl-acn peer-checked/draft:text-cl-acn">

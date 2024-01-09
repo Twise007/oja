@@ -5,13 +5,13 @@ import {
   getCoupon,
 } from "../../redux/features/coupon/couponSlice";
 import { toast } from "react-toastify";
+import {  BsArrowUpCircle } from "react-icons/bs";
 
 export const CardDiscount = () => {
   const { coupon } = useSelector((state) => state.coupon);
   const { initialCartTotalAmount } = useSelector((state) => state.cart);
   return (
     <>
-      {/* remember to the excalmasion mark  */}
       {coupon !== null && (
         <div className="flex items-center justify-between gap-2 capitalize text-neutral-400 bg-cl-sec ">
           <i className="p-2 border-r-2 border-cl-black">
@@ -30,7 +30,7 @@ export const CardDiscount = () => {
 const Coupon = () => {
   const dispatch = useDispatch();
   const [couponName, setCouponName] = useState("");
-  const [showForm, setShowForm] = useState(true);
+  const [showForm, setShowForm] = useState(false);
   const { coupon } = useSelector((state) => state.coupon);
 
   const verifyCoupon = async (e) => {
@@ -38,9 +38,6 @@ const Coupon = () => {
     if (couponName.length < 6) {
       return toast.error("Coupon name must be up to 6 characters");
     }
-    const formData = {
-      couponName,
-    };
     await dispatch(getCoupon(couponName));
     setCouponName("");
   };
@@ -55,10 +52,12 @@ const Coupon = () => {
         <p>Have a Coupon?</p>
         {coupon === null ? (
           <p
-            className="text-green-500 duration-300 cursor-pointer hover:font-extrabold"
-            // onClick={() => setShowForm(!showForm)}
-            onClick={() => setShowForm(true)}
+            className="flex items-center gap-1 text-green-500 duration-700 cursor-pointer hover:font-extrabold"
+            onClick={() => setShowForm(!showForm)}
           >
+            <BsArrowUpCircle
+              className={`duration-700 ${showForm && "rotate-180 text-cl-acn"}`}
+            />
             <b>Add Coupon</b>
           </p>
         ) : (
@@ -70,7 +69,9 @@ const Coupon = () => {
           </p>
         )}
       </div>
-      <CardDiscount />
+      <div className="duration-300">
+        <CardDiscount />
+      </div>
       {showForm && (
         <form
           onSubmit={verifyCoupon}

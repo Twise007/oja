@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import couponService from "./couponService";
 
 const initialState = {
-  coupon: [],
+  coupon: null,
   coupons: [],
   isError: false,
   isSuccess: false,

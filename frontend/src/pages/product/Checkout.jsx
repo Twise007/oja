@@ -24,6 +24,7 @@ const Checkout = () => {
   useEffect(() => {
     fetch(
       `${process.env.REACT_APP_BACKEND_URL}/api/order/create-payment-intent`,
+      // "/create-payment-intent",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -31,7 +32,7 @@ const Checkout = () => {
           items: [
             {
               id: productIDs,
-              shipping: selectShippingAddress,
+              shipping: shippingAddress,
               description,
               coupon,
             },

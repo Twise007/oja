@@ -75,7 +75,7 @@ export default function CheckoutForm() {
   return (
     <>
       <section>
-        <div className="container">
+        <div className="container min-h-screen">
           <h2 className="h2">Check out</h2>
           <form onSubmit={handleSubmit}>
             <CheckoutSummary />
