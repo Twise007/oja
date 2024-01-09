@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 
 export const CardDiscount = () => {
   const { coupon } = useSelector((state) => state.coupon);
-
   const { initialCartTotalAmount } = useSelector((state) => state.cart);
   return (
     <>
@@ -16,7 +15,7 @@ export const CardDiscount = () => {
       {coupon !== null && (
         <div className="flex items-center justify-between gap-2 capitalize text-neutral-400 bg-cl-sec ">
           <i className="p-2 border-r-2 border-cl-black">
-            Initial Sub-Total : $ {initialCartTotalAmount}{" "}
+            Initial Sub-Total : $ {initialCartTotalAmount}
           </i>
           <i className="p-2 border-r-2 border-cl-black">
             coupon: {coupon?.name}
@@ -57,7 +56,8 @@ const Coupon = () => {
         {coupon === null ? (
           <p
             className="text-green-500 duration-300 cursor-pointer hover:font-extrabold"
-            onClick={() => setShowForm(!showForm)}
+            // onClick={() => setShowForm(!showForm)}
+            onClick={() => setShowForm(true)}
           >
             <b>Add Coupon</b>
           </p>

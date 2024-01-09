@@ -6,6 +6,7 @@ const {
   getOrders,
   getOrder,
   updateOrderStatus,
+  paymentWithStripe,
 } = require("../controllers/orderController");
 const router = express.Router();
 
@@ -13,5 +14,7 @@ router.post("/", protect, createOrder); // Create a Order
 router.get("/", protect, getOrders); // get all Order
 router.get("/:id", protect, getOrder); // get a Order
 router.patch("/:id", protect, adminOnly, updateOrderStatus); // update  Order status
+
+router.post("/create-payment-intent", paymentWithStripe); // Payment with stripe
 
 module.exports = router;
