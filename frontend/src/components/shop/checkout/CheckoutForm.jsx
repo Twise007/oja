@@ -7,18 +7,49 @@ import {
 import { toast } from "react-toastify";
 import CheckoutSummary from "./CheckoutSummary";
 import { SpinnerImg } from "../../Loader";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsArrowLeft } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectCartItems,
+  selectCartTotalAmount,
+} from "../../../redux/features/cartSlice";
+import {
+  selectPaymentMethod,
+  selectShippingAddress,
+} from "../../../redux/features/product/checkoutSlice";
+import { createOrder } from "../../../redux/features/order/orderSlice";
 
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const cartTotalAmount = useSelector(selectCartTotalAmount);
+  const cartItems = useSelector(selectCartItems);
+  const shippingAddress = useSelector(selectShippingAddress);
+  const paymentMethod = useSelector(selectPaymentMethod);
+  const { coupon } = useSelector((state) => state.coupon);
+
   const saveOrder = () => {
-    console.log("Order saved");
+    // console.log("order created");
+    const today = new Date();
+    const formData = {
+      orderDate: today.toDateString(),
+      orderTime: today.toLocaleTimeString(),
+      orderAmount: cartTotalAmount,
+      orderStatus: "Order Placed...",
+      cartItems,
+      shippingAddress,
+      paymentMethod,
+      coupon: coupon != null ? coupon : { name: "nil" },
+    };
+    dispatch(createOrder(formData));
+    navigate("/checkout-success");
   };
 
   useEffect(() => {
@@ -84,7 +115,7 @@ export default function CheckoutForm() {
             <h3 className="h3">Stripe Checkout</h3>
             {/* Show any error or success messages */}
             {message && (
-              <div className="pt-3 text-xl font-bold text-center text-red-600">
+              <div className="py-3 text-xl font-bold text-center text-red-600">
                 {message}
               </div>
             )}

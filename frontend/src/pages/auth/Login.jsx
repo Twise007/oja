@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { validateEmail } from "../../utils";
 import { RESET_AUTH, login } from "../../redux/features/auth/authSlice";
-import Loader from "../../components/Loader";
 import { getCartDB, saveCartDB } from "../../redux/features/cartSlice";
 
 const Login = () => {
@@ -61,7 +60,7 @@ const Login = () => {
 
   return (
     <div>
-      {isLoading && <Loader />}
+      {/* {isLoading && <Loader />} */}
       <section className={`container min-h-[88vh] bg-cl-white hero`}>
         <div className="flex flex-col items-center ">
           <div className="mb-20 text-center">
@@ -123,7 +122,17 @@ const Login = () => {
                       </div>
                     </div>
 
-                    <button className="w-[90%] btnPrimary">Login</button>
+                    {!isLoading && (
+                      <button className="w-[90%] btnPrimary">Login</button>
+                    )}
+                    {isLoading && (
+                      <button
+                        disabled
+                        className="w-[90%] border-2 border-cl-acn rounded-lg text-cl-acn"
+                      >
+                        <span className="loading loading-spinner loading-md"></span>
+                      </button>
+                    )}
                   </div>
                   <div className="">
                     <div className="p-2 m-4 text-2xl text-center border rounded-xl w-fit text-cl-black">

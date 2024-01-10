@@ -19,6 +19,9 @@ import Shop from "./pages/product/Shop";
 import CheckoutDetails from "./pages/product/CheckoutDetails";
 import Cart from "./pages/product/Cart";
 import Checkout from "./pages/product/Checkout";
+import CheckOutSuccess from "./components/shop/checkout/CheckOutSuccess";
+import OrderDetails from "./pages/order/OrderDetails";
+import OrderHistory from "./pages/order/OrderHistory";
 
 const App = () => {
   axios.defaults.withCredentials = true;
@@ -51,6 +54,10 @@ const App = () => {
           <Route path="/product-details/:id" element={<ProductDetails />} />
           <Route path="/checkout-details" element={<CheckoutDetails />} />
           <Route path="/checkout-stripe" element={<Checkout />} />
+          <Route path="/checkout-success" element={<CheckOutSuccess />} />
+          <Route path="/order-history" element={<OrderHistory
+           />} />
+          <Route path="/checkout-details/:id" element={<OrderDetails />} />
 
           <Route
             path="/admin/*"

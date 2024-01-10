@@ -8,7 +8,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const createOrder = asyncHandler(async (req, res) => {
   const {
     orderDate,
-    // orderTime,
+    orderTime,
     orderAmount,
     orderStatus,
     cartItems,
@@ -25,7 +25,7 @@ const createOrder = asyncHandler(async (req, res) => {
   await Order.create({
     user: req.user._id,
     orderDate,
-    // orderTime,
+    orderTime,
     orderAmount,
     orderStatus,
     cartItems,

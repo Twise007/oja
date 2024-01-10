@@ -112,7 +112,7 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link className="text-cl-black">My Order</Link>
+                <Link to="/order-history" className="text-cl-black">My Order</Link>
               </li>
               <li>
                 <Link className="text-cl-black">My wishlist</Link>

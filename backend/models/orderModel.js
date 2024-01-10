@@ -7,14 +7,14 @@ const orderSchema = new mongoose.Schema(
       required: true,
       ref: "User",
     },
-    // orderTime: {
-    //   type: String,
-    //   required: [true, "Please add an order time"],
-    //   trim: true,
-    // },
     orderDate: {
       type: String,
       required: [true, "Please add an order date"],
+      trim: true,
+    },
+    orderTime: {
+      type: String,
+      required: [true, "Please add an order time"],
       trim: true,
     },
     orderAmount: {
@@ -32,18 +32,15 @@ const orderSchema = new mongoose.Schema(
       trim: true,
     },
     cartItems: {
-      //   type: [Object],
-      type: String,
+      type: [Object],
       required: [true],
     },
     shippingAddress: {
-      //   type: Object,
-      type: String,
+      type: [Object],
       required: true,
     },
     coupon: {
-      //   type: Object,
-      type: String,
+      type: [Object],
       required: true,
       default: {
         name: "nil",
