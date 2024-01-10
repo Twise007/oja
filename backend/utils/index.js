@@ -1,6 +1,6 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-//cal total price
+//calculate total price
 const calculateTotalPrice = (products, cartItems) => {
   let totalPrice = 0;
   

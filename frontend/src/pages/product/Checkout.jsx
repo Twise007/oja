@@ -24,19 +24,14 @@ const Checkout = () => {
   useEffect(() => {
     fetch(
       `${process.env.REACT_APP_BACKEND_URL}/api/order/create-payment-intent`,
-      // "/create-payment-intent",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          items: [
-            {
-              id: productIDs,
-              shipping: shippingAddress,
-              description,
-              coupon,
-            },
-          ],
+          items: productIDs,
+          shipping: shippingAddress,
+          description,
+          coupon,
         }),
       }
     )
@@ -46,12 +41,11 @@ const Checkout = () => {
         }
         return res.json().then((json) => Promise.reject(json));
       })
-
       .then((data) => setClientSecret(data.clientSecret))
       .catch((error) => {
         setMessage("Failed to initialize checkout");
         toast.error("Somethings went wrong");
-        console.log(error);
+        // console.log(error);
       });
   }, []);
 

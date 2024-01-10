@@ -6,7 +6,6 @@ import Register from "./pages/auth/Register";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
-import { AnimatePresence } from "framer-motion";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,30 +39,29 @@ const App = () => {
       <BrowserRouter>
         <ToastContainer />
         <Header />
-        <AnimatePresence mode="wait">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout-details" element={<CheckoutDetails />} />
-            <Route path="/product-details/:id" element={<ProductDetails />} />
-            <Route path="/checkout-stripe" element={<Checkout />} />
 
-            <Route
-              path="/admin/*"
-              element={
-                <AdminOnlyRoute>
-                  <Admin />
-                </AdminOnlyRoute>
-              }
-            />
-            <Route path="*" element={<Notfound />} />
-          </Routes>
-        </AnimatePresence>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/product-details/:id" element={<ProductDetails />} />
+          <Route path="/checkout-details" element={<CheckoutDetails />} />
+          <Route path="/checkout-stripe" element={<Checkout />} />
+
+          <Route
+            path="/admin/*"
+            element={
+              <AdminOnlyRoute>
+                <Admin />
+              </AdminOnlyRoute>
+            }
+          />
+          <Route path="*" element={<Notfound />} />
+        </Routes>
       </BrowserRouter>
     </>
   );

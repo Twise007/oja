@@ -8,10 +8,10 @@ import {
   selectPaymentMethod,
   selectShippingAddress,
 } from "../../redux/features/product/checkoutSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import CheckoutSummary from "../../components/shop/checkout/CheckoutSummary";
-import { BsArrowDownCircle } from "react-icons/bs";
+import { BsArrowDownCircle, BsArrowLeft } from "react-icons/bs";
 
 const initialAddressState = {
   name: "",
@@ -64,7 +64,7 @@ const CheckoutDetails = () => {
     dispatch(SAVE_BILLING_ADDRESS(billingAddress));
 
     if (paymentMethod === "") {
-      toast.error("Please select a payment method!!!");
+      toast.info("Please select a payment method!!!");
       navigate("/cart");
     }
     if (paymentMethod === "stripe") {
@@ -83,11 +83,20 @@ const CheckoutDetails = () => {
 
   return (
     <section>
-      <div className="container">
+      <div className="container min-h-screen">
         <h2 className="h2">Check Out</h2>
+        <Link
+          to="/cart"
+          className="flex items-center gap-2 px-2 duration-300 cursor-pointer hover:bg-cl-sec w-fit hover:font-bold"
+        >
+          <BsArrowLeft />
+          <p>Go back to Cart</p>
+        </Link>
+        <div className="">
+          <CheckoutSummary />
 
-        <div className="flex flex-col md:flex-row">
-          <form onSubmit={handleSubmit} className="max-w-sm md:m-6">
+          <form onSubmit={handleSubmit} className="m-2 md:m-6">
+            <h2 className="m-2 text-center h3">Please fill the form below</h2>
             <div>
               <div
                 className="flex items-center justify-between p-3 font-medium border cursor-pointer bg-cl-sec rounded-xl"
@@ -242,7 +251,7 @@ const CheckoutDetails = () => {
             {/* billing address */}
             <div className="my-2 md:my-6">
               <div
-                className="flex items-center justify-between p-3 font-medium duration-300 border cursor-pointer bg-cl-sec rounded-xl w-[24rem]"
+                className="flex items-center justify-between p-3 font-medium border cursor-pointer bg-cl-sec rounded-xl"
                 onClick={() => setOpenBill(!openBill)}
               >
                 <h3 className="h3">Billing Address</h3>
@@ -395,7 +404,6 @@ const CheckoutDetails = () => {
               proceed to checkout
             </button>
           </form>
-          <CheckoutSummary />
         </div>
       </div>
     </section>

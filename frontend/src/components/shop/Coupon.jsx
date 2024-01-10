@@ -18,9 +18,9 @@ export const CardDiscount = () => {
             Initial Sub-Total : $ {initialCartTotalAmount}
           </i>
           <i className="p-2 border-r-2 border-cl-black">
-            coupon: {coupon?.name}
+            coupon name: {coupon?.name}
           </i>
-          <i className="p-2 ">discount: {coupon?.discount}%</i>
+          <i className="p-2 ">discount of: {coupon?.discount}%</i>
         </div>
       )}
     </>
