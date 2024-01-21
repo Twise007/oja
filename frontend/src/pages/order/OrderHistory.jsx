@@ -73,7 +73,7 @@ const OrderHistory = () => {
                       return (
                         <tr
                           key={index}
-                          className="hover:bg-cl-sec curspo"
+                          className="cursor-pointer hover:bg-cl-sec"
                           onClick={() => openOrderDetails(_id)}
                         >
                           <td>{index + 1}</td>

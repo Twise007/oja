@@ -16,7 +16,7 @@ const OrderDetails = () => {
 
   return (
     <section>
-      <div className="container">
+      <div className="container min-h-screen">
         <h2 className="h2">order details</h2>
         <Link
           to="/order-history"
@@ -29,37 +29,44 @@ const OrderDetails = () => {
           {isLoading && order === null ? (
             <SpinnerImg />
           ) : (
-            <>
-              <p>
-                <b>Ship to</b> {order?.shippingAddress?.name}
-              </p>
-              <p>
-                <b>Order ID</b> {order?._id}
-              </p>
-              <p>
-                <b>Order Amount</b> ${order?.orderAmount}
-              </p>
-              <p>
-                <b>Coupon</b> {order?.coupon.name} | {order?.coupon?.discount}%
-              </p>
-              <p>
-                <b>Payment Method</b> {order?.paymentMethod}
-              </p>
-              <p>
-                <b>Order Status</b> {order?.orderStatus}
-              </p>
-              <p>
-                <b>Shipping Address</b>
-                <br />
-                Address: {order?.shippingAddress.line1},
-                {order?.shippingAddress.line2}, {order?.shippingAddress.city}
-                <br />
-                State: {order?.shippingAddress.state}
-                <br />
-                Country: {order?.shippingAddress.country}
-              </p>
-              <br />
-
+            <div className="flex flex-col items-center">
+              <div className="w-full p-2 mx-1 rounded-md bg-cl-sec md:mx-10">
+                <div className="flex items-center justify-between gap-2 p-2 my-1 text-left border-b">
+                  <h3 className="h3 text-cl-acn">Ship to</h3>{" "}
+                  {order?.shippingAddress?.name}
+                </div>
+                <div className="flex items-center justify-between gap-2 p-2 my-1 text-left border-b">
+                  <h3 className="h3 text-cl-acn">Order ID</h3> {order?._id}
+                </div>
+                <div className="flex items-center justify-between gap-2 p-2 my-1 text-left border-b">
+                  <h3 className="h3 text-cl-acn">Order Amount</h3> $
+                  {order?.orderAmount}
+                </div>
+                <div className="flex items-center justify-between gap-2 p-2 my-1 text-left border-b">
+                  <h3 className="h3 text-cl-acn">Coupon</h3>{" "}
+                  {order?.coupon.name} | {order?.coupon?.discount}%
+                </div>
+                <div className="flex items-center justify-between gap-2 p-2 my-1 text-left border-b">
+                  <h3 className="h3 text-cl-acn">Payment Method</h3>{" "}
+                  {order?.paymentMethod}
+                </div>
+                <div className="flex items-center justify-between gap-2 p-2 my-1 text-left border-b">
+                  <h3 className="h3 text-cl-acn">Order Status</h3>{" "}
+                  {order?.orderStatus}
+                </div>
+                <div className="flex justify-between gap-2 p-2 my-1 text-left border-b">
+                  <h3 className="h3 text-cl-acn">Shipping Address</h3>
+                  <div>
+                    <b>Address:</b> {order?.shippingAddress.line1}
+                    {order?.shippingAddress.line2}
+                    {order?.shippingAddress.city}
+                    <br />
+                    <b>State:</b> {order?.shippingAddress.state}
+                    <br />
+                    <b>Country:</b> {order?.shippingAddress.country}
+                  </div>
+                </div>
+              </div>
               <div className="flex flex-col justify-center w-full mt-2 text-center">
                 <div className=" max-h-[28rem] overflow-y-scroll mb-3  border rounded-lg py-4">
                   {order?.cartItems.map((cart, index) => {
@@ -116,7 +123,7 @@ const OrderDetails = () => {
                   })}
                 </div>
               </div>
-            </>
+            </div>
           )}
         </div>
       </div>
