@@ -62,8 +62,8 @@ const Cart = () => {
 
   return (
     <section>
-      <div className="container">
-        <h2 className="h2">Shopping Cart</h2>
+      <div className="container min-h-screen">
+        <h2 className=" h2">Shopping Cart</h2>
         <Link
           to="/shop"
           className="flex items-center gap-2 px-2 duration-300 cursor-pointer hover:bg-cl-sec w-fit hover:font-bold"
@@ -71,10 +71,10 @@ const Cart = () => {
           <BsArrowLeft />
           <p>Go back to Shopping</p>
         </Link>
-        <div className="flex flex-col justify-center w-full text-center ">
+        <div className="flex flex-col justify-center w-full mt-2 text-center">
           <div className="">
             {cartItems?.length === 0 ? (
-              <div className="my-10 text-5xl font-normal text-center capitalize hero text-rose-500">
+              <div className="my-10 text-3xl font-normal text-center capitalize hero text-rose-500">
                 There are no items in your cart
               </div>
             ) : (

@@ -13,7 +13,7 @@ const CheckOutSuccess = () => {
   }, [dispatch]);
   return (
     <>
-      <Confetti />
+      <Confetti />  
       <section>
         <div className="container min-h-screen">
           <h2 className="h2">Checkout Successful</h2>

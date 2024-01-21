@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const orderSchema = new mongoose.Schema(
+const orderSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -14,7 +14,7 @@ const orderSchema = new mongoose.Schema(
     },
     orderTime: {
       type: String,
-      required: [true, "Please add an order time"],
+      required: [true, "Please add an order date"],
       trim: true,
     },
     orderAmount: {
@@ -36,18 +36,20 @@ const orderSchema = new mongoose.Schema(
       required: [true],
     },
     shippingAddress: {
-      type: [Object],
+      type: Object,
       required: true,
     },
     coupon: {
-      type: [Object],
+      type: Object,
       required: true,
       default: {
         name: "nil",
       },
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
 const Order = mongoose.model("Order", orderSchema);

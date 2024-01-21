@@ -30,12 +30,30 @@ export const createOrder = createAsyncThunk(
   }
 );
 
-// get Orders
+// get all Orders
 export const getOrders = createAsyncThunk(
   "order/getOrders",
   async (_, thunkApi) => {
     try {
       return await orderService.getOrders();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
+
+// get Orders
+export const getOrder = createAsyncThunk(
+  "order/getOrder",
+  async (id, thunkApi) => {
+    try {
+      return await orderService.getOrder(id);
     } catch (error) {
       const message =
         (error.response &&
@@ -62,7 +80,6 @@ const orderSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        toast.info(action.payload);
       })
       .addCase(createOrder.rejected, (state, action) => {
         state.isLoading = false;
@@ -70,7 +87,7 @@ const orderSlice = createSlice({
         state.message = action.payload;
         toast.error(action.payload);
       })
-      // get Orders
+      // get all Orders
       .addCase(getOrders.pending, (state) => {
         state.isLoading = true;
       })
@@ -78,10 +95,26 @@ const orderSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        console.log(action.payload);
-        toast.info(action.payload);
+        state.orders = action.payload;
       })
       .addCase(getOrders.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        toast.error(action.payload);
+      })
+      // get a Order
+      .addCase(getOrder.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getOrder.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.order = action.payload;
+        // console.log(action.payload);
+      })
+      .addCase(getOrder.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

@@ -55,9 +55,8 @@ const App = () => {
           <Route path="/checkout-details" element={<CheckoutDetails />} />
           <Route path="/checkout-stripe" element={<Checkout />} />
           <Route path="/checkout-success" element={<CheckOutSuccess />} />
-          <Route path="/order-history" element={<OrderHistory
-           />} />
-          <Route path="/checkout-details/:id" element={<OrderDetails />} />
+          <Route path="/order-history" element={<OrderHistory />} />
+          <Route path="/order-details/:id" element={<OrderDetails />} />
 
           <Route
             path="/admin/*"
