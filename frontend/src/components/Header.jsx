@@ -88,7 +88,7 @@ const Header = () => {
         </ShowOnLogout>
 
         <ShowOnLogin>
-          <div className="flex items-center gap-2 text-cl-black">
+          <div className="flex items-center gap-2 border-r-2 text-cl-black border-r-cl-black pr-2">
             hi,
             <Username />
           </div>
@@ -112,7 +112,9 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/order-history" className="text-cl-black">My Order</Link>
+                <Link to="/order-history" className="text-cl-black">
+                  My Order
+                </Link>
               </li>
               <li>
                 <Link className="text-cl-black">My wishlist</Link>

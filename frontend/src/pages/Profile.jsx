@@ -313,7 +313,7 @@ export const Username = () => {
   const username = user?.name || "...";
 
   return (
-    <span className="pr-2 font-semibold capitalize border-r-2 border-r-cl-black text-cl-acn">
+    <span className="font-semibold capitalize text-cl-acn">
       {shortenText(username, 9)}
     </span>
   );
