@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { BsArrowDownCircle } from "react-icons/bs";
 import { getOrders } from "../redux/features/order/orderSlice";
 import Loader from "./Loader";
+import "./OrderHistory.scss";
+
 
 const OrderList = ({ openOrderDetails }) => {
   const [open, setOpen] = useState(false);
@@ -13,9 +15,9 @@ const OrderList = ({ openOrderDetails }) => {
     dispatch(getOrders());
   }, [dispatch]);
 
-//   const openOrderDetails = (id) => {
-//     navigate(`/order-details/${id}`);
-//   };
+  //   const openOrderDetails = (id) => {
+  //     navigate(`/order-details/${id}`);
+  //   };
 
   return (
     <div>
@@ -49,7 +51,7 @@ const OrderList = ({ openOrderDetails }) => {
               <tbody>
                 {isLoading && <Loader />}
                 {orders.length === 0 ? (
-                  <tr className="mt-2 font-normal text-center uppercase md:text-xltext-rose-500 ">
+                  <tr className="mt-2 font-normal text-center uppercase md:text-xl ">
                     No Order Found
                   </tr>
                 ) : (
@@ -74,27 +76,17 @@ const OrderList = ({ openOrderDetails }) => {
                           </td>
                           <td className="capitalize">{_id}</td>
                           <td className="capitalize">${orderAmount}</td>
-                          <td className="capitalize">
+                          <td className="font-bold capitalize">
                             <p
                               className={
-                                orderStatus !== "Delivered"
-                                  ? "Pending"
-                                  : "delivered"
-                              }
+                              orderStatus !== "Delivered"
+                                ? `${"pending"}`
+                                : `${"delivered"}`
+                            }
                             >
                               {orderStatus}
                             </p>
-                            {/* <p
-                              className={
-                                orderStatus !== "Delivered" ? (
-                                  <p>Pending</p>
-                                ) : (
-                                  <p>delivered</p>
-                                )
-                              }
-                            >
-                              {orderStatus}
-                            </p> */}
+                            
                           </td>
                         </tr>
                       );

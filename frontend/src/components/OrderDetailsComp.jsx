@@ -183,7 +183,9 @@ const OrderDetailsComp = () => {
         {loader ? (
           <span className="m-1 loading loading-spinner loading-md"></span>
         ) : (
-          <p className="lowercase border-0 btnPrimary">Download as PDF</p>
+          <p className="border-0 btnPrimary">
+            Download <span className="lowercase">as</span> PDF
+          </p>
         )}
       </button>
     </div>

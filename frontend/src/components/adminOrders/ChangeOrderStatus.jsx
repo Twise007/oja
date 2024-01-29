@@ -1,44 +1,66 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { SpinnerImg } from "../Loader";
+import { updateOrderStatus } from "../../redux/features/order/orderSlice";
 
 const statusList = [
-  //   { id: "-- Choose me --", },
+  // { id: "-- Choose me --" },
   { id: "Order Placed..." },
-  { id: "Processing..." },
+  { id: "Pending..." },
   { id: " Shipped..." },
   { id: " Delivered..." },
 ];
 
 const ChangeOrderStatus = () => {
-  const [status, setStatus] = useState("second");
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const [status, setStatus] = useState("");
   const { isLoading } = useSelector((state) => state.order);
-  const updateOrder = () => {};
+  const updateOrder = async (e, id) => {
+    e.preventDefault();
+    const formData = {
+      orderStatus: status,
+    };
+    await dispatch(updateOrderStatus({ id, formData }));
+  };
 
   return (
-    <div>
+    <div className="hero">
       {isLoading && <SpinnerImg />}
-      <div className=" max-w-fit">
-        <div className="text-xl font-medium ">
-          <div className="h3">Update status</div>
-        </div>
-        <div className="">
-          <form onSubmit={updateOrder}>
-            <select
-              className="w-full max-w-xs bg-transparent select select-bordered"
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
+
+      <div className="w-full max-w-xs rounded-md form-control hero-content bg-cl-sec">
+        <form onSubmit={(e) => updateOrder(e, id)} className="flex flex-col">
+          <div className="label">
+            <span className="font-semibold h3">Update status below</span>
+          </div>
+          <select
+            className="italic font-normal outline-none select bg-cl-acn text-cl-white border-cl-acn"
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+          >
+            {statusList.map((statusList, index) => (
+              <option
+                key={index}
+                value={statusList.id}
+                disabled={statusList.id < 1}
+              >
+                {statusList.id}
+              </option>
+            ))}
+          </select>
+          {!isLoading && (
+            <button className="w-full mt-4 btnPrimary">Submit Status</button>
+          )}
+          {isLoading && (
+            <button
+              disabled
+              className="mt-4 border-2 rounded-lg border-cl-acn text-cl-acn"
             >
-              {statusList.map((statusList, index) => (
-                <>
-                  <option key={index} value={statusList.id} disabled>
-                    {statusList.id}
-                  </option>
-                </>
-              ))}
-            </select>
-          </form>
-        </div>
+              <span className="loading loading-spinner loading-md"></span>
+            </button>
+          )}
+        </form>
       </div>
     </div>
   );
