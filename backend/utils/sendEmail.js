@@ -34,6 +34,16 @@ const sendEmail = async (subject, send_to, template, reply_to, cc) => {
     html: emailTemplate,
     cc,
   };
+
+  // Send Email
+  transporter.sendMail(options, function (err, info) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(info);
+    }
+  });
+  
 };
 
 module.exports = sendEmail;

@@ -1,10 +1,12 @@
 const asyncHandler = require("express-async-handler");
 const Order = require("../models/orderModel");
-const { calculateTotalPrice } = require("../utils");
+const { calculateTotalPrice, updateProductQuantity } = require("../utils");
 const Product = require("../models/productModel");
+const sendEmail = require("../utils/sendEmail");
+const { orderSuccessEmail } = require("../emailTemplates/orderTemplate");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-//create order
+//create new order
 const createOrder = asyncHandler(async (req, res) => {
   const {
     orderDate,
@@ -22,6 +24,7 @@ const createOrder = asyncHandler(async (req, res) => {
     throw new Error("Order data missing!!!");
   }
 
+  //create order
   await Order.create({
     user: req.user._id,
     orderDate,
@@ -33,20 +36,20 @@ const createOrder = asyncHandler(async (req, res) => {
     paymentMethod,
     coupon,
   });
+
+  //update product quantity
+  await updateProductQuantity(cartItems);
+
+  // Send Order Email to the user
+  const subject = "New Order Placed - OJA";
+  const send_to = req.user.email;
+  const template = orderSuccessEmail(req.user.name, cartItems);
+  const reply_to = "@gmail.com";
+
+  await sendEmail(subject, send_to, template, reply_to);
+
   res.status(200).json({ message: "Order created" });
 });
-
-//get orders
-// const getOrders = asyncHandler(async (req, res) => {
-//   let orders;
-
-//   if (req.user.role === "admin") {
-//     orders = await Order.find().sort("-createdAt");
-//     return res.status(200).json(orders);
-//   }
-//   orders = await Order.find({ user: req.user._id }).sort("-createdAt");
-//   return res.status(200).json(orders);
-// });
 
 const getOrders = asyncHandler(async (req, res) => {
   let orders;
@@ -77,7 +80,6 @@ const getOrder = asyncHandler(async (req, res) => {
   }
   res.status(200).json(order);
 });
-
 
 // update order status
 const updateOrderStatus = asyncHandler(async (req, res) => {

@@ -118,12 +118,20 @@ const ProductDetails = () => {
                 </h4>
                 <p>
                   {product?.quantity > 0 ? (
-                    <p className="text-green-700">
-                      In stock
-                      <span className="text-xl font-extrabold">
-                        ({product?.quantity})
-                      </span>
-                    </p>
+                    <div className="flex gap-2">
+                      <p className="px-2 text-green-700 border-r border-cl-black">
+                        In stock
+                        <span className="text-xl font-extrabold">
+                          ({product?.quantity})
+                        </span>
+                      </p>
+                      <p className="text-pink-400">
+                        sold
+                        <span className="text-xl font-extrabold">
+                          ({product?.sold})
+                        </span>
+                      </p>
+                    </div>
                   ) : (
                     <p className="text-red-700">Out of Stock</p>
                   )}
@@ -141,7 +149,7 @@ const ProductDetails = () => {
                   __html: DOMPurify.sanitize(product?.description),
                 }}
               />
-              
+
               <div className="flex flex-row items-center justify-between w-full md:flex-col">
                 {isCartAdded < 0 ? null : (
                   <div className="flex items-center">

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { BsArrowDownCircle } from "react-icons/bs";
 import { getOrders } from "../redux/features/order/orderSlice";
 import Loader from "./Loader";
-import "./OrderHistory.scss";
 
 
 const OrderList = ({ openOrderDetails }) => {
