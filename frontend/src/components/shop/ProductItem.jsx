@@ -68,11 +68,12 @@ const ProductItem = ({
       </Link>
       <div className="p-1 text-center border md:p-2 card-body md:text-start">
         <p className="text-md md:text-xl">
-          <span className="pr-2 label-text">
+          <span className="pr-2 label-text font">
             {regularPrice > 0 && regularPrice}
           </span>
           {`$${price}`}
         </p>
+
         <Ratings
           averageRating={averageRating}
           noOfRating={product?.ratings?.length}

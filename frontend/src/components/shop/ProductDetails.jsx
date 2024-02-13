@@ -65,7 +65,7 @@ const ProductDetails = () => {
 
   return (
     <section>
-      <div className="container">
+      <div className="container min-h-screen">
         <div>
           <h2 className="h2">product details</h2>
           <Link
